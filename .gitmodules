@@ -1,0 +1,3 @@
+[submodule "lxmusic"]
+	path = lxmusic
+	url = https://github.com/lyswhut/lx-music-desktop.git
