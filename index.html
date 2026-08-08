@@ -495,9 +495,7 @@
     <div class="about-text">
       <div class="label reveal" data-i18n="about.label">About</div>
       <p class="reveal d1" data-i18n="about.quote">"Collecting light, one frame at a time."</p>
-      <p class="reveal d2" data-i18n="about.p1">I'm Ethan Kang — a photographer, occasional writer, and permanent wanderer between Hong Kong and everywhere else. I chase the quiet moments most people walk past: the way golden hour folds across a brick wall, the split second before laughter breaks, the geometry of an empty street at dusk when the neon hasn't quite turned on yet.</p>
-      <p class="reveal d2" data-i18n="about.p2">These photos are my letters to no one in particular. Part diary, part gallery, part open door. I don't chase perfection — I chase presence. Each frame is a small prayer to the light that was there and will never be there again. Stay a while — the coffee's on the stove and the window's open.</p>
-      <p class="reveal d3" data-i18n="about.p3">When I'm not behind a camera, you'll find me drifting through antique streets, reading old poetry in loud cafés, or trying (and mostly failing) to keep houseplants alive. The city teaches patience — I'm still learning.</p>
+      <div id="aboutRotating" class="reveal d2"></div>
       <div class="sig reveal d3">— Ethan Kang</div>
     </div>
   </div>
@@ -536,11 +534,11 @@
       <span class="plat">Facebook</span>
       <span class="handle">/jinkangdeng</span>
     </a>
-    <a class="social" href="https://www.douyin.com/user/MS4wLjABAAAAQb8aQD4wjARFuLUhj-daiWgxt00L1SMDS3O5bCrlp_w?from_tab_name=main&relation=0&vid=7667520186896176762" target="_blank" rel="noopener noreferrer">
+    <a class="social" href="https://v.douyin.com/02Mh4k-QMh4/" target="_blank" rel="noopener noreferrer">
       <span class="arrow" aria-hidden="true">↗</span>
       <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
       <span class="plat">Douyin</span>
-      <span class="handle" data-i18n="connect.dy">抖音</span>
+      <span class="handle">9@7.com :1pm</span>
     </a>
     <a class="social" href="https://www.tiktok.com/@kangking20" target="_blank" rel="noopener noreferrer">
       <span class="arrow" aria-hidden="true">↗</span>
@@ -581,9 +579,6 @@ const I18N = {
     "hero.scroll": "Scroll",
     "about.label": "About",
     "about.quote": "\"Collecting light, one frame at a time.\"",
-    "about.p1": "I'm Ethan Kang — a photographer, occasional writer, and permanent wanderer between Hong Kong and everywhere else. I chase the quiet moments most people walk past: the way golden hour folds across a brick wall, the split second before laughter breaks, the geometry of an empty street at dusk when the neon hasn't quite turned on yet.",
-    "about.p2": "These photos are my letters to no one in particular. Part diary, part gallery, part open door. I don't chase perfection — I chase presence. Each frame is a small prayer to the light that was there and will never be there again. Stay a while — the coffee's on the stove and the window's open.",
-    "about.p3": "When I'm not behind a camera, you'll find me drifting through antique streets, reading old poetry in loud cafés, or trying (and mostly failing) to keep houseplants alive. The city teaches patience — I'm still learning.",
     "gallery.label": "Gallery",
     "gallery.titleMain": "Fragments,",
     "gallery.titleEm": "kept",
@@ -596,7 +591,6 @@ const I18N = {
     "connect.titleMain": "Find me",
     "connect.titleEm": "elsewhere",
     "connect.sub": "The same person, in a few different places. Come say hello — I reply eventually, though \"eventually\" could mean days or weeks depending on which time zone the light's currently shining. I read everything, even if I don't answer right away.",
-    "connect.dy": "Douyin",
     "footer.made": "Made with care"
   },
   zh: {
@@ -610,9 +604,6 @@ const I18N = {
     "hero.scroll": "下滑继续",
     "about.label": "关于我",
     "about.quote": "「一帧一束光。」",
-    "about.p1": "我是 Ethan Kang，一个摄影师、偶尔的写作者，一个在香港与世界其他角落之间永久漂泊的人。我追逐那些被多数人忽略的瞬间——金色时刻在砖墙上投下的光影、笑声爆开前的那半秒、黄昏时分霓虹灯尚未亮起的空巷几何。",
-    "about.p2": "这些照片是写给无名收信人的信。一半是日记，一半是画廊，一半是敞开的门。我不追逐完美——我追逐当下。每一帧都是对曾经存在且永不再来的光线的小小祷告。进来坐会儿——咖啡还温着，窗户也开着。",
-    "about.p3": "不拍照的时候，你会在老街巷里找到我，在嘈杂的咖啡馆里读旧诗集，或者在（大多数时候失败地）照顾盆栽。这座城市教人耐心——我仍在学习。",
     "gallery.label": "画廊",
     "gallery.titleMain": "时间的",
     "gallery.titleEm": "碎片",
@@ -625,7 +616,6 @@ const I18N = {
     "connect.titleMain": "在这些地方",
     "connect.titleEm": "找我",
     "connect.sub": "同一个我，在几个不同的平台。来打个招呼吧——总会回的，只是「总会」可能是几天，也可能是几周，取决于此刻光落在哪个时区。每一条消息我都会读，即使没有立刻回复。",
-    "connect.dy": "抖音账号",
     "footer.made": "用心制作"
   }
 };
@@ -797,6 +787,108 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   setInterval(pick, 15000);
   // also pick when language changes
   window.addEventListener("ethan-lang-changed", pick);
+})();
+
+/* ================= Rotating About text ================= */
+(function aboutRotating(){
+  const el = document.getElementById("aboutRotating");
+  if(!el) return;
+
+  const EN = [
+    [
+      "I shoot with a camera the way most people write in a diary — quick, unedited, slightly afraid of what they might find.",
+      "These frames are my attempt to hold on to something that insists on slipping away. A certain light on a certain Tuesday. The shape of a stranger's back. The split second between a laugh and its echo.",
+      "I don't believe in perfect photos. I believe in honest ones — the ones that look back at you from a screen and say: yes, this happened, exactly like this, and it will never happen again."
+    ],
+    [
+      "Most days I'm invisible on purpose — the guy with the camera standing just outside the circle, watching everyone else's lives unfold with a quiet kind of respect.",
+      "I think of my pictures as a byproduct of paying attention. The real work is noticing the things no one else does: the way rain lands differently on different surfaces, how a room changes personality between 6pm and 7pm.",
+      "Somewhere between observer and participant, that's where I live. Not quite in the scene, not quite out of it either."
+    ],
+    [
+      "I started taking photos because I have a bad memory. Not the forgetful kind — the romantic kind. I remember feelings in extraordinary detail, but I forget faces, names, entire afternoons.",
+      "Photography fixed that. Or maybe it just gave me an excuse to dwell on things longer than politeness allows. Either way, I'm grateful for every frame that keeps a small piece of a day alive.",
+      "These are not my best photos. They're my most honest ones. The ones I couldn't delete even if I wanted to."
+    ],
+    [
+      "I'm addicted to the small hours — the ones between 5 and 7, when the world pretends to be empty and you can pretend you have it all to yourself for a few minutes.",
+      "Golden hour is beautiful, yes, but the light an hour before that — thin, cool, forgiving — that's the one I wait for. It doesn't demand anything from you. It just is.",
+      "Most of my favorite photos happened before the day officially started, or after it was already over. In-between times. Liminal hours. The rest of the world is sleeping or scrolling, and the light is performing just for me."
+    ],
+    [
+      "I'm the kind of person who collects train tickets, pressed flowers, and the exact time a stranger smiled at me on a bus. Photography is just a better version of that hoarding instinct.",
+      "Every frame here is a small, quiet rebellion against forgetting. I don't expect anyone else to care about these moments the way I do. But I need to know they're preserved somewhere.",
+      "If you're reading this far, you're already one of the rare people who understand. Hello. I'm glad you're here."
+    ],
+    [
+      "I photograph like I'm writing letters I'll never send — careful with the details, reckless with the feelings. Each frame is a small, sealed envelope addressed to no one in particular.",
+      "There's a particular kind of melancholy I chase — the beauty of something that won't be there when you come back. An empty chair. A window that will be someone else's view tomorrow. A light that won't repeat.",
+      "These are not sad photos. They're grateful ones. Grateful the light existed. Grateful I was there to see it. Grateful the camera was pointed in the right direction at the right half-second."
+    ],
+    [
+      "Hong Kong is my anchor and my reference point — the city I measure all other cities against. Its energy is loud and unapologetic, but its quiet corners are the ones that taught me how to listen.",
+      "When I'm away, I think about it constantly. The way neon reflects in wet asphalt after rain. The sound of the escalator in the mid-levels at midnight. The specific shade of orange the sky turns over Victoria Harbour in November.",
+      "Every photo here carries a little of that city with it, whether the frame was shot in Hong Kong or not. You can take the photographer out of the city, but you can't take the city out of the frames."
+    ]
+  ];
+
+  const ZH = [
+    [
+      "我拍照的方式，像大多数人写日记一样——快速、未经修饰、带着一丝不敢直视的忐忑。",
+      "这些画面，是我试图抓住那些执意要溜走的东西。某个周二下午的某束光。一个陌生人背影的弧度。笑声与回声之间的那半秒。",
+      "我不相信完美的照片。我相信诚实的——那些从屏幕里回望你时会说：是的，真的发生过，就是这样，再也不会重演。"
+    ],
+    [
+      "大多数时候我选择隐身——那个拿着相机站在人群外，带着一种安静的敬意观察他人生活的人。",
+      "我把我的照片当作「留意」的副产品。真正的功课是注意到别人没注意的事：雨落在不同表面的方式不同，一个房间在傍晚六点到七点之间会换一种性格。",
+      "观察者与参与者之间的某个地方，就是我住的地方。不太在场景里，也不太在场景外。"
+    ],
+    [
+      "我开始拍照，是因为我记性不好。不是健忘那种——是浪漫那种。我能异常清晰地记住感觉，却忘记面孔、名字、甚至整个下午。",
+      "摄影治好了这个毛病。或者说，它给了我一个借口，让我可以比礼貌所允许的更久地停留在事物上。无论如何，我感谢每一张让一小段日子继续存活的画面。",
+      "这些不是我最好的照片。是我最诚实的。那些我就算想删也删不掉的。"
+    ],
+    [
+      "我迷恋那些微小的时刻——清晨五点到七点之间，世界假装空无一人，你可以假装自己独自拥有它几分钟。",
+      "金色时刻很美，没错，但那之前一小时的光——稀薄、清冷、宽容——才是我真正等待的。它不要求你做任何事。它只是存在。",
+      "我最珍贵的照片，大多发生在一天正式开始之前，或已经结束之后。缝隙时间。阈限时刻。世界其他地方在睡觉或刷手机，而光只为我一个人表演。"
+    ],
+    [
+      "我是那种收集火车票、压花、以及公交车上陌生人对我微笑的确切时间的人。摄影，就是把这种收藏欲变得更好的版本。",
+      "这里的每一帧，都是对遗忘的一次微小而安静的反抗。我不期望其他人像我一样在意这些瞬间。但我需要知道它们被保存在某个地方。",
+      "如果你读到了这里，说明你已经是少数能理解的人之一。你好。很高兴你在。"
+    ],
+    [
+      "我拍照，像写一封永远不会寄出的信——对细节小心，对感情鲁莽。每一帧都是一个密封的小信封，收信人不确定。",
+      "我追逐一种特别的忧郁——某种东西当你回来时将不再存在的美。一把空椅子。明天将变成别人风景的窗户。一束不会重复的光。",
+      "这些不是悲伤的照片。是充满感激的。感谢那束光存在过。感谢我当时在那里看见了。感谢相机在正确的半秒指向了正确的方向。"
+    ],
+    [
+      "香港是我的锚，是我衡量所有其他城市的参照系——它的能量喧闹而毫不道歉，但那些安静的角落教会了我如何倾听。",
+      "离开的时候，我不停地想它。雨后霓虹倒映在湿柏油路上的样子。午夜半山扶梯的声音。十一月维多利亚港上空那抹特别的橙色。",
+      "这里的每一张照片都带着那座城市的一点气息，不管是不是在香港拍的。你可以把摄影师带出城市，但你带不走城市留在画面里的东西。"
+    ]
+  ];
+
+  function render(){
+    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
+    const pool = lang === "zh" ? ZH : EN;
+    let idx = Math.floor(Math.random() * pool.length);
+    const paragraphs = pool[idx];
+    // fade-in animation
+    el.style.opacity = 0;
+    el.style.transform = "translateY(12px)";
+    setTimeout(()=>{
+      el.innerHTML = paragraphs.map(p=>`<p>${p}</p>`).join("");
+      el.style.transition = "opacity .8s ease, transform .8s ease";
+      requestAnimationFrame(()=>{
+        el.style.opacity = 1;
+        el.style.transform = "translateY(0)";
+      });
+    }, 300);
+  }
+  render();
+  window.addEventListener("ethan-lang-changed", render);
 })();
 </script>
 </body>
