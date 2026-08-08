@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethan Kang — Personal</title>
+<meta name="description" content="Ethan Kang's personal site — moments, frames, and the in-between.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4efe7;
+    --bg-deep:#ebe4d7;
+    --ink:#1a1714;
+    --ink-soft:#5a5349;
+    --line:#d8cfc1;
+    --accent:#96673b;
+    --gold:#c2955f;
+    --serif:'Cormorant Garamond','Noto Serif SC',Georgia,serif;
+    --sans:'Inter','Noto Serif SC',-apple-system,BlinkMacSystemFont,sans-serif;
+    --scroll: 0;  /* 0..1 of hero section consumed */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+    font-feature-settings:"ss01","cv11";
+  }
+  img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  ::selection{background:var(--gold);color:#1a1714}
+
+  /* ---------------- Language Gate ---------------- */
+  .gate{
+    position:fixed;inset:0;z-index:1000;
+    display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(1200px 800px at 20% 10%, rgba(194,149,95,.18), transparent 60%),
+      radial-gradient(900px 700px at 90% 90%, rgba(150,103,59,.12), transparent 60%),
+      linear-gradient(180deg,#f4efe7 0%, #e8dfcf 100%);
+    transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),visibility .1s linear .8s;
+  }
+  .gate.gone{opacity:0;transform:scale(1.04);visibility:hidden}
+  .gate-inner{text-align:center;padding:2rem}
+  .gate-greet{
+    font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(1.4rem,4vw,2.2rem);
+    color:var(--accent);letter-spacing:.04em;
+    opacity:0;animation:rise .9s .1s ease forwards;
+  }
+  .gate-name{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(3.5rem,14vw,10rem);line-height:.92;
+    letter-spacing:-.02em;margin:.6rem 0 3rem;
+    opacity:0;transform:translateY(24px);
+    animation:rise 1.1s .3s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .gate-name em{font-style:italic;color:var(--accent);font-weight:300}
+  .gate-sub{
+    max-width:420px;margin:0 auto 3.2rem;
+    color:var(--ink-soft);font-size:.98rem;line-height:1.8;
+    opacity:0;transform:translateY(14px);
+    animation:rise 1s .6s ease forwards;
+  }
+  .gate-buttons{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+  .gate-btn{
+    --s: 1;
+    position:relative;
+    min-width:180px;padding:1.1rem 2.4rem;
+    background:transparent;color:var(--ink);
+    border:1px solid var(--ink);
+    font-family:var(--serif);font-weight:400;font-style:italic;
+    font-size:1.15rem;letter-spacing:.02em;
+    cursor:pointer;overflow:hidden;transition:color .4s ease,transform .4s ease;
+    opacity:0;transform:translateY(14px);
+    animation:rise 1s .8s ease forwards;
+  }
+  .gate-btn.primary{animation-delay:.95s;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .gate-btn::before{
+    content:"";position:absolute;inset:0;
+    background:var(--ink);transform:translateY(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);
+    z-index:-1;
+  }
+  .gate-btn.primary::before{background:var(--gold)}
+  .gate-btn:hover::before{transform:translateY(0)}
+  .gate-btn:hover{color:var(--bg);transform:translateY(-2px)}
+  .gate-btn.primary:hover{color:var(--ink)}
+  .gate-foot{
+    position:absolute;left:50%;bottom:2rem;transform:translateX(-50%);
+    font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--ink-soft);
+    opacity:0;animation:rise 1s 1.2s ease forwards;
+  }
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+
+  /* ---------------- Nav ---------------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.6rem 2.4rem;
+    color:#f3efe8;
+    transition:padding .4s ease,color .4s ease,background .4s ease;
+  }
+  nav.light{color:var(--ink);background:rgba(244,239,231,.82);backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(0,0,0,.05)}
+  nav.scrolled{padding:1rem 2.4rem}
+  nav .mark{
+    font-family:var(--serif);
+    font-size:1.5rem;letter-spacing:.18em;
+    font-weight:400;line-height:1;
+  }
+  nav .right{display:flex;align-items:center;gap:2rem}
+  nav .links{display:flex;gap:2.2rem;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400}
+  nav .links a{position:relative;opacity:.85;transition:opacity .3s}
+  nav .links a:hover{opacity:1}
+  nav .links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:currentColor;transition:width .35s ease}
+  nav .links a:hover::after{width:100%}
+  .lang-toggle{
+    font-family:var(--serif);font-size:.9rem;font-style:italic;font-weight:400;
+    padding:.3rem .8rem;border:1px solid currentColor;border-radius:999px;
+    opacity:.9;cursor:pointer;background:transparent;color:inherit;
+    transition:opacity .3s,transform .3s,background .3s,color .3s;
+  }
+  nav.light .lang-toggle:hover{background:var(--ink);color:var(--bg)}
+  nav:not(.light) .lang-toggle:hover{background:var(--bg);color:var(--ink)}
+
+  /* ---------------- Hero (video) ---------------- */
+  .hero{
+    position:relative;
+    height:100svh;min-height:620px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    /* Same tone as video background — helps mix-blend-mode feel "transparent" */
+    background:#f3ece0;
+  }
+  /* Video layer: lighten/screen blend so darker part fuses into page background */
+  .hero-media{
+    position:absolute;inset:0;
+    will-change:transform,opacity,filter;
+    transform-origin: 50% 42%;
+    /* Compute scale/opacity using --scroll via JS. start:scale(1), end:scale(0.62) */
+    transform: scale(calc(1 - var(--scroll) * 0.38));
+    opacity: calc(1 - var(--scroll) * 0.55);
+    filter: saturate(calc(1 + var(--scroll) * 0.2)) contrast(calc(1 + var(--scroll) * 0.05));
+    transition: transform .08s linear, opacity .08s linear;
+  }
+  .hero-media video{
+    width:100%;height:100%;object-fit:cover;object-position:center;
+    /* Key trick: non-alpha video looks "transparent" against matching bg via screen blend */
+    mix-blend-mode: multiply;
+    opacity: .92;
+  }
+  .hero-media video.mobile{display:none}
+  /* Soft vignette overlay to let title read, AND fade to cream as video shrinks */
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(ellipse at 50% 60%, transparent 0%, rgba(244,239,231,calc(0.05 + var(--scroll) * 0.65)) 70%, rgba(244,239,231,calc(0.2 + var(--scroll) * 0.75)) 100%),
+      linear-gradient(180deg, rgba(244,239,231,calc(0.22 * (1 - var(--scroll)))) 0%, transparent 22%, transparent 55%, rgba(244,239,231,calc(0.08 + var(--scroll) * 0.45)) 100%);
+  }
+  .hero-inner{
+    position:relative;z-index:2;text-align:center;
+    padding:0 1.4rem;
+    transform: translateY(calc(var(--scroll) * 80px));
+    opacity: calc(1 - var(--scroll) * 0.75);
+    transition: transform .08s linear, opacity .08s linear;
+  }
+  .hero .eyebrow{
+    font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--ink);opacity:.65;font-weight:400;
+  }
+  .hero h1{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(4rem,16vw,14rem);
+    line-height:.88;letter-spacing:-.025em;
+    margin:.6rem 0 1.2rem;color:var(--ink);
+  }
+  .hero h1 .small{
+    display:block;font-size:.5em;letter-spacing:.28em;
+    margin-top:.8rem;text-transform:uppercase;font-style:italic;color:var(--accent);
+  }
+  .hero .lede{
+    max-width:520px;margin:0 auto;font-size:1rem;line-height:1.85;color:var(--ink-soft);
+  }
+  .scroll-hint{
+    position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;
+    font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);
+    display:flex;flex-direction:column;align-items:center;gap:.7rem;
+    opacity: calc(1 - var(--scroll) * 1.4);
+    transition:opacity .2s linear;
+  }
+  .scroll-hint .line{width:1px;height:44px;background:linear-gradient(180deg,var(--ink-soft),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(.45);transform-origin:bottom}}
+
+  /* ---------------- Sections ---------------- */
+  section{padding:8rem 2.4rem;position:relative}
+  .wrap{max-width:1280px;margin:0 auto}
+  .wrap-narrow{max-width:760px;margin:0 auto}
+  .label{
+    font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--accent);font-weight:500;margin-bottom:2rem;
+    display:flex;align-items:center;gap:1rem;
+  }
+  .label::before{content:"";width:32px;height:1px;background:var(--accent);flex:none}
+  h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2.4rem,5vw,4.1rem);line-height:1.05;letter-spacing:-.01em;
+  }
+  h2 em{font-style:italic;color:var(--accent)}
+  h2 .zh{font-family:'Noto Serif SC',var(--serif);font-style:normal;font-weight:300}
+
+  /* ---------------- About ---------------- */
+  .about{background:var(--bg)}
+  .about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:center}
+  .about-portrait{position:relative;overflow:hidden;background:var(--line)}
+  .about-portrait::before{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    border:1px solid rgba(0,0,0,.06);
+  }
+  .about-portrait img{
+    width:100%;height:620px;object-fit:cover;object-position:50% 20%;
+    transition:transform 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .about-portrait:hover img{transform:scale(1.03)}
+  .about-text p{font-size:1.05rem;line-height:1.9;color:var(--ink-soft);margin-bottom:1.4rem;font-weight:300}
+  .about-text p:first-of-type{
+    font-family:var(--serif);font-size:1.8rem;line-height:1.5;
+    color:var(--ink);font-style:italic;margin-bottom:2rem;font-weight:400;
+  }
+  .about-text p.zh-quote{font-family:'Noto Serif SC',var(--serif);font-style:normal}
+  .about-text .sig{font-family:var(--serif);font-size:2.3rem;font-style:italic;margin-top:2rem;color:var(--ink)}
+
+  /* ---------------- Gallery ---------------- */
+  .gallery{background:var(--bg-deep)}
+  .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:2rem}
+  .gallery-head p{max-width:340px;color:var(--ink-soft);font-size:.95rem;line-height:1.8}
+  .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.2rem}
+  .g-item{overflow:hidden;position:relative;background:var(--line)}
+  .g-item img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform 1.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .g-item:hover img{transform:scale(1.05)}
+  .g-item .cap{
+    position:absolute;left:0;bottom:0;right:0;
+    padding:1.2rem 1.3rem;color:#f5f1ea;font-size:.72rem;letter-spacing:.12em;
+    background:linear-gradient(0deg,rgba(26,23,20,.72),transparent);
+    opacity:0;transform:translateY(8px);transition:all .55s ease;
+  }
+  .g-item:hover .cap{opacity:1;transform:none}
+  .g-1{grid-column:span 7;height:490px}
+  .g-2{grid-column:span 5;height:490px}
+  .g-3{grid-column:span 5;height:370px}
+  .g-4{grid-column:span 7;height:370px}
+
+  /* ---------------- Connect ---------------- */
+  .connect{
+    background:
+      radial-gradient(800px 500px at 50% -10%, rgba(194,149,95,.18), transparent 60%),
+      var(--ink);
+    color:#f3efe8;text-align:center;padding:9rem 2.4rem;
+  }
+  .connect .label{color:var(--gold);justify-content:center}
+  .connect .label::before{background:var(--gold)}
+  .connect h2{color:#f3efe8;margin-bottom:1rem}
+  .connect h2 em{color:var(--gold)}
+  .connect .sub{max-width:440px;margin:0 auto 4rem;color:rgba(243,239,232,.58);font-size:.98rem;line-height:1.8}
+  .socials{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    max-width:960px;margin:0 auto;
+    border-top:1px solid rgba(243,239,232,.14);
+  }
+  .social{
+    position:relative;padding:3rem 1.4rem;
+    display:flex;flex-direction:column;align-items:center;gap:1rem;
+    border-right:1px solid rgba(243,239,232,.14);
+    transition:background .45s ease,transform .45s ease;
+  }
+  .social:last-child{border-right:none}
+  .social:hover{background:rgba(194,149,95,.09);transform:translateY(-4px)}
+  .social .icon{width:32px;height:32px;opacity:.82;transition:opacity .45s,transform .45s}
+  .social:hover .icon{opacity:1;transform:translateY(-4px)}
+  .social .plat{font-family:var(--serif);font-size:1.55rem;font-style:italic;color:#f3efe8}
+  .social .handle{font-size:.78rem;letter-spacing:.06em;color:rgba(243,239,232,.5)}
+  .social .arrow{
+    position:absolute;top:1.4rem;right:1.4rem;font-size:1rem;
+    opacity:0;transform:translate(-6px,6px);transition:all .45s;color:var(--gold);
+  }
+  .social:hover .arrow{opacity:1;transform:none}
+
+  /* ---------------- Footer ---------------- */
+  footer{
+    background:#100f0d;color:rgba(243,239,232,.42);
+    padding:2.4rem;text-align:center;
+    font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  }
+  footer span{color:var(--gold)}
+  footer .sep{margin:0 .7rem;opacity:.4}
+
+  /* ---------------- Reveal on scroll ---------------- */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.12s}
+  .reveal.d2{transition-delay:.24s}
+  .reveal.d3{transition-delay:.36s}
+
+  /* ---------------- Responsive ---------------- */
+  @media(max-width:860px){
+    nav{padding:1.1rem 1.2rem}
+    nav .links{gap:1rem;font-size:.62rem}
+    section{padding:5rem 1.2rem}
+    .about-grid{grid-template-columns:1fr;gap:2.5rem}
+    .about-portrait img{height:420px}
+    .gallery-grid{grid-template-columns:1fr;gap:1rem}
+    .g-1,.g-2,.g-3,.g-4{grid-column:span 1;height:280px}
+    .socials{grid-template-columns:repeat(2,1fr)}
+    .social{border-bottom:1px solid rgba(243,239,232,.14)}
+    .social:nth-child(2n){border-right:none}
+    .connect{padding:6rem 1.2rem}
+  }
+  @media(max-width:560px){
+    nav .links a{display:none}
+    nav.light .mark, nav.light .lang-toggle{color:var(--ink)}
+    .hero h1{font-size:clamp(3.2rem,22vw,6rem)}
+    .hero-media video.desktop{display:none}
+    .hero-media video.mobile{display:block;object-position:20% 50%}
+    .gate-btn{min-width:160px;padding:.95rem 1.8rem;font-size:1.05rem}
+    .about-portrait img{object-position:50% 10%;height:380px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ Language Gate ============ -->
+<div class="gate" id="gate" role="dialog" aria-label="Select language">
+  <div class="gate-inner">
+    <div class="gate-greet" data-i18n="gate.greet">Welcome · 欢迎</div>
+    <h2 class="gate-name">Eth<em>a</em>n<span style="color:var(--ink)"> Kang</span></h2>
+    <p class="gate-sub" data-i18n="gate.sub">Choose your language to continue. Your choice will be remembered for the next visit.</p>
+    <div class="gate-buttons">
+      <button class="gate-btn primary" data-lang="en">English</button>
+      <button class="gate-btn" data-lang="zh">中文</button>
+    </div>
+  </div>
+  <div class="gate-foot">PERSONAL · EST. 2026</div>
+</div>
+
+<!-- ============ Nav ============ -->
+<nav id="nav">
+  <a href="#top" class="mark always">Ethan Kang</a>
+  <div class="right">
+    <div class="links">
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+      <a href="#connect" data-i18n="nav.connect">Connect</a>
+    </div>
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN / 中</button>
+  </div>
+</nav>
+
+<!-- ============ Hero ============ -->
+<header class="hero" id="top">
+  <div class="hero-media" id="heroMedia" aria-hidden="true">
+    <video class="desktop" id="heroVideo"
+      autoplay muted loop playsinline preload="metadata"
+      poster="assets/hero-poster.jpg"
+      disablepictureinpicture x5-playsinline>
+      <source src="assets/hero-bg.mp4" type="video/mp4">
+    </video>
+    <video class="mobile"
+      autoplay muted loop playsinline preload="none"
+      poster="assets/hero-poster.jpg"
+      disablepictureinpicture x5-playsinline>
+      <source src="assets/hero-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-inner">
+    <div class="eyebrow" data-i18n="hero.eyebrow">Personal · Est. 2026</div>
+    <h1>
+      Ethan <em style="font-style:italic;font-weight:300">Kang</em>
+      <span class="small" data-i18n="hero.tag">Moments · Frames · In-between</span>
+    </h1>
+    <p class="lede" data-i18n="hero.lede">A quiet corner of the internet — the light that folds across walls, the stillness before laughter, and the geometry of empty streets.</p>
+  </div>
+  <div class="scroll-hint">
+    <span data-i18n="hero.scroll">Scroll</span>
+    <div class="line"></div>
+  </div>
+</header>
+
+<!-- ============ About ============ -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-portrait reveal">
+      <img src="assets/portrait-about.jpg" alt="Portrait of Ethan Kang">
+    </div>
+    <div class="about-text">
+      <div class="label reveal" data-i18n="about.label">About</div>
+      <p class="reveal d1" data-i18n="about.quote">“Collecting light, one frame at a time.”</p>
+      <p class="reveal d2" data-i18n="about.p1">I'm Ethan Kang. I move between cities and screens, chasing the small details that most people walk past — the way light folds across a wall at five in the afternoon, the pause before someone laughs, the geometry of an empty street.</p>
+      <p class="reveal d2" data-i18n="about.p2">This is where I keep those things. Part diary, part gallery, part open door. Stay a while.</p>
+      <div class="sig reveal d3">— Ethan Kang</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Gallery ============ -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="gallery-head">
+      <div>
+        <div class="label reveal" data-i18n="gallery.label">Gallery</div>
+        <h2 class="reveal d1"><span data-i18n="gallery.titleMain">Fragments,</span> <em data-i18n="gallery.titleEm">kept</em></h2>
+      </div>
+      <p class="reveal d2" data-i18n="gallery.desc">A rolling collection of frames — no captions, no order, just the things I wanted to remember.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item g-1 reveal"><img src="assets/portrait.jpg" alt="Ethan Kang portrait" loading="lazy"><div class="cap" data-i18n="gallery.c1">01 · Portrait</div></div>
+      <div class="g-item g-2 reveal d1"><img src="assets/gallery-3.jpg" alt="Street scene" loading="lazy"><div class="cap" data-i18n="gallery.c2">02 · Golden Hour</div></div>
+      <div class="g-item g-3 reveal"><img src="assets/gallery-1.jpg" alt="Hands holding camera" loading="lazy"><div class="cap" data-i18n="gallery.c3">03 · Hands &amp; Light</div></div>
+      <div class="g-item g-4 reveal d1"><img src="assets/gallery-2.jpg" alt="Staircase geometry" loading="lazy"><div class="cap" data-i18n="gallery.c4">04 · Geometry</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Connect ============ -->
+<section class="connect" id="connect">
+  <div class="wrap-narrow">
+    <div class="label reveal" data-i18n="connect.label">Connect</div>
+    <h2 class="reveal d1"><span data-i18n="connect.titleMain">Find me</span> <em data-i18n="connect.titleEm">elsewhere</em></h2>
+    <p class="sub reveal d2" data-i18n="connect.sub">The same person, in a few different places. Come say hello — I reply, eventually.</p>
+  </div>
+  <div class="socials reveal d2">
+    <a class="social" href="https://www.facebook.com/jinkangdeng" target="_blank" rel="noopener noreferrer">
+      <span class="arrow" aria-hidden="true">↗</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z"/></svg>
+      <span class="plat">Facebook</span>
+      <span class="handle">/jinkangdeng</span>
+    </a>
+    <a class="social" href="https://www.douyin.com/user/MS4wLjABAAAAQb8aQD4wjARFuLUhj-daiWgxt00L1SMDS3O5bCrlp_w?from_tab_name=main&relation=0&vid=7667520186896176762" target="_blank" rel="noopener noreferrer">
+      <span class="arrow" aria-hidden="true">↗</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      <span class="plat">Douyin</span>
+      <span class="handle" data-i18n="connect.dy">抖音</span>
+    </a>
+    <a class="social" href="https://www.tiktok.com/@kangking20" target="_blank" rel="noopener noreferrer">
+      <span class="arrow" aria-hidden="true">↗</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v3.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      <span class="plat">TikTok</span>
+      <span class="handle">@kangking20</span>
+    </a>
+    <a class="social" href="https://www.instagram.com/jinkangdeng/" target="_blank" rel="noopener noreferrer">
+      <span class="arrow" aria-hidden="true">↗</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.73 1.46 1.38 2.13a5.86 5.86 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.13-1.38 5.86 5.86 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
+      <span class="plat">Instagram</span>
+      <span class="handle">@jinkangdeng</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Ethan Kang<span class="sep">·</span><span>Made with care</span>
+</footer>
+
+<script>
+/* ================= i18n dictionary ================= */
+const I18N = {
+  en: {
+    "gate.greet": "Welcome",
+    "gate.sub": "Choose your language to continue. Your choice will be remembered for the next visit.",
+    "nav.about": "About",
+    "nav.gallery": "Gallery",
+    "nav.connect": "Connect",
+    "hero.eyebrow": "Personal · Est. 2026",
+    "hero.tag": "Moments · Frames · In-between",
+    "hero.lede": "A quiet corner of the internet — the light that folds across walls, the stillness before laughter, and the geometry of empty streets.",
+    "hero.scroll": "Scroll",
+    "about.label": "About",
+    "about.quote": "“Collecting light, one frame at a time.”",
+    "about.p1": "I'm Ethan Kang. I move between cities and screens, chasing the small details that most people walk past — the way light folds across a wall at five in the afternoon, the pause before someone laughs, the geometry of an empty street.",
+    "about.p2": "This is where I keep those things. Part diary, part gallery, part open door. Stay a while.",
+    "gallery.label": "Gallery",
+    "gallery.titleMain": "Fragments,",
+    "gallery.titleEm": "kept",
+    "gallery.desc": "A rolling collection of frames — no captions, no order, just the things I wanted to remember.",
+    "gallery.c1": "01 · Portrait",
+    "gallery.c2": "02 · Golden Hour",
+    "gallery.c3": "03 · Hands & Light",
+    "gallery.c4": "04 · Geometry",
+    "connect.label": "Connect",
+    "connect.titleMain": "Find me",
+    "connect.titleEm": "elsewhere",
+    "connect.sub": "The same person, in a few different places. Come say hello — I reply, eventually.",
+    "connect.dy": "抖音"
+  },
+  zh: {
+    "gate.greet": "欢 · 迎",
+    "gate.sub": "请选择语言进入，你的偏好会被记住。",
+    "nav.about": "关于",
+    "nav.gallery": "画廊",
+    "nav.connect": "联系",
+    "hero.eyebrow": "个人主页 · 创立于 2026",
+    "hero.tag": "光 · 帧 · 之间",
+    "hero.lede": "一个安静的网络角落——午后五点的斜阳、笑声前的停顿，空街的几何。",
+    "hero.scroll": "下滑继续",
+    "about.label": "关于我",
+    "about.quote": "「一帧一束光。」",
+    "about.p1": "我是 Ethan Kang。在城市与屏幕之间穿梭，追寻那些被多数人忽略的细节——午后五点折过墙面的光、笑声前那一瞬的静、空巷的线条。",
+    "about.p2": "这里存放着那些片段。一半是日记，一半是画廊，一半是敞开的门。欢迎停留。",
+    "gallery.label": "画廊",
+    "gallery.titleMain": "时间的",
+    "gallery.titleEm": "碎片",
+    "gallery.desc": "一组流动的画面，不分类、不排序——只是我想留住的那些。",
+    "gallery.c1": "01 · 肖像",
+    "gallery.c2": "02 · 黄昏",
+    "gallery.c3": "03 · 手与光",
+    "gallery.c4": "04 · 几何",
+    "connect.label": "联系方式",
+    "connect.titleMain": "在这些地方",
+    "connect.titleEm": "找我",
+    "connect.sub": "同一个我，在几个不同的平台。来打个招呼吧——总会回的。",
+    "connect.dy": "抖音账号"
+  }
+};
+
+/* ================= Apply i18n ================= */
+const STORAGE_KEY = "ethan_lang";
+function applyLang(lang){
+  if(!I18N[lang]) lang = "en";
+  document.documentElement.lang = lang;
+  const dict = I18N[lang];
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    if(dict[k] != null) el.textContent = dict[k];
+  });
+  // nav toggle button label
+  const btn = document.getElementById("langToggle");
+  if(btn) btn.textContent = (lang === "en") ? "中 / EN" : "EN / 中";
+  // update <title>
+  document.title = (lang === "zh") ? "Ethan Kang · 个人主页" : "Ethan Kang — Personal";
+}
+function setLang(lang, persist=true){
+  applyLang(lang);
+  if(persist) try{localStorage.setItem(STORAGE_KEY, lang);}catch(e){}
+}
+
+/* ================= Gate flow ================= */
+(function gateFlow(){
+  const gate = document.getElementById("gate");
+  const forceReset = new URLSearchParams(location.search).has("reset");
+  const saved = forceReset ? null : (function(){try{return localStorage.getItem(STORAGE_KEY)}catch(e){return null}})();
+  if(saved && I18N[saved]){
+    applyLang(saved);
+    gate.classList.add("gone");
+    document.body.style.overflow = "";
+    return;
+  }
+  // default english, wait for choice
+  applyLang("en");
+  document.body.style.overflow = "hidden";
+  gate.querySelectorAll(".gate-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const lang = btn.getAttribute("data-lang");
+      setLang(lang, true);
+      gate.classList.add("gone");
+      setTimeout(()=>{ document.body.style.overflow = ""; }, 750);
+    });
+  });
+})();
+
+/* ================= Nav toggle ================= */
+document.getElementById("langToggle").addEventListener("click", ()=>{
+  const cur = document.documentElement.lang === "zh" ? "zh" : "en";
+  setLang(cur === "zh" ? "en" : "zh", true);
+});
+
+/* ================= Nav light/dark shade + shrink ================= */
+const nav = document.getElementById("nav");
+const hero = document.getElementById("top");
+function onScroll(){
+  const y = window.scrollY;
+  nav.classList.toggle("scrolled", y > 40);
+  // Switch nav shade after hero section bottom passed
+  const heroH = hero.offsetHeight;
+  nav.classList.toggle("light", y > heroH * 0.85);
+
+  // Hero scroll-linked animation (--scroll 0..1 of 80% of heroH used for fade range)
+  const range = Math.max(1, heroH * 0.8);
+  const scroll = Math.min(1, Math.max(0, y / range));
+  document.documentElement.style.setProperty("--scroll", scroll.toFixed(4));
+}
+document.addEventListener("scroll", onScroll, {passive:true});
+onScroll();
+
+/* ================= Reveal on scroll ================= */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+  });
+},{threshold:.14, rootMargin:"0px 0px -6% 0px"});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* ================= Hero video: unmute on first user interaction (iOS) + play safely ================= */
+(function heroVideo(){
+  const v = document.getElementById("heroVideo");
+  if(!v) return;
+  // Ensure autoplay even if muted fails
+  const tryPlay = ()=>{
+    const p = v.play();
+    if(p && p.catch) p.catch(()=>{ /* autoplay blocked; wait for click */ });
+  };
+  if(document.readyState === "complete") tryPlay();
+  else window.addEventListener("load", tryPlay);
+  // Interaction unlocks audio if video supports it; keep muted for background use (no audio)
+  const unlock = ()=>{ tryPlay(); window.removeEventListener("pointerdown", unlock); window.removeEventListener("keydown", unlock); };
+  window.addEventListener("pointerdown", unlock); window.addEventListener("keydown", unlock);
+})();
+</script>
+</body>
+</html>

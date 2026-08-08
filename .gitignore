@@ -1,0 +1,7 @@
+﻿# Build & conversion scripts
+convert_heic.py
+extract_poster.py
+*.log
+node_modules/
+.DS_Store
+Thumbs.db
