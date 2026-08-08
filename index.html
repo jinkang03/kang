@@ -328,6 +328,73 @@
   .g-3{grid-column:span 5;height:390px}
   .g-4{grid-column:span 7;height:390px}
 
+  /* ============ Stories ============ */
+  .stories{
+    padding:11rem 3rem 12rem;position:relative;color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 50% 0%, rgba(114,47,55,.05), transparent 60%),
+      var(--bg);
+  }
+  .stories-head{text-align:center;margin-bottom:4rem;}
+  .stories-head .label{justify-content:center;color:var(--accent)}
+  .stories-head .label::before{background:var(--accent)}
+  .stories-head h2{font-size:clamp(2.4rem,5vw,4rem);font-weight:500;letter-spacing:-.01em;margin:.6rem 0 1rem;}
+  .stories-head h2 em{font-style:italic;color:var(--accent);font-weight:400}
+  .stories-head p{max-width:520px;margin:0 auto;color:var(--ink-soft);font-size:.96rem;line-height:1.9}
+  .story-card{
+    position:relative;
+    max-width:1200px;margin:0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius:14px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(60,40,20,.18), 0 10px 30px rgba(60,40,20,.10);
+    border:1px solid var(--line);
+  }
+  .story-bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    transition:transform 1.2s cubic-bezier(.2,.7,.2,1), filter .8s;
+    filter:saturate(.96) contrast(1.03);
+  }
+  .story-card:hover .story-bg{transform:scale(1.03);filter:saturate(1.04) contrast(1.05)}
+  .story-scrim{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(20,14,10,0) 40%, rgba(20,14,10,.42) 62%, rgba(20,14,10,.86) 100%);
+  }
+  .story-body{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:4.4rem 4.2rem 3.6rem;color:#fff;
+  }
+  .story-body .kicker{
+    font-family:system-ui,Inter,sans-serif;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+    color:#EFD7C4;opacity:.95;font-weight:600;
+    margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem;
+  }
+  .story-body .kicker .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#E9B89A;box-shadow:0 0 0 4px rgba(233,184,154,.14);
+  }
+  .story-body h3{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(1.6rem,3.2vw,2.6rem);
+    line-height:1.2;letter-spacing:-.005em;margin:0 0 1.3rem;
+    max-width:760px;
+  }
+  .story-body .prose{max-width:780px;}
+  .story-body .prose p{
+    margin:0 0 .9rem;color:rgba(255,255,255,.86);
+    font-size:.98rem;line-height:1.85;
+    font-family:'Noto Serif SC',var(--serif),Georgia,serif;
+  }
+  .story-body .prose p:last-child{margin:0}
+  .story-body .sig-pill{
+    margin-top:1.6rem;display:inline-flex;align-items:center;gap:.55rem;
+    font-family:var(--serif);font-style:italic;font-size:.95rem;
+    padding:.28rem .9rem;border-radius:999px;
+    background:rgba(255,255,255,.07);backdrop-filter:blur(4px);
+    color:rgba(255,255,255,.78);
+  }
+
   /* ============ Connect ============ */
   .connect{
     background:
@@ -400,6 +467,12 @@
     .social:nth-last-child(-n+3){border-bottom:none}
     .social:nth-child(5n){border-right:1px solid var(--line-2)}
     .connect{padding:7rem 1.4rem}
+    .stories{padding:7rem 1.4rem}
+    .story-card{aspect-ratio: 4 / 5;}
+    .story-body{padding:2.2rem 1.5rem 1.8rem;}
+    .story-body h3{font-size:1.6rem;line-height:1.25}
+    .story-body .prose p{font-size:.9rem;line-height:1.75}
+    .story-scrim{background:linear-gradient(180deg, rgba(20,14,10,0) 22%, rgba(20,14,10,.52) 52%, rgba(20,14,10,.9) 100%)}
     .hero::after{display:none}
   }
   @media(max-width:560px){
@@ -450,6 +523,7 @@
     <div class="links">
       <a href="#about" data-i18n="nav.about">About</a>
       <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+      <a href="#stories" data-i18n="nav.stories">Stories</a>
       <a href="#connect" data-i18n="nav.connect">Connect</a>
     </div>
     <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN / 中</button>
@@ -520,6 +594,27 @@
   </div>
 </section>
 
+<!-- ============ Stories ============ -->
+<section class="stories" id="stories">
+  <div class="wrap-narrow">
+    <div class="stories-head">
+      <div class="label reveal" data-i18n="stories.label">Stories</div>
+      <h2 class="reveal d1"><span data-i18n="stories.titleMain">Small letters,</span> <em data-i18n="stories.titleEm">never sent</em></h2>
+      <p class="reveal d2" data-i18n="stories.desc">Five short stories I've carried around — three about the heart, two about the dream. Refresh to meet a different one, the way you'd pick a postcard from a drawer you haven't opened in a while.</p>
+    </div>
+    <div class="story-card reveal d1" id="storyCard">
+      <div class="story-bg" id="storyBg"></div>
+      <div class="story-scrim"></div>
+      <div class="story-body">
+        <div class="kicker"><span class="dot"></span><span id="storyKicker"></span></div>
+        <h3 id="storyTitle"></h3>
+        <div class="prose" id="storyProse"></div>
+        <div class="sig-pill">— E.K.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ Connect ============ -->
 <section class="connect" id="connect">
   <div class="wrap-narrow">
@@ -573,6 +668,7 @@ const I18N = {
     "gate.sub": "Choose your language to continue. Your choice will be remembered for the next visit.",
     "nav.about": "About",
     "nav.gallery": "Gallery",
+    "nav.stories": "Stories",
     "nav.connect": "Connect",
     "hero.tag": "Moments · Frames · In-between",
     "hero.lede": "A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for just one more click of the shutter.",
@@ -587,6 +683,10 @@ const I18N = {
     "gallery.c2": "Coastal Dusk",
     "gallery.c3": "City Bloom",
     "gallery.c4": "Slow Fields",
+    "stories.label": "Stories",
+    "stories.titleMain": "Small letters,",
+    "stories.titleEm": "never sent",
+    "stories.desc": "Five short stories I've carried around — three about the heart, two about the dream. Refresh to meet a different one, the way you'd pick a postcard from a drawer you haven't opened in a while.",
     "connect.label": "Connect",
     "connect.titleMain": "Find me",
     "connect.titleEm": "elsewhere",
@@ -598,6 +698,7 @@ const I18N = {
     "gate.sub": "请选择语言进入，你的偏好会被记住。",
     "nav.about": "关于",
     "nav.gallery": "画廊",
+    "nav.stories": "故事",
     "nav.connect": "联系",
     "hero.tag": "光 · 帧 · 之间",
     "hero.lede": "一个安静的网络角落——金色时刻漫过窗台，笑声在爆发前停顿，空街屏住呼吸等待快门最后一次声响。",
@@ -612,6 +713,10 @@ const I18N = {
     "gallery.c2": "海岸黄昏",
     "gallery.c3": "城市花季",
     "gallery.c4": "田野之间",
+    "stories.label": "故事",
+    "stories.titleMain": "从未寄出的",
+    "stories.titleEm": "短书信",
+    "stories.desc": "五段一直在我口袋里的小故事——三段关于心里的人，两段关于远方的梦。每一次打开会随机抽到一封，像从你很久没翻的抽屉里随手抽出的明信片。",
     "connect.label": "联系方式",
     "connect.titleMain": "在这些地方",
     "connect.titleEm": "找我",
@@ -889,6 +994,208 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   }
   render();
   window.addEventListener("ethan-lang-changed", render);
+})();
+
+/* ================= Stories — pick one per visit (5 pool, EN+ZH) ================= */
+(function stories(){
+  const STORIES = {
+    en: [
+      {
+        type: "Emotional · 01",
+        img: "assets/story-1-mong-kok-last-train.jpg",
+        title: "The last train to Mong Kok East",
+        body: [
+          "You fell asleep on my shoulder somewhere between Sham Shui Po and Hung Hom. The train was nearly empty; the only other passenger was a security guard with his eyes closed, pretending not to see us.",
+          "Outside the window, neon signs slid past in the rain — pink, green, the same colour they've used in all my favourite dream-like films. The earphones we were sharing played a song with no words. I couldn't tell you its name, but I could probably still hum the whole thing from start to finish if you asked me tomorrow.",
+          "I didn't wake you up at your stop. I just let us ride to the end of the line, sitting there, the city moving past us and us not moving at all. Some nights you don't need an ending. You just need the right train, and the right person leaning against you."
+        ]
+      },
+      {
+        type: "Emotional · 02",
+        img: "assets/story-2-jasmine-after-rain.jpg",
+        title: "Let's see each other again, after the rain",
+        body: [
+          "The jasmine you gave me three years ago finally bloomed, the day after you left. Just one flower, really — small, stubborn, white. It smelled exactly like the summer we first met, which is to say it smelled like nothing I can describe and everything I can't forget.",
+          "A few petals fell on the windowsill this morning. I didn't sweep them away. I stood there for a while listening to the drip of the gutter, and for no reason I could name I almost picked up the phone to tell you.",
+          "Maybe if it rains again next week I will. Maybe I'll say nothing important, just: the flowers are fine, the window still leaks a little, nothing's changed since the last time you were here except that I notice the silence now, and I think about you every time the jasmine turns towards the sun."
+        ]
+      },
+      {
+        type: "Emotional · 03",
+        img: "assets/story-3-old-sweater.jpg",
+        title: "The old sweater my mother knitted for me",
+        body: [
+          "It doesn't fit anymore. The sleeves are too short, the shoulders have gone soft at the seams, the cream colour has turned yellow in the places where the sun has hit it for twenty years. But I still put it on sometimes, when the apartment is quiet and I have absolutely nowhere to be.",
+          "She taught herself to knit on the boat. She said everyone else was playing mah-jong and she needed something to keep her hands busy because she was too scared to sleep. She was nineteen. She had never knitted anything before in her life. Every stitch is wrong, every row is slightly different, and the whole thing is so uneven it could almost be a piece of art.",
+          "I used to pretend I hated it when she made me wear it as a kid. Now I would give every single item of clothing I own for one more sweater that doesn't quite fit."
+        ]
+      },
+      {
+        type: "Ideal · 01",
+        img: "assets/story-4-lighthouse-letter.jpg",
+        title: "The letter I wrote myself at twenty finally arrived at thirty",
+        body: [
+          "Dear future me — I hope you have figured out how to be brave by now. I hope you have seen the sea. I hope you still cry at the right movies and that you never became the kind of person who walks past a busker without putting something in the case. I hope you have kept your promises, especially the ones you made to yourself.",
+          "I read it today, standing at a cliff edge with the wind in my hair, the lighthouse I dreamed about finally in front of me. The sky was that impossible colour it only gets just before the sun goes down — orange and pink and something that's neither of those things.",
+          "I didn't keep every promise. I walked past a busker last week and gave nothing because I was late. I haven't figured out how to be brave in the way the kid in the letter imagined. But I am standing at the sea. And sometimes that's enough for one life. Hey — we made it."
+        ]
+      },
+      {
+        type: "Ideal · 02",
+        img: "assets/story-5-lost-bookshop.jpg",
+        title: "A small shop that doesn't need to make money, only for the lost",
+        body: [
+          "Someday I want to open a bookshop in a city where I don't belong yet. Small, cramped, the kind of shop that's impossible to find unless someone who loves you gives you directions — and even then, you'll probably walk past it twice.",
+          "The coffee will be mediocre but always warm. There will be one cat, asleep on top of the poetry section, and he'll have a name that sounds like an old man's, like Frederick or Arthur. I won't check how much we sold at the end of the day. Not because I don't care, but because I care about the other thing more: the person who came in crying and left an hour later with a 1970s paperback they didn't know they needed.",
+          "It'll close at strange hours. Sometimes midnight. Sometimes never, if someone's still reading by the window. You don't have to buy anything. You just have to be okay with being lost, for a little while, in the same room as me."
+        ]
+      }
+    ],
+    zh: [
+      {
+        type: "情感 · 零一",
+        img: "assets/story-1-mong-kok-last-train.jpg",
+        title: "最后一班往旺角东的火车",
+        body: [
+          "过了深水埗，你靠在我肩上睡着了。车厢里几乎没人，只有一个保安也闭着眼睛，装作没看见我们。",
+          "窗外的霓虹灯在雨里一条一条往后滑——粉红、翠绿，就是我最喜欢看的那些港风电影里的颜色。我们共用的耳机里放着一首没有歌词的歌。我讲不出它的名字，但如果你明天问我，我大概可以从头哼到尾。",
+          "你该下的那站我没叫醒你。就这么坐到了终点站，两个人都没动，只有这座城市在窗外飞驰而过。有些夜晚不需要结局。只需要一列对的火车，和一个对的人，靠着你。"
+        ]
+      },
+      {
+        type: "情感 · 零二",
+        img: "assets/story-2-jasmine-after-rain.jpg",
+        title: "雨停之后，我们再见面好吗",
+        body: [
+          "三年前你送我的那盆茉莉，在你走的第二天终于开了。只有一朵——小小的，倔倔的，白色的。香得和我们第一次见面那个夏天一模一样。也就是：我描述不出来，但什么都忘不了的那种味道。",
+          "今天早上窗台上掉了几片花瓣。我没扫。就站在那儿听了一会儿排水管的滴答声，毫无理由地差点拿起手机打给你。",
+          "如果下礼拜再下雨，我可能就打了。可能什么都不说，只讲：花开了，窗台还是有点漏雨，你上次走了之后什么都没变，只是现在屋子里安静的时候我会听见。还有——每次茉莉转向太阳，我就想起你。"
+        ]
+      },
+      {
+        type: "情感 · 零三",
+        img: "assets/story-3-old-sweater.jpg",
+        title: "妈妈织给我的那件旧毛衣",
+        body: [
+          "现在已经不合身了。袖子短了一截，肩线松松垮垮，米白色的线在晒了二十年太阳的地方，已经变成温柔的黄。可屋子一静下来、我一整天都没地方可去的时候，我还是会穿上它。",
+          "她说她是在船上自学的织毛衣。别人都在打麻将，她太害怕睡不着，得让手有点事情做。那年她十九岁，这辈子第一次碰毛线。每一针都不对，每行都有一点不一样，整件毛衣歪歪扭扭，丑得几乎可以算艺术品。",
+          "小时候她逼我穿，我还装作很讨厌的样子。现在我愿意把衣柜里所有新衣服都拿去换一件——不合身，但每一针都是她。"
+        ]
+      },
+      {
+        type: "理想 · 零一",
+        img: "assets/story-4-lighthouse-letter.jpg",
+        title: "二十岁写给自己的那封信，三十岁终于收到了",
+        body: [
+          "「未来的你：我希望你到那个时候已经学会了勇敢。我希望你亲眼看见过海。我希望你看对的电影还是会哭，希望你永远不会是那种从街头卖艺人身边走过、什么都不往琴盒里放的人。我希望你守住了所有承诺——尤其是对自己许过的。」",
+          "今天我站在悬崖边上读了这封信，风把头发往后吹，那座小时候只在梦里见过的白灯塔，就在前面不远的海里。天空是日落前才会出现的那种不可能的颜色——橙、粉红，还有一种既不是橙也不是粉的东西。",
+          "不是每个承诺都守住了。上周我迟到，就真的从卖艺人身边走过什么都没放。「勇敢」这两个字，也没做到信里那个小孩想象的程度。但是啊——我真的站在了海边。有些人生，做到这一件，就够了。朋友：我们到了。"
+        ]
+      },
+      {
+        type: "理想 · 零二",
+        img: "assets/story-5-lost-bookshop.jpg",
+        title: "开一家不用赚钱的店，只开给迷路的人",
+        body: [
+          "总有一天，我要在一个我还不属于的城市，开一家小书店。窄窄的，挤挤的，那种不被真正爱你的人指两三次路就绝对找不到的店。",
+          "咖啡会难喝，但永远是热的。会有一只猫，趴在诗集区上睡觉，名字要像老头子一样，比如「弗雷德里克」或者「亚瑟」。打烊时我不会数今天卖了几本书——不是不在乎，是因为更在乎另一件事：那个进来时眼睛红红的人，一小时之后带着一本七十年代的旧平装本走了，说她以前从来不知道她需要这本书。",
+          "开门的时间会很奇怪。有时开到半夜十二点。有时有人还在窗边看书，就干脆不开门了。你什么都不用买。只要你也愿意——和我一起，在这间屋子里，迷失一小会儿。"
+        ]
+      }
+    ]
+  };
+
+  let chosenIndex = Math.floor(Math.random() * STORIES.en.length);
+  function renderStories(){
+    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
+    const s = STORIES[lang][chosenIndex];
+    const bg = document.getElementById("storyBg");
+    const kicker = document.getElementById("storyKicker");
+    const title = document.getElementById("storyTitle");
+    const prose = document.getElementById("storyProse");
+    const card = document.getElementById("storyCard");
+    if(!card) return;
+    card.style.opacity = 0;
+    card.style.transform = "translateY(18px)";
+    setTimeout(()=>{
+      bg.style.backgroundImage = `url('${s.img}')`;
+      kicker.textContent = s.type;
+      title.textContent = s.title;
+      prose.innerHTML = s.body.map(p=>`<p>${p}</p>`).join("");
+      card.style.transition = "opacity .9s ease, transform .9s ease";
+      requestAnimationFrame(()=>{
+        card.style.opacity = 1;
+        card.style.transform = "translateY(0)";
+      });
+    }, 250);
+  }
+  renderStories();
+  window.addEventListener("ethan-lang-changed", renderStories);
+})();
+
+/* ================= Background Music (hidden, random 1/7 on lang click, loop) ================= */
+(function bgMusic(){
+  const TRACKS = [
+    "assets/music/01-Fading-Away.mp3",
+    "assets/music/02-Journey-Capo-Productions.mp3",
+    "assets/music/03-With-an-Orchid-Yanni.mp3",
+    "assets/music/04-Futari-no-Kimochi-Wada-Kaoru.mp3",
+    "assets/music/05-Natsu-Koi-Otokaze.mp3",
+    "assets/music/06-Yoru-Hotaru-Kimi-AniFace.mp3",
+    "assets/music/07-Ballade-pour-Adeline-Richard-Clayderman.mp3"
+  ];
+
+  let audio = null;
+  let started = false;
+
+  function ensureAudio(){
+    if(!audio){
+      audio = document.createElement("audio");
+      audio.preload = "none";
+      audio.loop = true;
+      audio.volume = 0.55;
+      audio.setAttribute("playsinline", "");
+      audio.setAttribute("autoplay", "");
+      document.body.appendChild(audio);
+    }
+    return audio;
+  }
+
+  function startOnce(){
+    if(started) return;
+    started = true;
+    const a = ensureAudio();
+    const idx = Math.floor(Math.random() * TRACKS.length);
+    a.src = TRACKS[idx];
+    a.loop = true;
+    const p = a.play();
+    if(p && typeof p.catch === "function"){
+      p.catch(()=>{
+        // browsers may still block; re-attempt on any first document interaction
+        const retry = () => {
+          a.play().catch(()=>{});
+          ["click","keydown","touchstart"].forEach(ev=>window.removeEventListener(ev, retry, {once:true, capture:true}));
+        };
+        ["click","keydown","touchstart"].forEach(ev=>window.addEventListener(ev, retry, {once:true, capture:true, passive:true}));
+      });
+    }
+  }
+
+  // Attach to any language button click
+  function hook(el){
+    if(!el || el.__musicHooked) return;
+    el.__musicHooked = true;
+    el.addEventListener("click", startOnce, {once:true, passive:true});
+  }
+
+  function bind(){
+    document.querySelectorAll(".gate-btn, nav .lang, nav .toggle-lang").forEach(hook);
+  }
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
 })();
 </script>
 </body>
