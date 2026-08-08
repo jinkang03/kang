@@ -7,6 +7,10 @@
 <meta name="description" content="Ethan Kang's personal site — moments, frames, and the in-between.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="assets/hero-poster.jpg" as="image">
+<link rel="preload" href="assets/hero-bg.mp4" as="video" type="video/mp4">
+<link rel="preload" href="assets/art-portrait-1.jpg" as="image">
+<link rel="preload" href="assets/landscape-1.jpg" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -365,38 +369,31 @@
   .story-scrim{
     position:absolute;inset:0;
     background:
-      linear-gradient(180deg, rgba(10,6,4,.38) 0%, rgba(10,6,4,.58) 25%, rgba(10,6,4,.78) 50%, rgba(8,4,2,.92) 80%, rgba(6,3,1,.96) 100%);
+      linear-gradient(180deg, rgba(6,3,1,.78) 0%, rgba(8,5,3,.62) 30%, rgba(10,6,4,.55) 50%, rgba(8,4,2,.68) 75%, rgba(6,3,1,.88) 100%);
   }
   .story-body{
-    position:absolute;left:0;right:0;bottom:0;
-    padding:4.4rem 4.2rem 3.6rem;color:#fff;
+    position:absolute;inset:0;
+    padding:3.2rem 4.2rem 2.8rem;color:#fff;
+    display:flex;flex-direction:column;justify-content:space-between;
   }
-  .story-body .kicker{
-    font-family:system-ui,Inter,sans-serif;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
-    color:#EFD7C4;opacity:.95;font-weight:600;
-    margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem;
-  }
-  .story-body .kicker .dot{
-    width:6px;height:6px;border-radius:50%;
-    background:#E9B89A;box-shadow:0 0 0 4px rgba(233,184,154,.14);
-  }
+  .story-body .kicker{display:none}
   .story-body h3{
     font-family:var(--serif);font-weight:500;
-    font-size:clamp(1.6rem,3.2vw,2.6rem);
-    line-height:1.2;letter-spacing:-.005em;margin:0 0 1.3rem;
+    font-size:clamp(1.8rem,3.4vw,2.8rem);
+    line-height:1.15;letter-spacing:-.005em;margin:0;
     max-width:760px;
   }
-  .story-body .prose{max-width:780px;}
+  .story-body .prose{max-width:780px;margin-top:auto}
   .story-body .prose p{
-    margin:0 0 .9rem;color:rgba(255,255,255,.86);
-    font-size:.98rem;line-height:1.85;
+    margin:0 0 .85rem;color:rgba(255,255,255,.88);
+    font-size:.96rem;line-height:1.85;
     font-family:'Noto Serif SC',var(--serif),Georgia,serif;
   }
-  .story-body .prose p:last-child{margin:0}
+  .story-body .prose p:last-child{margin-bottom:0}
   .story-body .sig-pill{
-    margin-top:1.6rem;display:inline-flex;align-items:center;gap:.55rem;
-    font-family:var(--serif);font-style:italic;font-size:.95rem;
-    padding:.28rem .9rem;border-radius:999px;
+    margin-top:1.2rem;display:inline-flex;align-items:center;gap:.55rem;
+    font-family:var(--serif);font-style:italic;font-size:.92rem;
+    padding:.25rem .85rem;border-radius:999px;
     background:rgba(255,255,255,.07);backdrop-filter:blur(4px);
     color:rgba(255,255,255,.78);
   }
@@ -678,7 +675,11 @@ const I18N = {
     "nav.stories": "Stories",
     "nav.connect": "Connect",
     "hero.tag": "Moments · Frames · In-between",
-    "hero.lede": "A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for just one more click of the shutter.",
+    "hero.ledes": [
+      "A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for just one more click of the shutter.",
+      "Somewhere between the light and the silence, I've been collecting small things — a stranger's smile, rain on a rooftop, the exact shade of orange before sunset. This is where they live.",
+      "Every photograph here is a small act of resistance — against forgetting, against the speed of things, against the way moments dissolve the moment you stop looking."
+    ],
     "hero.scroll": "Scroll",
     "about.label": "About",
     "about.quote": "\"Collecting light, one frame at a time.\"",
@@ -707,7 +708,11 @@ const I18N = {
     "nav.stories": "故事",
     "nav.connect": "联系",
     "hero.tag": "光 · 帧 · 之间",
-    "hero.lede": "一个安静的网络角落——金色时刻漫过窗台，笑声在爆发前停顿，空街屏住呼吸等待快门最后一次声响。",
+    "hero.ledes": [
+      "一个安静的网络角落——金色时刻漫过窗台，笑声在爆发前停顿，空街屏住呼吸等待快门最后一次声响。",
+      "在光与静默之间，我一直在收集微小的事物——陌生人的微笑、屋顶的雨声、日落前那一抹精确的橙色。它们都住在这里。",
+      "这里的每一张照片都是一次小小的反抗——对抗遗忘，对抗时间的速度，对抗那些在你不再凝视时便即刻消散的瞬间。"
+    ],
     "hero.scroll": "下滑继续",
     "about.label": "关于我",
     "about.quote": "「一帧一束光。」",
@@ -737,7 +742,16 @@ function applyLang(lang){
   const dict = I18N[lang];
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const k = el.getAttribute("data-i18n");
-    if(dict[k] != null) el.textContent = dict[k];
+    if(k === "hero.lede"){
+      const ledes = dict["hero.ledes"];
+      if(Array.isArray(ledes) && ledes.length > 0){
+        el.textContent = ledes[Math.floor(Math.random() * ledes.length)];
+      } else if(dict[k] != null){
+        el.textContent = dict[k];
+      }
+    } else if(dict[k] != null){
+      el.textContent = dict[k];
+    }
   });
   const btn = document.getElementById("langToggle");
   if(btn) btn.textContent = (lang === "en") ? "中 / EN" : "EN / 中";
@@ -1124,7 +1138,6 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
     card.style.transform = "translateY(18px)";
     setTimeout(()=>{
       bg.style.backgroundImage = `url('${s.img}')`;
-      kicker.textContent = s.type;
       title.textContent = s.title;
       prose.innerHTML = s.body.map(p=>`<p>${p}</p>`).join("");
       card.style.transition = "opacity .9s ease, transform .9s ease";
@@ -1138,7 +1151,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   window.addEventListener("ethan-lang-changed", renderStories);
 })();
 
-/* ================= Background Music (hidden, random 1/7 on lang click, loop) ================= */
+/* ================= Background Music (hidden, reliable, loop) ================= */
 (function bgMusic(){
   const TRACKS = [
     "assets/music/01-Fading-Away.mp3",
@@ -1152,90 +1165,133 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
   let audio = null;
   let started = false;
+  let retryTimer = null;
+  let retryCount = 0;
+  const MAX_RETRIES = 15;
 
   function ensureAudio(){
     if(!audio){
       audio = new Audio();
       audio.preload = "auto";
       audio.loop = true;
-      audio.volume = 0.6;
+      audio.volume = 0.55;
       audio.setAttribute("playsinline", "");
-      audio.setAttribute("muted", "");
       audio.crossOrigin = "anonymous";
       document.body.appendChild(audio);
     }
     return audio;
   }
 
-  function tryPlay(){
-    if(started) return;
-    started = true;
+  function attemptPlay(){
     const a = ensureAudio();
-    const idx = Math.floor(Math.random() * TRACKS.length);
-    a.src = TRACKS[idx];
-    a.removeAttribute("muted");
-    a.volume = 0.6;
-
-    const doPlay = () => {
-      if(a.paused){
-        const p = a.play();
-        if(p && typeof p.catch === "function"){
-          p.catch(()=>{
-            a.muted = true;
-            a.play().catch(()=>{});
-          });
-        }
+    if(!a.paused) return true;
+    try {
+      const p = a.play();
+      if(p && typeof p.then === "function"){
+        p.then(()=>{
+          started = true;
+          retryCount = 0;
+          if(retryTimer){ clearTimeout(retryTimer); retryTimer = null; }
+        }).catch(()=>{
+          // Browser blocked - retry will handle
+        });
+        return true;
+      } else {
+        started = true;
+        return true;
       }
-    };
-
-    doPlay();
-    a.addEventListener("loadeddata", doPlay, { once: true });
-    a.addEventListener("canplaythrough", doPlay, { once: true });
-  }
-
-  // Universal fallback: start music on the FIRST user interaction (any click/scroll/key)
-  // This catches cases where the language gate was auto-skipped (preference saved)
-  function startOnFirstInteraction(){
-    if(started){
-      window.removeEventListener("click", startOnFirstInteraction, true);
-      window.removeEventListener("scroll", startOnFirstInteraction, true);
-      window.removeEventListener("keydown", startOnFirstInteraction, true);
-      return;
+    } catch(e){
+      return false;
     }
-    tryPlay();
-    window.removeEventListener("click", startOnFirstInteraction, true);
-    window.removeEventListener("scroll", startOnFirstInteraction, true);
-    window.removeEventListener("keydown", startOnFirstInteraction, true);
   }
-  window.addEventListener("click", startOnFirstInteraction, { once: true, capture: true, passive: true });
-  window.addEventListener("scroll", startOnFirstInteraction, { once: true, capture: true, passive: true });
-  window.addEventListener("keydown", startOnFirstInteraction, { once: true, capture: true, passive: true });
 
-  // Hook to language gate buttons (the main interaction)
+  function scheduleRetry(){
+    if(started || retryCount >= MAX_RETRIES) return;
+    retryCount++;
+    const delay = 400 + retryCount * 350;
+    retryTimer = setTimeout(()=>{
+      const ok = attemptPlay();
+      if(!ok && !started){
+        scheduleRetry();
+      }
+    }, delay);
+  }
+
+  function startMusic(){
+    if(started) return;
+    const a = ensureAudio();
+
+    // Pick random track
+    if(!a.src || a.src.endsWith("about:blank")){
+      const idx = Math.floor(Math.random() * TRACKS.length);
+      a.src = TRACKS[idx];
+    }
+    a.loop = true;
+    a.volume = 0.55;
+
+    // Try immediately
+    if(attemptPlay()) return;
+
+    // Also try when audio becomes ready
+    const readyHandler = () => {
+      if(!started) attemptPlay();
+    };
+    a.addEventListener("loadeddata", readyHandler, { once: true });
+    a.addEventListener("canplaythrough", readyHandler, { once: true });
+    a.addEventListener("playing", () => { started = true; retryCount = 0; if(retryTimer){ clearTimeout(retryTimer); retryTimer = null; } }, { once: true });
+
+    // Retry loop as safety net
+    scheduleRetry();
+  }
+
+  function trigger(){
+    if(started) return;
+    startMusic();
+    if(!started){
+      // One more push after a short delay
+      setTimeout(startMusic, 600);
+    }
+  }
+
+  // Primary trigger: language gate buttons
   function hook(el){
     if(!el || el.__musicHooked) return;
     el.__musicHooked = true;
-    el.addEventListener("click", () => {
-      // Small delay to let the lang switch animation begin first
-      setTimeout(tryPlay, 300);
-    }, {passive:true});
+    el.addEventListener("click", () => setTimeout(trigger, 250), {passive:true});
   }
 
-  // Also hook the nav language toggle as a secondary trigger
   function bind(){
     document.querySelectorAll(".gate-btn").forEach(hook);
     const navToggle = document.getElementById("langToggle");
     if(navToggle && !navToggle.__musicHooked){
       navToggle.__musicHooked = true;
-      navToggle.addEventListener("click", () => {
-        setTimeout(tryPlay, 300);
-      }, {passive:true});
+      navToggle.addEventListener("click", () => setTimeout(trigger, 250), {passive:true});
     }
+
+    // Universal: ANY first user interaction triggers music
+    const firstInteract = () => {
+      trigger();
+      window.removeEventListener("pointerdown", firstInteract, true);
+      window.removeEventListener("keydown", firstInteract, true);
+      window.removeEventListener("touchstart", firstInteract, true);
+    };
+    window.addEventListener("pointerdown", firstInteract, { once: true, capture: true, passive: true });
+    window.addEventListener("keydown", firstInteract, { once: true, capture: true, passive: true });
+    window.addEventListener("touchstart", firstInteract, { once: true, capture: true, passive: true });
   }
+
+  // Pre-create audio element early, load track in background
+  function preload(){
+    const a = ensureAudio();
+    const idx = Math.floor(Math.random() * TRACKS.length);
+    a.src = TRACKS[idx];
+    a.load();
+  }
+
   if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", bind);
+    document.addEventListener("DOMContentLoaded", () => { preload(); bind(); });
   } else {
-    bind();
+    preload(); bind();
   }
 })();
 </script>
