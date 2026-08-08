@@ -1,7 +1,23 @@
-﻿# Build & conversion scripts
+# Build & conversion scripts
 convert_heic.py
 extract_poster.py
+unpack_livp.py
+make_art.py
+_*.py
+_*.ps1
+compare.html
 *.log
 node_modules/
 .DS_Store
 Thumbs.db
+
+# 原始个人照片 / 源素材 —— 不部署到公开仓库（隐私）
+assets/_ref/
+
+# 已废弃、不再引用的旧资产
+assets/gallery-1.jpg
+assets/gallery-2.jpg
+assets/gallery-3.jpg
+assets/hero-portrait.jpg
+assets/portrait-about.jpg
+assets/portrait.jpg

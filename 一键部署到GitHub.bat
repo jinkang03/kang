@@ -1,82 +1,117 @@
 @echo off
-chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
 
-echo ==============================================
-echo   Ethan Kang - ä¸ªäººä¸»é¡µ Â· ä¸€é”®éƒ¨ç½²åˆ° GitHub
-echo ==============================================
+echo ============================================
+echo   Ethan Kang - ¸öÈËÖ÷Ò³ ¡¤ Ò»¼ü²¿Êğµ½ GitHub
+echo ============================================
 echo.
 
-where git >nul 2>nul || (
-  echo [é”™è¯¯] æœªå®‰è£… Gitï¼Œè¯·å…ˆå®‰è£…ï¼šhttps://git-scm.com/download/win
-  echo å®‰è£…åè¯·é‡æ–°è¿è¡Œæœ¬è„šæœ¬ã€‚
+where git >nul 2>nul
+if errorlevel 1 (
+  echo [´íÎó] Î´¼ì²âµ½ Git£¬ÇëÏÈ°²×°£º
+  echo        https://git-scm.com/download/win
+  echo °²×°Íê³ÉºóÖØĞÂË«»÷±¾½Å±¾¼´¿É¡£
+  echo.
   pause
   exit /b 1
 )
 
-git remote -v >nul 2>&1
-if %errorlevel% neq 0 goto noRemote
+REM ¼ì²é origin Ô¶³ÌÊÇ·ñÒÑÅäÖÃ
+git remote get-url origin >nul 2>nul
+if errorlevel 1 goto setup
 
-echo [æç¤º] å·²æ£€æµ‹åˆ°è¿œç¨‹ä»“åº“ï¼Œå‡†å¤‡ç›´æ¥æ¨é€æœ€æ–°ä¿®æ”¹ã€‚
-goto doPush
+echo [ĞÅÏ¢] ÒÑÅäÖÃÔ¶³Ì²Ö¿â¡£
+echo.
+goto commit
 
-:noRemote
+:setup
 echo.
-echo é¦–æ¬¡ä½¿ç”¨è¯·æŒ‰æç¤ºæ“ä½œï¼š
-echo -----------------------------------------------
+echo Ê×´Î²¿Êğ£¬Çë°´ÒÔÏÂ²½Öè²Ù×÷£º
+echo --------------------------------------------
+echo  1. ä¯ÀÀÆ÷´ò¿ª  https://github.com/new  ĞÂ½¨²Ö¿â
+echo     - ²Ö¿âÃû½¨ÒéÌî£ºethan-kang
+echo     - ²»Òª¹´Ñ¡ ¡°Add a README file¡±
+echo     - µã»÷ Create repository
 echo.
-echo 1/ æ‰“å¼€ https://github.com/new  åˆ›å»ºæ–°ä»“åº“
-echo    Â· Repository name å»ºè®®å¡«ï¼šethan-kang
-echo    Â· ä¸è¦å‹¾é€‰ "Add a README file"
-echo    Â· ç‚¹å‡» Create repository
+echo  2. ÔÚ Quick setup ÏÂ·½µã»÷ HTTPS£¬¸´ÖÆ²Ö¿âµØÖ·
+echo     ÒÔ https://github.com/ ¿ªÍ·
 echo.
-echo 2/ åˆ›å»ºå®Œæˆåï¼Œåœ¨ "Quick setup" ä¸‹æ–¹ç‚¹å‡» "SSH" æˆ– "HTTPS"
-echo    å¤åˆ¶ä»¥ "git@github.com:" æˆ– "https://github.com/" å¼€å¤´çš„ä»“åº“åœ°å€
-echo.
-set /p REPO=3/ ç²˜è´´ä½ çš„ä»“åº“åœ°å€åæŒ‰å›è½¦ï¼š
-
+set "REPO="
+set /p "REPO=  3. Õ³Ìù²Ö¿âµØÖ·ºó°´»Ø³µ: "
 if "%REPO%"=="" (
-  echo [é”™è¯¯] ä»“åº“åœ°å€ä¸èƒ½ä¸ºç©º
+  echo [´íÎó] ²Ö¿âµØÖ·²»ÄÜÎª¿Õ¡£
   pause
   exit /b 1
 )
-
 git remote add origin "%REPO%"
-echo.
-echo [OK] è¿œç¨‹ä»“åº“å·²æ·»åŠ ï¼š%REPO%
-
-:doPush
-echo.
-echo ========== æ­£åœ¨éƒ¨ç½² (git push origin main) ==========
-git push -u origin main
-
-if %errorlevel% neq 0 (
-  echo.
-  echo [å¤±è´¥] push å¤±è´¥ï¼è¯·æ£€æŸ¥ï¼š
-  echo   1) æ˜¯å¦å·²åœ¨æœ¬æœºç™»å½• GitHubï¼ˆgit credentialï¼‰
-  echo   2) ä»“åº“åœ°å€æ˜¯å¦æ­£ç¡®ï¼Œä¸”ä½ æœ‰ push æƒé™
-  echo   3) å¦‚ä½¿ç”¨ HTTPSï¼Œç°åœ¨ GitHub éœ€è¦ Personal Access Token ä½œä¸ºå¯†ç 
-  echo      ç”Ÿæˆåœ°å€ï¼šhttps://github.com/settings/tokens  (å‹¾é€‰ repo æƒé™)
-  echo.
-  echo å¯éšæ—¶é‡æ–°åŒå‡» deploy.bat é‡è¯•ã€‚
+if errorlevel 1 (
+  echo [´íÎó] Ìí¼ÓÔ¶³Ì²Ö¿âÊ§°Ü£¬Çë¼ì²éµØÖ·ÊÇ·ñÕıÈ·¡£
   pause
   exit /b 1
 )
+echo [³É¹¦] ÒÑÌí¼ÓÔ¶³Ì²Ö¿â£º%REPO%
+echo.
+
+:commit
+echo ÕıÔÚÊÕ¼¯²¢Ìá½»×îĞÂ¸Ä¶¯ ...
+git add -A
+git diff --cached --quiet
+if errorlevel 1 goto docommit
+echo [ĞÅÏ¢] Ã»ÓĞĞÂµÄ¸Ä¶¯ĞèÒªÌá½»£¬Ö±½ÓÍÆËÍ¡£
+echo.
+goto dopush
+
+:docommit
+git commit -m "deploy: update personal site"
+if errorlevel 1 goto commitfail
+echo [³É¹¦] ¸Ä¶¯ÒÑÌá½»¡£
+echo.
+
+:dopush
+echo ÕıÔÚÍÆËÍ´úÂëµ½ GitHub£¬Ê×´Î¿ÉÄÜĞèÒªÊäÈëÆ¾¾İ ...
+echo.
+git push -u origin main
+if errorlevel 1 goto pushfail
 
 echo.
-echo ============================================================
-echo  [æˆåŠŸ] ä»£ç å·²æ¨é€ï¼
-echo ------------------------------------------------------------
-echo  ä¸‹ä¸€æ­¥ï¼ˆåªéœ€åšä¸€æ¬¡ï¼‰ï¼š
-echo   1. æ‰“å¼€ä½ çš„ GitHub ä»“åº“é¡µé¢ï¼šç‚¹å‡» Settings
-echo   2. å·¦ä¾§èœå•æ‰¾åˆ° Pages
-echo   3. Source é€‰æ‹© "Deploy from a branch"
-echo      Branch é€‰ main  /  (root)
-echo   4. ç‚¹å‡» Saveï¼Œç­‰ 1-2 åˆ†é’Ÿã€‚
+echo ============================================
+echo  [³É¹¦] ´úÂëÒÑÍÆËÍ£¡
+echo --------------------------------------------
+echo  ÆôÓÃ¹«Íø·ÃÎÊ£¨Ö»Ğè×öÒ»´Î£©£º
+echo    1. ´ò¿ªÄãµÄ GitHub ²Ö¿âÒ³Ãæ£¬µã»÷ Settings
+echo    2. ×ó²à²Ëµ¥Ñ¡Ôñ Pages
+echo    3. Source Ñ¡ Deploy from a branch
+echo    4. Branch Ñ¡ main£¬ÎÄ¼ş¼ĞÑ¡ root£¬µã Save
+echo    5. µÈ´ı 1-2 ·ÖÖÓ
 echo.
-echo  å®Œæˆåå…¬ç½‘è®¿é—®åœ°å€ï¼š
-echo    https://^<ä½ çš„ GitHub ç”¨æˆ·å^>.github.io/^<ä»“åº“å^>/
-echo    ä¾‹ï¼šhttps://jinkangdeng.github.io/ethan-kang/
-echo ============================================================
+echo  Íê³Éºó¹«Íø·ÃÎÊµØÖ·£º
+echo    https://ÄãµÄÓÃ»§Ãû.github.io/²Ö¿âÃû/
+echo ============================================
+echo.
 pause
+exit /b 0
+
+:commitfail
+echo.
+echo [´íÎó] Ìá½»Ê§°Ü£¬¿ÉÄÜÊÇÎ´ÅäÖÃ Git ÓÃ»§ĞÅÏ¢£¬ÇëÔËĞĞ£º
+echo        git config --global user.name "ÄãµÄÃû×Ö"
+echo        git config --global user.email "ÄãµÄÓÊÏä"
+echo È»ºóÖØĞÂË«»÷±¾½Å±¾¡£
+echo.
+pause
+exit /b 1
+
+:pushfail
+echo.
+echo [Ê§°Ü] ÍÆËÍÊ§°Ü£¬³£¼ûÔ­Òò£º
+echo    1. Î´ÔÚ±¾»úµÇÂ¼ GitHub ¡ª¡ª HTTPS ·½Ê½ĞèÓÃ Personal Access Token ×÷ÎªÃÜÂë
+echo       Éú³ÉµØÖ·£ºhttps://github.com/settings/tokens  ¹´Ñ¡ repo È¨ÏŞ
+echo    2. ²Ö¿âµØÖ·²»ÕıÈ·£¬»òÃ»ÓĞÍÆËÍÈ¨ÏŞ
+echo    3. Ô¶³Ì²Ö¿âÒÑÓĞÄÚÈİ£¨Èç¹´Ñ¡ÁË README£©£¬µ¼ÖÂ³åÍ»
+echo       ¿ÉÉ¾³ıÔ¶³Ì²Ö¿âÖØ½¨Ò»¸ö¿Õ²Ö¿âÔÙÊÔ
+echo.
+echo ¿ÉËæÊ±ÖØĞÂË«»÷±¾½Å±¾ÔÙ´Î³¢ÊÔ¡£
+echo.
+pause
+exit /b 1
