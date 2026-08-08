@@ -1181,23 +1181,35 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         const p = a.play();
         if(p && typeof p.catch === "function"){
           p.catch(()=>{
-            // Try once more unmuted
-            a.muted = false;
-            a.play().catch(()=>{
-              // Last fallback - try muted
-              a.muted = true;
-              a.play().catch(()=>{});
-            });
+            a.muted = true;
+            a.play().catch(()=>{});
           });
         }
       }
     };
 
-    // Try playing immediately; if it fails (audio not ready), wait for loadeddata
     doPlay();
     a.addEventListener("loadeddata", doPlay, { once: true });
     a.addEventListener("canplaythrough", doPlay, { once: true });
   }
+
+  // Universal fallback: start music on the FIRST user interaction (any click/scroll/key)
+  // This catches cases where the language gate was auto-skipped (preference saved)
+  function startOnFirstInteraction(){
+    if(started){
+      window.removeEventListener("click", startOnFirstInteraction, true);
+      window.removeEventListener("scroll", startOnFirstInteraction, true);
+      window.removeEventListener("keydown", startOnFirstInteraction, true);
+      return;
+    }
+    tryPlay();
+    window.removeEventListener("click", startOnFirstInteraction, true);
+    window.removeEventListener("scroll", startOnFirstInteraction, true);
+    window.removeEventListener("keydown", startOnFirstInteraction, true);
+  }
+  window.addEventListener("click", startOnFirstInteraction, { once: true, capture: true, passive: true });
+  window.addEventListener("scroll", startOnFirstInteraction, { once: true, capture: true, passive: true });
+  window.addEventListener("keydown", startOnFirstInteraction, { once: true, capture: true, passive: true });
 
   // Hook to language gate buttons (the main interaction)
   function hook(el){
