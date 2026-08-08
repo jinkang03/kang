@@ -3,90 +3,90 @@ setlocal
 cd /d "%~dp0"
 
 echo ============================================
-echo   Ethan Kang - ¸öÈËÖ÷Ò³ ¡¤ Ò»¼ü²¿Êðµ½ GitHub
+echo   Ethan Kang - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ ï¿½ï¿½ Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GitHub
 echo ============================================
 echo.
 
 where git >nul 2>nul
 if errorlevel 1 (
-  echo [´íÎó] Î´¼ì²âµ½ Git£¬ÇëÏÈ°²×°£º
+  echo [ï¿½ï¿½ï¿½ï¿½] Î´ï¿½ï¿½âµ½ Gitï¿½ï¿½ï¿½ï¿½ï¿½È°ï¿½×°ï¿½ï¿½
   echo        https://git-scm.com/download/win
-  echo °²×°Íê³ÉºóÖØÐÂË«»÷±¾½Å±¾¼´¿É¡£
+  echo ï¿½ï¿½×°ï¿½ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½É¡ï¿½
   echo.
   pause
   exit /b 1
 )
 
-REM ¼ì²é origin Ô¶³ÌÊÇ·ñÒÑÅäÖÃ
+REM ï¿½ï¿½ï¿½ origin Ô¶ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 git remote get-url origin >nul 2>nul
 if errorlevel 1 goto setup
 
-echo [ÐÅÏ¢] ÒÑÅäÖÃÔ¶³Ì²Ö¿â¡£
+echo [ï¿½ï¿½Ï¢] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ì²Ö¿â¡£
 echo.
 goto commit
 
 :setup
 echo.
-echo Ê×´Î²¿Êð£¬Çë°´ÒÔÏÂ²½Öè²Ù×÷£º
+echo ï¿½×´Î²ï¿½ï¿½ï¿½ï¿½ë°´ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 echo --------------------------------------------
-echo  1. ä¯ÀÀÆ÷´ò¿ª  https://github.com/new  ÐÂ½¨²Ö¿â
-echo     - ²Ö¿âÃû½¨ÒéÌî£ºethan-kang
-echo     - ²»Òª¹´Ñ¡ ¡°Add a README file¡±
-echo     - µã»÷ Create repository
+echo  1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  https://github.com/new  ï¿½Â½ï¿½ï¿½Ö¿ï¿½
+echo     - ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î£ºethan-kang
+echo     - ï¿½ï¿½Òªï¿½ï¿½Ñ¡ ï¿½ï¿½Add a README fileï¿½ï¿½
+echo     - ï¿½ï¿½ï¿½ Create repository
 echo.
-echo  2. ÔÚ Quick setup ÏÂ·½µã»÷ HTTPS£¬¸´ÖÆ²Ö¿âµØÖ·
-echo     ÒÔ https://github.com/ ¿ªÍ·
+echo  2. ï¿½ï¿½ Quick setup ï¿½Â·ï¿½ï¿½ï¿½ï¿½ HTTPSï¿½ï¿½ï¿½ï¿½ï¿½Æ²Ö¿ï¿½ï¿½Ö·
+echo     ï¿½ï¿½ https://github.com/ ï¿½ï¿½Í·
 echo.
 set "REPO="
-set /p "REPO=  3. Õ³Ìù²Ö¿âµØÖ·ºó°´»Ø³µ: "
+set /p "REPO=  3. Õ³ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ö·ï¿½ó°´»Ø³ï¿½: "
 if "%REPO%"=="" (
-  echo [´íÎó] ²Ö¿âµØÖ·²»ÄÜÎª¿Õ¡£
+  echo [ï¿½ï¿½ï¿½ï¿½] ï¿½Ö¿ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ¡ï¿½
   pause
   exit /b 1
 )
 git remote add origin "%REPO%"
 if errorlevel 1 (
-  echo [´íÎó] Ìí¼ÓÔ¶³Ì²Ö¿âÊ§°Ü£¬Çë¼ì²éµØÖ·ÊÇ·ñÕýÈ·¡£
+  echo [ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ì²Ö¿ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ç·ï¿½ï¿½ï¿½È·ï¿½ï¿½
   pause
   exit /b 1
 )
-echo [³É¹¦] ÒÑÌí¼ÓÔ¶³Ì²Ö¿â£º%REPO%
+echo [ï¿½É¹ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ì²Ö¿â£º%REPO%
 echo.
 
 :commit
-echo ÕýÔÚÊÕ¼¯²¢Ìá½»×îÐÂ¸Ä¶¯ ...
+echo ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½Â¸Ä¶ï¿½ ...
 git add -A
 git diff --cached --quiet
 if errorlevel 1 goto docommit
-echo [ÐÅÏ¢] Ã»ÓÐÐÂµÄ¸Ä¶¯ÐèÒªÌá½»£¬Ö±½ÓÍÆËÍ¡£
+echo [ï¿½ï¿½Ï¢] Ã»ï¿½ï¿½ï¿½ÂµÄ¸Ä¶ï¿½ï¿½ï¿½Òªï¿½á½»ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Í¡ï¿½
 echo.
 goto dopush
 
 :docommit
 git commit -m "deploy: update personal site"
 if errorlevel 1 goto commitfail
-echo [³É¹¦] ¸Ä¶¯ÒÑÌá½»¡£
+echo [ï¿½É¹ï¿½] ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½
 echo.
 
 :dopush
-echo ÕýÔÚÍÆËÍ´úÂëµ½ GitHub£¬Ê×´Î¿ÉÄÜÐèÒªÊäÈëÆ¾¾Ý ...
+echo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½ëµ½ GitHubï¿½ï¿½ï¿½×´Î¿ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½ ...
 echo.
 git push -u origin main
 if errorlevel 1 goto pushfail
 
 echo.
 echo ============================================
-echo  [³É¹¦] ´úÂëÒÑÍÆËÍ£¡
+echo  [ï¿½É¹ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½
 echo --------------------------------------------
-echo  ÆôÓÃ¹«Íø·ÃÎÊ£¨Ö»Ðè×öÒ»´Î£©£º
-echo    1. ´ò¿ªÄãµÄ GitHub ²Ö¿âÒ³Ãæ£¬µã»÷ Settings
-echo    2. ×ó²à²Ëµ¥Ñ¡Ôñ Pages
+echo  ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½
+echo    1. ï¿½ï¿½ï¿½ï¿½ï¿½ GitHub ï¿½Ö¿ï¿½Ò³ï¿½æ£¬ï¿½ï¿½ï¿½ Settings
+echo    2. ï¿½ï¿½ï¿½Ëµï¿½Ñ¡ï¿½ï¿½ Pages
 echo    3. Source Ñ¡ Deploy from a branch
-echo    4. Branch Ñ¡ main£¬ÎÄ¼þ¼ÐÑ¡ root£¬µã Save
-echo    5. µÈ´ý 1-2 ·ÖÖÓ
+echo    4. Branch Ñ¡ mainï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ñ¡ rootï¿½ï¿½ï¿½ï¿½ Save
+echo    5. ï¿½È´ï¿½ 1-2 ï¿½ï¿½ï¿½ï¿½
 echo.
-echo  Íê³Éºó¹«Íø·ÃÎÊµØÖ·£º
-echo    https://ÄãµÄÓÃ»§Ãû.github.io/²Ö¿âÃû/
+echo  ï¿½ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö·ï¿½ï¿½
+echo    https://ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½.github.io/ï¿½Ö¿ï¿½ï¿½ï¿½/
 echo ============================================
 echo.
 pause
@@ -94,24 +94,24 @@ exit /b 0
 
 :commitfail
 echo.
-echo [´íÎó] Ìá½»Ê§°Ü£¬¿ÉÄÜÊÇÎ´ÅäÖÃ Git ÓÃ»§ÐÅÏ¢£¬ÇëÔËÐÐ£º
-echo        git config --global user.name "ÄãµÄÃû×Ö"
-echo        git config --global user.email "ÄãµÄÓÊÏä"
-echo È»ºóÖØÐÂË«»÷±¾½Å±¾¡£
+echo [ï¿½ï¿½ï¿½ï¿½] ï¿½á½»Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ Git ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½
+echo        git config --global user.name "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
+echo        git config --global user.email "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
+echo È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
 echo.
 pause
 exit /b 1
 
 :pushfail
 echo.
-echo [Ê§°Ü] ÍÆËÍÊ§°Ü£¬³£¼ûÔ­Òò£º
-echo    1. Î´ÔÚ±¾»úµÇÂ¼ GitHub ¡ª¡ª HTTPS ·½Ê½ÐèÓÃ Personal Access Token ×÷ÎªÃÜÂë
-echo       Éú³ÉµØÖ·£ºhttps://github.com/settings/tokens  ¹´Ñ¡ repo È¨ÏÞ
-echo    2. ²Ö¿âµØÖ·²»ÕýÈ·£¬»òÃ»ÓÐÍÆËÍÈ¨ÏÞ
-echo    3. Ô¶³Ì²Ö¿âÒÑÓÐÄÚÈÝ£¨Èç¹´Ñ¡ÁË README£©£¬µ¼ÖÂ³åÍ»
-echo       ¿ÉÉ¾³ýÔ¶³Ì²Ö¿âÖØ½¨Ò»¸ö¿Õ²Ö¿âÔÙÊÔ
+echo [Ê§ï¿½ï¿½] ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+echo    1. Î´ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ GitHub ï¿½ï¿½ï¿½ï¿½ HTTPS ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ Personal Access Token ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
+echo       ï¿½ï¿½ï¿½Éµï¿½Ö·ï¿½ï¿½https://github.com/settings/tokens  ï¿½ï¿½Ñ¡ repo È¨ï¿½ï¿½
+echo    2. ï¿½Ö¿ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½
+echo    3. Ô¶ï¿½Ì²Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ç¹´Ñ¡ï¿½ï¿½ READMEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½Í»
+echo       ï¿½ï¿½É¾ï¿½ï¿½Ô¶ï¿½Ì²Ö¿ï¿½ï¿½Ø½ï¿½Ò»ï¿½ï¿½ï¿½Õ²Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½
 echo.
-echo ¿ÉËæÊ±ÖØÐÂË«»÷±¾½Å±¾ÔÙ´Î³¢ÊÔ¡£
+echo ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½Ù´Î³ï¿½ï¿½Ô¡ï¿½
 echo.
 pause
 exit /b 1
