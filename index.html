@@ -291,10 +291,14 @@
   .about-text p:first-of-type{
     font-family:var(--serif);font-size:1.9rem;line-height:1.5;
     color:var(--ink);font-style:italic;margin-bottom:2.2rem;font-weight:500;
+    transition:transform .5s ease, color .5s ease;
   }
+  .about-text:hover p:first-of-type{transform:translateX(6px);color:var(--accent)}
   .about-text .sig{
     font-family:var(--serif);font-size:2.6rem;font-style:italic;margin-top:2.5rem;color:var(--accent);
+    transition:transform .6s cubic-bezier(.2,.7,.2,1);
   }
+  .about-text:hover .sig{transform:translateY(-4px)}
 
   /* ============ Gallery ============ */
   .gallery{background:var(--bg-2);position:relative}
@@ -348,7 +352,9 @@
     border-radius:14px;overflow:hidden;
     box-shadow:0 30px 80px rgba(60,40,20,.18), 0 10px 30px rgba(60,40,20,.10);
     border:1px solid var(--line);
+    transition:transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s ease;
   }
+  .story-card:hover{transform:scale(1.015);box-shadow:0 40px 100px rgba(60,40,20,.24), 0 16px 40px rgba(60,40,20,.14)}
   .story-bg{
     position:absolute;inset:0;
     background-size:cover;background-position:center;
@@ -359,7 +365,7 @@
   .story-scrim{
     position:absolute;inset:0;
     background:
-      linear-gradient(180deg, rgba(20,14,10,0) 40%, rgba(20,14,10,.42) 62%, rgba(20,14,10,.86) 100%);
+      linear-gradient(180deg, rgba(10,6,4,.38) 0%, rgba(10,6,4,.58) 25%, rgba(10,6,4,.78) 50%, rgba(8,4,2,.92) 80%, rgba(6,3,1,.96) 100%);
   }
   .story-body{
     position:absolute;left:0;right:0;bottom:0;
@@ -600,8 +606,9 @@
     <div class="stories-head">
       <div class="label reveal" data-i18n="stories.label">Stories</div>
       <h2 class="reveal d1"><span data-i18n="stories.titleMain">Small letters,</span> <em data-i18n="stories.titleEm">never sent</em></h2>
-      <p class="reveal d2" data-i18n="stories.desc">Five short stories I've carried around — three about the heart, two about the dream. Refresh to meet a different one, the way you'd pick a postcard from a drawer you haven't opened in a while.</p>
     </div>
+  </div>
+  <div class="wrap">
     <div class="story-card reveal d1" id="storyCard">
       <div class="story-bg" id="storyBg"></div>
       <div class="story-scrim"></div>
@@ -686,7 +693,6 @@ const I18N = {
     "stories.label": "Stories",
     "stories.titleMain": "Small letters,",
     "stories.titleEm": "never sent",
-    "stories.desc": "Five short stories I've carried around — three about the heart, two about the dream. Refresh to meet a different one, the way you'd pick a postcard from a drawer you haven't opened in a while.",
     "connect.label": "Connect",
     "connect.titleMain": "Find me",
     "connect.titleEm": "elsewhere",
@@ -716,7 +722,6 @@ const I18N = {
     "stories.label": "故事",
     "stories.titleMain": "从未寄出的",
     "stories.titleEm": "短书信",
-    "stories.desc": "五段一直在我口袋里的小故事——三段关于心里的人，两段关于远方的梦。每一次打开会随机抽到一封，像从你很久没翻的抽屉里随手抽出的明信片。",
     "connect.label": "联系方式",
     "connect.titleMain": "在这些地方",
     "connect.titleEm": "找我",
@@ -1150,46 +1155,70 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
   function ensureAudio(){
     if(!audio){
-      audio = document.createElement("audio");
-      audio.preload = "none";
+      audio = new Audio();
+      audio.preload = "auto";
       audio.loop = true;
-      audio.volume = 0.55;
+      audio.volume = 0.6;
       audio.setAttribute("playsinline", "");
-      audio.setAttribute("autoplay", "");
+      audio.setAttribute("muted", "");
+      audio.crossOrigin = "anonymous";
       document.body.appendChild(audio);
     }
     return audio;
   }
 
-  function startOnce(){
+  function tryPlay(){
     if(started) return;
     started = true;
     const a = ensureAudio();
     const idx = Math.floor(Math.random() * TRACKS.length);
     a.src = TRACKS[idx];
-    a.loop = true;
-    const p = a.play();
-    if(p && typeof p.catch === "function"){
-      p.catch(()=>{
-        // browsers may still block; re-attempt on any first document interaction
-        const retry = () => {
-          a.play().catch(()=>{});
-          ["click","keydown","touchstart"].forEach(ev=>window.removeEventListener(ev, retry, {once:true, capture:true}));
-        };
-        ["click","keydown","touchstart"].forEach(ev=>window.addEventListener(ev, retry, {once:true, capture:true, passive:true}));
-      });
-    }
+    a.removeAttribute("muted");
+    a.volume = 0.6;
+
+    const doPlay = () => {
+      if(a.paused){
+        const p = a.play();
+        if(p && typeof p.catch === "function"){
+          p.catch(()=>{
+            // Try once more unmuted
+            a.muted = false;
+            a.play().catch(()=>{
+              // Last fallback - try muted
+              a.muted = true;
+              a.play().catch(()=>{});
+            });
+          });
+        }
+      }
+    };
+
+    // Try playing immediately; if it fails (audio not ready), wait for loadeddata
+    doPlay();
+    a.addEventListener("loadeddata", doPlay, { once: true });
+    a.addEventListener("canplaythrough", doPlay, { once: true });
   }
 
-  // Attach to any language button click
+  // Hook to language gate buttons (the main interaction)
   function hook(el){
     if(!el || el.__musicHooked) return;
     el.__musicHooked = true;
-    el.addEventListener("click", startOnce, {once:true, passive:true});
+    el.addEventListener("click", () => {
+      // Small delay to let the lang switch animation begin first
+      setTimeout(tryPlay, 300);
+    }, {passive:true});
   }
 
+  // Also hook the nav language toggle as a secondary trigger
   function bind(){
-    document.querySelectorAll(".gate-btn, nav .lang, nav .toggle-lang").forEach(hook);
+    document.querySelectorAll(".gate-btn").forEach(hook);
+    const navToggle = document.getElementById("langToggle");
+    if(navToggle && !navToggle.__musicHooked){
+      navToggle.__musicHooked = true;
+      navToggle.addEventListener("click", () => {
+        setTimeout(tryPlay, 300);
+      }, {passive:true});
+    }
   }
   if(document.readyState === "loading"){
     document.addEventListener("DOMContentLoaded", bind);
