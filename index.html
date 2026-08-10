@@ -152,8 +152,11 @@
     justify-self:center;text-align:center;
     font-family:var(--serif);font-style:italic;
     font-size:.95rem;letter-spacing:.05em;color:var(--ink-soft);
+    display:flex;flex-direction:column;align-items:center;gap:.15rem;
+    opacity:.88;white-space:nowrap;line-height:1.25;
+  }
+  nav .clock .clock-main{
     display:flex;align-items:center;gap:.75rem;
-    opacity:.88;white-space:nowrap;
   }
   nav .clock .dot{
     width:4px;height:4px;border-radius:50%;
@@ -161,6 +164,7 @@
     box-shadow:0 0 0 3px var(--accent-soft);
   }
   nav .clock .date{font-size:.76rem;letter-spacing:.08em;color:var(--ink-dim);font-style:normal;font-family:var(--sans)}
+  nav .clock .days-counter{font-size:.64rem;letter-spacing:.06em;color:var(--ink-dim);font-style:normal;font-family:var(--sans);opacity:.7;margin-top:.05rem}
   nav .right{display:flex;align-items:center;gap:2rem;justify-self:end}
   nav .links{display:flex;gap:2.4rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;font-weight:500}
   nav .links a{position:relative;opacity:.72;transition:opacity .3s}
@@ -536,9 +540,12 @@
 <nav id="nav">
   <a href="#top" class="mark always">Jin <em>Kang</em></a>
   <div class="clock" aria-live="off">
-    <span class="dot"></span>
-    <span id="clockDate" class="date"></span>
-    <span id="clockTime"></span>
+    <div class="clock-main">
+      <span class="dot"></span>
+      <span id="clockDate" class="date"></span>
+      <span id="clockTime"></span>
+    </div>
+    <span id="clockDays" class="days-counter"></span>
   </div>
   <div class="right">
     <div class="links">
@@ -874,27 +881,37 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 (function clock(){
   const dateEl = document.getElementById("clockDate");
   const timeEl = document.getElementById("clockTime");
+  const daysEl = document.getElementById("clockDays");
   if(!dateEl || !timeEl) return;
 
-  const MONTHS_EN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const MONTHS_ZH = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
   const WEEKDAYS_EN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   const WEEKDAYS_ZH = ["周日","周一","周二","周三","周四","周五","周六"];
+  const START_DATE = new Date(2003, 4, 15); // 2003-05-15
 
   function pad(n){return String(n).padStart(2,"0")}
   function tick(){
     const now = new Date();
     const y = now.getFullYear();
-    const m = now.getMonth();
+    const m = now.getMonth() + 1;
     const d = now.getDate();
     const w = now.getDay();
     const lang = document.documentElement.lang === "zh" ? "zh" : "en";
     if(lang === "zh"){
-      dateEl.textContent = `${y} 年 ${MONTHS_ZH[m]} ${d} 日 · ${WEEKDAYS_ZH[w]}`;
+      dateEl.textContent = `${y} 年 ${m} 月 ${d} 日 · ${WEEKDAYS_ZH[w]}`;
     }else{
-      dateEl.textContent = `${WEEKDAYS_EN[w]}, ${MONTHS_EN[m]} ${d}, ${y}`;
+      dateEl.textContent = `${WEEKDAYS_EN[w]}, ${m}/${d}/${y}`;
     }
     timeEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}<sep></sep>${pad(now.getSeconds())}`.replace("<sep></sep>", ":");
+
+    if(daysEl){
+      const diffMs = now - START_DATE;
+      const days = Math.floor(diffMs / 86400000);
+      if(lang === "zh"){
+        daysEl.textContent = `自 2003 年 5 月 15 日以来的第 ${days} 天`;
+      }else{
+        daysEl.textContent = `Day ${days} since May 15, 2003`;
+      }
+    }
   }
   tick();
   setInterval(tick, 1000);
@@ -1128,7 +1145,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         img: "assets/story-jianshui-shop.jpg",
         title: "The old shop that sold nothing I could name",
         body: [
-          "There's a shop in Jianshui that doesn't seem to sell anything. It has a counter, a scale, two glass jars of candy, and an old woman behind the counter who is always peeling garlic. I went in once with three classmates, at the start of our second year, when we were supposed to be doing a survey for class but ended up just wandering the old town instead.",
+          "There's a shop in Jianshui that doesn't seem to sell anything. It has a counter, a scale, two glass jars of candy, and an old woman behind the counter who is always peeling garlic. I went in once with three friends, at the cusp of a season that would change everything, when we were supposed to be somewhere else but ended up just wandering the old town instead.",
           "We didn't buy anything. We asked for water and she gave us three small glasses, cloudy with a little sugar at the bottom. She didn't speak much Mandarin, and our Jianshui dialect was terrible, so we mostly nodded and smiled. When we left she pressed a handful of red candies into each of our pockets — the kind that cost one fen each, wrapped in translucent paper that stuck to your fingers.",
           "I went back last winter, four years later. The shop was still there. She was still peeling garlic. She didn't recognize me, or maybe she did and didn't say. I bought two bags of those candies. They tasted exactly the same — faintly artificial, faintly sweet, faintly sixteen."
         ]
@@ -1138,7 +1155,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         img: "assets/story-hekou-border.jpg",
         title: "The border town where the river decides the weather",
         body: [
-          "Hekou is the kind of town where the river decides what day it is. On foggy mornings the street lamps stay on until ten. On clear afternoons the sidewalks smell of jackfruit and diesel. When I was in high school I'd ride my bike to the bridge every weekend and sit on the low wall, not to look at anything across the border, just to watch the water move.",
+          "Hekou is the kind of town where the river decides what day it is. On foggy mornings the street lamps stay on until ten. On clear afternoons the sidewalks smell of jackfruit and diesel. For a long season I'd ride my bike to the bridge every weekend and sit on the low wall, not to look at anything across the border, just to watch the water move.",
           "Once a week a train would come through, slow, two or three carriages only, its bell ringing in a way that sounded half announcement, half apology. We'd all stand there, even the ones who acted too cool to care, and wait for it to pass. Then we'd ride home in a bunch, no one talking, our hair pushed flat by the wind it left behind.",
           "I took the train away three years ago, the day after my twentieth birthday. I cried all the way to Kunming, not because I was leaving, but because I didn't know I was going to miss a town this much until I was already on the other side of the hill."
         ]
@@ -1146,21 +1163,21 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       {
         type: "Places · Kunming",
         img: "assets/story-kunming-cherry.jpg",
-        title: "A spring I spent watching cherries fall instead of studying",
+        title: "A spring I spent watching cherries fall instead of living",
         body: [
-          "Cherry blossoms at Kunming University last about eleven days. I counted them my first spring there, because I was taking a class I didn't understand and falling asleep every time the professor opened his mouth. So instead I sat under the cherry trees with a notebook I never wrote in, and watched the blossoms drop in the wind.",
-          "A girl from the department next to mine sat down beside me on the fourth day. She had a camera and was also not studying. We didn't exchange names for three days, only opinions: which tree had the best light, whether the petals were better with or without wind, why the south gate canteen was the only one worth queuing for.",
-          "We're not in touch anymore. But I've been back to that campus twice, and both times I sat under that same tree, and both times the petals fell exactly the same way they always do — gentle, brief, a little apologetic — like they knew you'd be back to watch."
+          "Cherry blossoms by the old city wall last about eleven days. I counted them one spring, because I was meant to be doing something else entirely and couldn't focus on any of it. So instead I sat under the cherry trees with a notebook I never wrote in, and watched the blossoms drop in the wind.",
+          "A girl with a film camera sat down beside me on the fourth day. She was also doing nothing. We didn't exchange names for three days, only opinions: which tree had the best light, whether the petals were better with or without wind, why the wonton shop by the east gate was the only one worth queuing for.",
+          "We're not in touch anymore. But I've been back to that little corner of the city twice, and both times I sat under that same tree, and both times the petals fell exactly the same way they always do — gentle, brief, a little apologetic — like they knew you'd be back to watch."
         ]
       },
       {
         type: "Places · Mengzi",
         img: "assets/story-mengzi-station.jpg",
-        title: "The train station that smelled like summer homework",
+        title: "The train station that smelled like an unwritten letter",
         body: [
-          "Mengzi station is small enough that you can hear the announcement from the ticket office. When I was in middle school my grandmother would put me on the 8:07 to Gejiu every other Sunday, with a cloth bag of zongzi and a folded piece of paper with my seat number written on it in fountain pen ink that never dried properly.",
-          "The platform was always the same: one old man selling boiled sweet potatoes from a foam box, one girl my age reading a novel she was clearly not supposed to be reading, a cat that belonged to no one and slept on a baggage cart. The announcement was always the same: a woman's voice, crackly, sounding as tired as I felt about going back to school after a weekend at grandma's.",
-          "Last year I stood on that platform again, waiting for a different train, and I swear I could still smell the zongzi and the damp platform and that particular, hopeless smell of summer homework that hasn't been started yet."
+          "Mengzi station is small enough that you can hear the announcement from the ticket office. For years my grandmother would put me on the 8:07 to Gejiu every other Sunday, with a cloth bag of zongzi and a folded piece of paper with my seat number written on it in fountain pen ink that never dried properly.",
+          "The platform was always the same: one old man selling boiled sweet potatoes from a foam box, one girl my age reading a novel she was clearly not supposed to be reading, a cat that belonged to no one and slept on a baggage cart. The announcement was always the same: a woman's voice, crackly, sounding as tired as I felt about leaving grandma's house after a weekend.",
+          "Last year I stood on that platform again, waiting for a different train, and I swear I could still smell the zongzi and the damp platform and that particular, hopeless smell of an unwritten letter that will never be sent."
         ]
       },
       {
@@ -1168,8 +1185,8 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         img: "assets/story-anning-spring-night.jpg",
         title: "A night in Anning when nobody was in a hurry",
         body: [
-          "The Magnolia dorm at Anning has a quiet floor on the fifth-floor landing where no one sits, except me, in the weeks before I graduate. I'd go up there with a cup of lukewarm soybean milk and sit on the windowsill watching the old magnolia tree across the road. It would bloom twice a year, and each time I'd say to myself: remember this, you're going to want it later.",
-          "One night in March, two weeks before we had to move out, a group of juniors brought up a portable speaker and played old Cantopop songs from ten years ago. A boy I'd never spoken to sat next to me on the windowsill and we didn't talk for an hour, just listened. At the end, as he got up to leave, he said, \"College is going to end, you know.\" I said, \"I know.\" He said, \"Good night.\" And that was the whole conversation.",
+          "The old Magnolia house in Anning has a quiet landing on the fifth floor where no one sits, except me, in the weeks before we had to leave. I'd go up there with a cup of lukewarm soybean milk and sit on the windowsill watching the old magnolia tree across the road. It would bloom twice a year, and each time I'd say to myself: remember this, you're going to want it later.",
+          "One night in March, two weeks before move-out, a group of kids from downstairs brought up a portable speaker and played old Cantopop songs from ten years ago. A boy I'd never spoken to sat next to me on the windowsill and we didn't talk for an hour, just listened. At the end, as he got up to leave, he said, \"Everything ends, doesn't it?\" I said, \"I suppose it has to.\" He said, \"Good night.\" And that was the whole conversation.",
           "I think about that night often now. Not because of the song, or the boy, or the magnolia — but because for one hour, nobody was performing, nobody was trying to impress anybody, and we were all just there, under the same roof, listening to the same old song, at the exact age where everything feels both temporary and important."
         ]
       }
@@ -1240,7 +1257,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         img: "assets/story-jianshui-shop.jpg",
         title: "那家什么也不怎么卖的老店",
         body: [
-          "建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。大二上学期，我和三个同学本来要做课题调研，结果在老城逛了一下午，就拐进去了。",
+          "建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。在一个即将改变一切的季节开头，我和三个朋友本应去别处，结果在老城逛了一下午，就拐进去了。",
           "我们什么都没买，只要了水。她给了我们三小杯，杯底有一点点糖，浑浑的。她普通话不好，我们的建水话也烂，所以全程就是点头、笑。临走时她往我们每人兜里塞了一把红糖——一分钱一颗的那种，糖纸半透明，粘手指。",
           "去年冬天我又回去，四年之后。店还在，她还在剥大蒜。她没认出我，或者认出了没说。我买了两袋那种糖。味道一模一样——有点人工、有点甜、有点十六岁。"
         ]
@@ -1250,7 +1267,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         img: "assets/story-hekou-border.jpg",
         title: "这座被江水决定天气的边城",
         body: [
-          "河口是那种江水决定日子的小镇。雾重的早晨路灯亮到十点才关；天晴的午后人行道上飘着菠萝蜜和柴油的味道。高中时每到周末我就骑车去桥那儿，坐在低矮的墙边，不是看对岸，只是看水怎么流。",
+          "河口是那种江水决定日子的小镇。雾重的早晨路灯亮到十点才关；天晴的午后人行道上飘着菠萝蜜和柴油的味道。很长一段时间里，每个周末我都会骑车去桥那儿，坐在低矮的墙边，不是看对岸，只是看水怎么流。",
           "每周会有一班火车经过，慢慢的，只有两三节车厢，汽笛声像在宣告又像在道歉。我们全站着，哪怕那些装作不在乎的人也会等它过去。然后一群人骑车回家，没人说话，头发被火车留下的风压得平平的。",
           "三年前，过完二十岁生日的第二天，我坐那班火车离开了。一路哭到昆明。不是舍不得走，是没发现自己会这么舍不得，直到车已经翻过了那道看不见的山。"
         ]
@@ -1258,21 +1275,21 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       {
         type: "地方 · 昆明",
         img: "assets/story-kunming-cherry.jpg",
-        title: "那个没读书、只顾看樱花落的春天",
+        title: "那个只顾看樱花落的春天",
         body: [
-          "云大的樱花大概只开十一天。大一那年春天我数着过，因为一门课怎么都听不懂，教授一开口我就犯困。于是我带了一本永远没翻开的笔记本，坐到樱花树下，看花瓣一片一片被风吹下来。",
-          "第四天，隔壁院系的一个女生坐到我旁边。她带着相机，也没在学习。我们三天没交换名字，只谈看法：哪棵树的光最好、花瓣有风没风的哪种好看、为什么只有南门食堂值得排队。",
-          "后来没再联系。但我回过那所学校两次，每次都坐到那棵树下，每次花瓣落下来的样子都一模一样——温柔、短暂、带着一点点歉意——像它们知道你还会回来等。"
+          "老城墙边的樱花大概只开十一天。有一年春天我数着过，因为本应在做别的事，却怎么也静不下来。于是我带了一本永远没翻开的笔记本，坐到樱花树下，看花瓣一片一片被风吹下来。",
+          "第四天，一个带胶片机的女生坐到我旁边。她也什么都没做。我们三天没交换名字，只谈看法：哪棵树的光最好、花瓣有风没风的哪种好看、为什么只有东门那家馄饨店值得排队。",
+          "后来没再联系。但我回过那片樱花林两次，每次都坐到那棵树下，每次花瓣落下来的样子都一模一样——温柔、短暂、带着一点点歉意——像它们知道你还会回来等。"
         ]
       },
       {
         type: "地方 · 蒙自",
         img: "assets/story-mengzi-station.jpg",
-        title: "那座闻起来像暑假作业的小火车站",
+        title: "那座闻起来像未寄出的信的小火车站",
         body: [
-          "蒙自车站小到在售票处就能听见广播。初中时每两周奶奶会把我送上八点零七分开往个旧的火车，塞一袋粽子，再加一张用水笔写着座位号的折纸条，那墨水总干不透。",
-          "站台永远是那个样子：一个老头在泡沫箱子里卖煮红薯、一个和我同龄的女生在读一本明显不该读的小说、一只不属于任何人的猫睡在行李车上。广播也永远是那个女人的声音，沙沙的，和我每次过完周末要回学校的心情一样累。",
-          "去年我又站在那个站台上，等另一班火车，真的还能闻到粽子、潮湿站台、还有那种「暑假作业还没开始写」的绝望味道。"
+          "蒙自车站小到在售票处就能听见广播。多年来奶奶每两周都会把我送上八点零七分开往个旧的火车，塞一袋粽子，再加一张用水笔写着座位号的折纸条，那墨水总干不透。",
+          "站台永远是那个样子：一个老头在泡沫箱子里卖煮红薯、一个和我同龄的女生在读一本明显不该读的小说、一只不属于任何人的猫睡在行李车上。广播也永远是那个女人的声音，沙沙的，和每次过完周末要离开奶奶家的心情一样累。",
+          "去年我又站在那个站台上，等另一班火车，真的还能闻到粽子、潮湿站台、还有那种「一封永远不会寄出的信」的绝望味道。"
         ]
       },
       {
@@ -1280,8 +1297,8 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
         img: "assets/story-anning-spring-night.jpg",
         title: "安宁那个没人着急的夜晚",
         body: [
-          "安宁的玉兰宿舍五楼有个没人坐的安静转角，毕业前那几周我总在那儿。拿一杯温掉的豆奶坐在窗台上，看马路对面那棵老玉兰。它一年开两次，每次我都跟自己说：记住这个，以后会想的。",
-          "三月的一个晚上，搬宿舍前两周，几个学弟学妹抱了便携音箱上来，放十年前的老粤语歌。一个从没说过话的男生在我旁边坐下，我们就这样一个小时没说话，只听歌。临走他说：「大学要结束了哦。」我说：「嗯。」他说：「晚安。」就这三句。",
+          "安宁那栋老玉兰楼的五楼有个没人坐的安静转角，要搬走的前几周我总在那儿。拿一杯温掉的豆奶坐在窗台上，看马路对面那棵老玉兰。它一年开两次，每次我都跟自己说：记住这个，以后会想的。",
+          "三月的一个晚上，要搬东西的前两周，楼下几个小孩抱了便携音箱上来，放十年前的老粤语歌。一个从没说过话的男生在我旁边坐下，我们就这样一个小时没说话，只听歌。临走他说：「一切都会结束的哈。」我说：「嗯。」他说：「晚安。」就这三句。",
           "现在我常常想起那个晚上。不是因为歌、不是因为人、也不是因为玉兰——是因为那一个小时里，没有人在表演、没有人想给谁留好印象，我们只是一起在那儿，听同一首老歌，在那个一切都既短暂又重要的年纪。"
         ]
       }
