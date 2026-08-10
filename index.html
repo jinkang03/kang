@@ -381,27 +381,35 @@
   }
   .story-body{
     position:absolute;inset:0;
-    padding:2.4rem 4.2rem 2rem;color:#fff;
-    display:flex;flex-direction:column;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+    padding:clamp(1.2rem,3vw,3rem);
+    box-sizing:border-box;
+  }
+  .story-body .story-content{
+    max-width:clamp(260px, 78vw, 720px);
+    width:100%;
+    text-align:center;
   }
   .story-body .kicker{display:none}
   .story-body h3{
     font-family:var(--serif);font-weight:500;
-    font-size:clamp(1.8rem,3.2vw,2.6rem);
-    line-height:1.15;letter-spacing:-.005em;margin:0 0 1.4rem;
-    max-width:760px;flex-shrink:0;
+    font-size:clamp(1.25rem, 2.6vw, 2.4rem);
+    line-height:1.2;letter-spacing:-.005em;margin:0 0 1.1rem;
+    max-width:760px;margin-inline:auto;flex-shrink:0;
   }
   .story-body .prose{
-    max-width:780px;flex-shrink:0;
+    max-width:clamp(220px, 72vw, 620px);margin:0 auto;flex-shrink:0;
   }
   .story-body .prose p{
-    margin:0 0 .8rem;color:rgba(255,255,255,.88);
-    font-size:.94rem;line-height:1.85;
+    margin:0 0 .7rem;color:rgba(255,255,255,.88);
+    font-size:clamp(.82rem, 1.05vw, .98rem);
+    line-height:1.85;
     font-family:'Noto Serif SC',var(--serif),Georgia,serif;
   }
   .story-body .prose p:last-child{margin-bottom:0}
   .story-body .sig-pill{
-    margin-top:auto;align-self:flex-start;
+    margin-top:1.6rem;display:inline-block;
     font-family:var(--serif);font-style:italic;font-size:.9rem;
     padding:.22rem .8rem;border-radius:999px;
     background:rgba(255,255,255,.07);backdrop-filter:blur(4px);
@@ -482,9 +490,9 @@
     .connect{padding:7rem 1.4rem}
     .stories{padding:7rem 1.4rem}
     .story-card{aspect-ratio: 4 / 5;}
-    .story-body{padding:2.2rem 1.5rem 1.8rem;}
-    .story-body h3{font-size:1.6rem;line-height:1.25}
-    .story-body .prose p{font-size:.9rem;line-height:1.75}
+    .story-body h3{font-size:clamp(1.15rem, 5.2vw, 1.55rem);line-height:1.22}
+    .story-body .prose p{font-size:clamp(.78rem, 3.6vw, .9rem);line-height:1.78}
+    .story-body .story-content{max-width:clamp(220px, 82vw, 340px)}
     .story-scrim{background:linear-gradient(180deg, rgba(20,14,10,0) 22%, rgba(20,14,10,.52) 52%, rgba(20,14,10,.9) 100%)}
     .hero::after{display:none}
   }
@@ -628,10 +636,12 @@
       <div class="story-bg" id="storyBg"></div>
       <div class="story-scrim"></div>
       <div class="story-body">
-        <div class="kicker"><span class="dot"></span><span id="storyKicker"></span></div>
-        <h3 id="storyTitle"></h3>
-        <div class="prose" id="storyProse"></div>
-        <div class="sig-pill">— E.K.</div>
+        <div class="story-content">
+          <div class="kicker"><span class="dot"></span><span id="storyKicker"></span></div>
+          <h3 id="storyTitle"></h3>
+          <div class="prose" id="storyProse"></div>
+          <div class="sig-pill">— E.K.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1049,7 +1059,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   window.addEventListener("ethan-lang-changed", render);
 })();
 
-/* ================= Stories — pick one per visit (5 pool, EN+ZH) ================= */
+/* ================= Stories — pick one per visit (11 pool, EN+ZH) ================= */
 (function stories(){
   const STORIES = {
     en: [
@@ -1102,6 +1112,66 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
           "The coffee will be mediocre but always warm. There will be one cat, asleep on top of the poetry section, and he'll have a name that sounds like an old man's, like Frederick or Arthur. I won't check how much we sold at the end of the day. Not because I don't care, but because I care about the other thing more: the person who came in crying and left an hour later with a 1970s paperback they didn't know they needed.",
           "It'll close at strange hours. Sometimes midnight. Sometimes never, if someone's still reading by the window. You don't have to buy anything. You just have to be okay with being lost, for a little while, in the same room as me."
         ]
+      },
+      {
+        type: "Places · Gejiu",
+        img: "assets/story-gejiu-tin.jpg",
+        title: "The old tin mine that taught me how to be quiet",
+        body: [
+          "In Gejiu the rain tastes like tin. Not in a bad way — in the way that a place you grew up in gets into everything, your hair, your shoes, the way you hold a cup. I was seventeen when I first worked a summer down at the mine's processing yard, sweeping the white dust into piles with three other kids from the dorm.",
+          "We earned eleven yuan an hour and split a watermelon at noon under a tin roof that rang like a drum when it rained. The foreman was a man everyone called Old Zhou, who had a scar across his left wrist and whistled opera when the supervisor wasn't around. He once told me: \"Work teaches you patience, but only if you let it.\" I didn't believe him at seventeen. I believe him now.",
+          "I go back sometimes, not to the mine — most of it is closed now — but to the hill above it, where you can see the whole of Gejiu stacked down the valley like someone dropped a handful of coins. I still taste that rain when I'm somewhere else, and I think: whatever I become, I started here, sweeping dust with three strangers who became my first real friends."
+        ]
+      },
+      {
+        type: "Places · Jianshui",
+        img: "assets/story-jianshui-shop.jpg",
+        title: "The old shop that sold nothing I could name",
+        body: [
+          "There's a shop in Jianshui that doesn't seem to sell anything. It has a counter, a scale, two glass jars of candy, and an old woman behind the counter who is always peeling garlic. I went in once with three classmates, at the start of our second year, when we were supposed to be doing a survey for class but ended up just wandering the old town instead.",
+          "We didn't buy anything. We asked for water and she gave us three small glasses, cloudy with a little sugar at the bottom. She didn't speak much Mandarin, and our Jianshui dialect was terrible, so we mostly nodded and smiled. When we left she pressed a handful of red candies into each of our pockets — the kind that cost one fen each, wrapped in translucent paper that stuck to your fingers.",
+          "I went back last winter, four years later. The shop was still there. She was still peeling garlic. She didn't recognize me, or maybe she did and didn't say. I bought two bags of those candies. They tasted exactly the same — faintly artificial, faintly sweet, faintly sixteen."
+        ]
+      },
+      {
+        type: "Places · Hekou",
+        img: "assets/story-hekou-border.jpg",
+        title: "The border town where the river decides the weather",
+        body: [
+          "Hekou is the kind of town where the river decides what day it is. On foggy mornings the street lamps stay on until ten. On clear afternoons the sidewalks smell of jackfruit and diesel. When I was in high school I'd ride my bike to the bridge every weekend and sit on the low wall, not to look at anything across the border, just to watch the water move.",
+          "Once a week a train would come through, slow, two or three carriages only, its bell ringing in a way that sounded half announcement, half apology. We'd all stand there, even the ones who acted too cool to care, and wait for it to pass. Then we'd ride home in a bunch, no one talking, our hair pushed flat by the wind it left behind.",
+          "I took the train away three years ago, the day after my twentieth birthday. I cried all the way to Kunming, not because I was leaving, but because I didn't know I was going to miss a town this much until I was already on the other side of the hill."
+        ]
+      },
+      {
+        type: "Places · Kunming",
+        img: "assets/story-kunming-cherry.jpg",
+        title: "A spring I spent watching cherries fall instead of studying",
+        body: [
+          "Cherry blossoms at Kunming University last about eleven days. I counted them my first spring there, because I was taking a class I didn't understand and falling asleep every time the professor opened his mouth. So instead I sat under the cherry trees with a notebook I never wrote in, and watched the blossoms drop in the wind.",
+          "A girl from the department next to mine sat down beside me on the fourth day. She had a camera and was also not studying. We didn't exchange names for three days, only opinions: which tree had the best light, whether the petals were better with or without wind, why the south gate canteen was the only one worth queuing for.",
+          "We're not in touch anymore. But I've been back to that campus twice, and both times I sat under that same tree, and both times the petals fell exactly the same way they always do — gentle, brief, a little apologetic — like they knew you'd be back to watch."
+        ]
+      },
+      {
+        type: "Places · Mengzi",
+        img: "assets/story-mengzi-station.jpg",
+        title: "The train station that smelled like summer homework",
+        body: [
+          "Mengzi station is small enough that you can hear the announcement from the ticket office. When I was in middle school my grandmother would put me on the 8:07 to Gejiu every other Sunday, with a cloth bag of zongzi and a folded piece of paper with my seat number written on it in fountain pen ink that never dried properly.",
+          "The platform was always the same: one old man selling boiled sweet potatoes from a foam box, one girl my age reading a novel she was clearly not supposed to be reading, a cat that belonged to no one and slept on a baggage cart. The announcement was always the same: a woman's voice, crackly, sounding as tired as I felt about going back to school after a weekend at grandma's.",
+          "Last year I stood on that platform again, waiting for a different train, and I swear I could still smell the zongzi and the damp platform and that particular, hopeless smell of summer homework that hasn't been started yet."
+        ]
+      },
+      {
+        type: "Places · Anning",
+        img: "assets/story-anning-spring-night.jpg",
+        title: "A night in Anning when nobody was in a hurry",
+        body: [
+          "The Magnolia dorm at Anning has a quiet floor on the fifth-floor landing where no one sits, except me, in the weeks before I graduate. I'd go up there with a cup of lukewarm soybean milk and sit on the windowsill watching the old magnolia tree across the road. It would bloom twice a year, and each time I'd say to myself: remember this, you're going to want it later.",
+          "One night in March, two weeks before we had to move out, a group of juniors brought up a portable speaker and played old Cantopop songs from ten years ago. A boy I'd never spoken to sat next to me on the windowsill and we didn't talk for an hour, just listened. At the end, as he got up to leave, he said, \"College is going to end, you know.\" I said, \"I know.\" He said, \"Good night.\" And that was the whole conversation.",
+          "I think about that night often now. Not because of the song, or the boy, or the magnolia — but because for one hour, nobody was performing, nobody was trying to impress anybody, and we were all just there, under the same roof, listening to the same old song, at the exact age where everything feels both temporary and important."
+        ]
       }
     ],
     zh: [
@@ -1153,6 +1223,66 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
           "总有一天，我要在一个我还不属于的城市，开一家小书店。窄窄的，挤挤的，那种不被真正爱你的人指两三次路就绝对找不到的店。",
           "咖啡会难喝，但永远是热的。会有一只猫，趴在诗集区上睡觉，名字要像老头子一样，比如「弗雷德里克」或者「亚瑟」。打烊时我不会数今天卖了几本书——不是不在乎，是因为更在乎另一件事：那个进来时眼睛红红的人，一小时之后带着一本七十年代的旧平装本走了，说她以前从来不知道她需要这本书。",
           "开门的时间会很奇怪。有时开到半夜十二点。有时有人还在窗边看书，就干脆不开门了。你什么都不用买。只要你也愿意——和我一起，在这间屋子里，迷失一小会儿。"
+        ]
+      },
+      {
+        type: "地方 · 个旧",
+        img: "assets/story-gejiu-tin.jpg",
+        title: "那座教我安静下来的旧锡矿",
+        body: [
+          "在个旧，雨的味道是锡味的。不难闻——是那种你长大的地方渗进一切的味道：头发里、鞋帮上、握杯子的指缝里都有。十七岁那年暑假我第一次在矿区的选矿厂打工，和宿舍里另外三个孩子一起扫白色的矿粉，扫成一堆一堆。",
+          "一小时十一块钱，中午在铁皮屋顶下分一个西瓜，下雨的时候屋顶像鼓一样咚咚响。工头大家都叫他老周，左手腕一道疤，监工不在就吹京剧口哨。他跟我说过一次：「工作会教人耐心，但得你愿意学才行。」十七岁我不信。现在我信了。",
+          "偶尔回去，不去矿区——大部分都关了——而是去山上，从那儿能看见整个个旧顺着山坡一层层铺开，像有人撒了一把硬币。我在外地时嘴里还会有那种锡味，心里想：不管我后来变成什么样，我是从这里开始的，和三个陌生人一起扫矿粉，成了最早的朋友。"
+        ]
+      },
+      {
+        type: "地方 · 建水",
+        img: "assets/story-jianshui-shop.jpg",
+        title: "那家什么也不怎么卖的老店",
+        body: [
+          "建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。大二上学期，我和三个同学本来要做课题调研，结果在老城逛了一下午，就拐进去了。",
+          "我们什么都没买，只要了水。她给了我们三小杯，杯底有一点点糖，浑浑的。她普通话不好，我们的建水话也烂，所以全程就是点头、笑。临走时她往我们每人兜里塞了一把红糖——一分钱一颗的那种，糖纸半透明，粘手指。",
+          "去年冬天我又回去，四年之后。店还在，她还在剥大蒜。她没认出我，或者认出了没说。我买了两袋那种糖。味道一模一样——有点人工、有点甜、有点十六岁。"
+        ]
+      },
+      {
+        type: "地方 · 河口",
+        img: "assets/story-hekou-border.jpg",
+        title: "这座被江水决定天气的边城",
+        body: [
+          "河口是那种江水决定日子的小镇。雾重的早晨路灯亮到十点才关；天晴的午后人行道上飘着菠萝蜜和柴油的味道。高中时每到周末我就骑车去桥那儿，坐在低矮的墙边，不是看对岸，只是看水怎么流。",
+          "每周会有一班火车经过，慢慢的，只有两三节车厢，汽笛声像在宣告又像在道歉。我们全站着，哪怕那些装作不在乎的人也会等它过去。然后一群人骑车回家，没人说话，头发被火车留下的风压得平平的。",
+          "三年前，过完二十岁生日的第二天，我坐那班火车离开了。一路哭到昆明。不是舍不得走，是没发现自己会这么舍不得，直到车已经翻过了那道看不见的山。"
+        ]
+      },
+      {
+        type: "地方 · 昆明",
+        img: "assets/story-kunming-cherry.jpg",
+        title: "那个没读书、只顾看樱花落的春天",
+        body: [
+          "云大的樱花大概只开十一天。大一那年春天我数着过，因为一门课怎么都听不懂，教授一开口我就犯困。于是我带了一本永远没翻开的笔记本，坐到樱花树下，看花瓣一片一片被风吹下来。",
+          "第四天，隔壁院系的一个女生坐到我旁边。她带着相机，也没在学习。我们三天没交换名字，只谈看法：哪棵树的光最好、花瓣有风没风的哪种好看、为什么只有南门食堂值得排队。",
+          "后来没再联系。但我回过那所学校两次，每次都坐到那棵树下，每次花瓣落下来的样子都一模一样——温柔、短暂、带着一点点歉意——像它们知道你还会回来等。"
+        ]
+      },
+      {
+        type: "地方 · 蒙自",
+        img: "assets/story-mengzi-station.jpg",
+        title: "那座闻起来像暑假作业的小火车站",
+        body: [
+          "蒙自车站小到在售票处就能听见广播。初中时每两周奶奶会把我送上八点零七分开往个旧的火车，塞一袋粽子，再加一张用水笔写着座位号的折纸条，那墨水总干不透。",
+          "站台永远是那个样子：一个老头在泡沫箱子里卖煮红薯、一个和我同龄的女生在读一本明显不该读的小说、一只不属于任何人的猫睡在行李车上。广播也永远是那个女人的声音，沙沙的，和我每次过完周末要回学校的心情一样累。",
+          "去年我又站在那个站台上，等另一班火车，真的还能闻到粽子、潮湿站台、还有那种「暑假作业还没开始写」的绝望味道。"
+        ]
+      },
+      {
+        type: "地方 · 安宁",
+        img: "assets/story-anning-spring-night.jpg",
+        title: "安宁那个没人着急的夜晚",
+        body: [
+          "安宁的玉兰宿舍五楼有个没人坐的安静转角，毕业前那几周我总在那儿。拿一杯温掉的豆奶坐在窗台上，看马路对面那棵老玉兰。它一年开两次，每次我都跟自己说：记住这个，以后会想的。",
+          "三月的一个晚上，搬宿舍前两周，几个学弟学妹抱了便携音箱上来，放十年前的老粤语歌。一个从没说过话的男生在我旁边坐下，我们就这样一个小时没说话，只听歌。临走他说：「大学要结束了哦。」我说：「嗯。」他说：「晚安。」就这三句。",
+          "现在我常常想起那个晚上。不是因为歌、不是因为人、也不是因为玉兰——是因为那一个小时里，没有人在表演、没有人想给谁留好印象，我们只是一起在那儿，听同一首老歌，在那个一切都既短暂又重要的年纪。"
         ]
       }
     ]
