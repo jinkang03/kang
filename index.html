@@ -151,20 +151,30 @@
   nav .clock{
     justify-self:center;text-align:center;
     font-family:var(--serif);font-style:italic;
-    font-size:.95rem;letter-spacing:.05em;color:var(--ink-soft);
-    display:flex;flex-direction:column;align-items:center;gap:.15rem;
-    opacity:.88;white-space:nowrap;line-height:1.25;
+    font-size:1.4rem;letter-spacing:.05em;color:var(--ink-soft);
+    display:flex;flex-direction:column;align-items:center;gap:.2rem;
+    white-space:nowrap;line-height:1.2;
+    transition:font-size .5s cubic-bezier(.22,1,.36,1), gap .5s cubic-bezier(.22,1,.36,1);
   }
   nav .clock .clock-main{
-    display:flex;align-items:center;gap:.75rem;
+    display:flex;align-items:center;gap:.9rem;
+    transition:gap .5s cubic-bezier(.22,1,.36,1);
   }
   nav .clock .dot{
-    width:4px;height:4px;border-radius:50%;
+    width:6px;height:6px;border-radius:50%;
     background:var(--accent);
-    box-shadow:0 0 0 3px var(--accent-soft);
+    box-shadow:0 0 0 4px var(--accent-soft);
+    transition:width .5s cubic-bezier(.22,1,.36,1), height .5s cubic-bezier(.22,1,.36,1), box-shadow .5s cubic-bezier(.22,1,.36,1);
   }
-  nav .clock .date{font-size:.76rem;letter-spacing:.08em;color:var(--ink-dim);font-style:normal;font-family:var(--sans)}
-  nav .clock .days-counter{font-size:.64rem;letter-spacing:.06em;color:var(--ink-dim);font-style:normal;font-family:var(--sans);opacity:.7;margin-top:.05rem}
+  nav .clock .date{font-size:1.05rem;letter-spacing:.08em;color:var(--ink-soft);font-style:normal;font-family:var(--sans);font-weight:400;transition:font-size .5s cubic-bezier(.22,1,.36,1)}
+  nav .clock .days-counter{font-size:2rem;letter-spacing:.04em;color:var(--accent);font-style:normal;font-family:var(--serif);font-weight:500;margin-top:.1rem;line-height:1;transition:font-size .5s cubic-bezier(.22,1,.36,1), color .5s}
+  nav .clock.scrolled{
+    font-size:.95rem;
+  }
+  nav .clock.scrolled .clock-main{gap:.75rem}
+  nav .clock.scrolled .dot{width:4px;height:4px;box-shadow:0 0 0 3px var(--accent-soft)}
+  nav .clock.scrolled .date{font-size:.76rem;color:var(--ink-dim)}
+  nav .clock.scrolled .days-counter{font-size:.64rem;color:var(--ink-dim);opacity:.9;margin-top:.05rem}
   nav .right{display:flex;align-items:center;gap:2rem;justify-self:end}
   nav .links{display:flex;gap:2.4rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;font-weight:500}
   nav .links a{position:relative;opacity:.72;transition:opacity .3s}
@@ -480,7 +490,12 @@
   /* ============ Responsive ============ */
   @media(max-width:860px){
     nav{padding:1.1rem 1.4rem;grid-template-columns:1fr 1fr;gap:.6rem}
-    nav .clock{grid-column:1 / -1;grid-row:2;order:3;padding-top:.2rem;font-size:.82rem}
+    nav .clock{grid-column:1 / -1;grid-row:2;order:3;padding-top:.2rem;font-size:1.1rem}
+    nav .clock .date{font-size:.88rem}
+    nav .clock .days-counter{font-size:1.5rem}
+    nav .clock.scrolled{font-size:.82rem}
+    nav .clock.scrolled .date{font-size:.72rem}
+    nav .clock.scrolled .days-counter{font-size:.6rem}
     nav .links{gap:1.2rem;font-size:.58rem}
     section{padding:6rem 1.4rem}
     .about-grid{grid-template-columns:1fr;gap:3rem}
@@ -905,16 +920,31 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
     if(daysEl){
       const diffMs = now - START_DATE;
-      const days = Math.floor(diffMs / 86400000);
-      if(lang === "zh"){
-        daysEl.textContent = `自 2003 年 5 月 15 日以来的第 ${days} 天`;
-      }else{
-        daysEl.textContent = `Day ${days} since May 15, 2003`;
-      }
+      const days = Math.ceil(diffMs / 86400000);
+      daysEl.textContent = days;
     }
   }
   tick();
   setInterval(tick, 1000);
+
+  const clockEl = document.querySelector(".clock");
+  if(clockEl){
+    let ticking = false;
+    function onScroll(){
+      if(!ticking){
+        requestAnimationFrame(()=>{
+          if(window.scrollY > 40){
+            clockEl.classList.add("scrolled");
+          }else{
+            clockEl.classList.remove("scrolled");
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    window.addEventListener("scroll", onScroll, {passive:true});
+  }
 })();
 
 /* ================= Random rotating slogan ================= */
