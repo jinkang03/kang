@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ethan Kang — Personal</title>
-<meta name="description" content="Ethan Kang's personal site — moments, frames, and the in-between.">
+<title>Jin Kang — Personal</title>
+<meta name="description" content="Jin Kang's personal site — moments, frames, and the in-between.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="assets/hero-poster.jpg" as="image">
@@ -312,7 +312,7 @@
   }
   .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:5rem;flex-wrap:wrap;gap:2rem}
   .gallery-head p{max-width:360px;color:var(--ink-soft);font-size:.96rem;line-height:1.9}
-  .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.2rem}
+  .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
   .g-item{
     overflow:hidden;position:relative;background:var(--bg-3);
     border:1px solid var(--line);cursor:pointer;
@@ -325,16 +325,24 @@
   .g-item:hover img{transform:scale(1.05);filter:saturate(1.06) contrast(1.06)}
   .g-item .cap{
     position:absolute;left:0;bottom:0;right:0;
-    padding:1.4rem 1.5rem;color:#fff;font-size:.68rem;letter-spacing:.16em;
+    padding:1.2rem 1.3rem;color:#fff;font-size:.65rem;letter-spacing:.16em;
     background:linear-gradient(0deg,rgba(43,39,36,.88),transparent);
     opacity:0;transform:translateY(10px);transition:all .6s ease;
   }
   .g-item:hover .cap{opacity:1;transform:none}
-  .g-item .cap .num{color:var(--accent);margin-right:.7rem;font-family:var(--serif);font-style:italic;font-size:.95rem}
-  .g-1{grid-column:span 7;height:540px}
-  .g-2{grid-column:span 5;height:540px}
-  .g-3{grid-column:span 5;height:390px}
-  .g-4{grid-column:span 7;height:390px}
+  .g-item .cap .num{color:var(--accent);margin-right:.6rem;font-family:var(--serif);font-style:italic;font-size:.9rem}
+  .g-1{grid-column:span 7;height:520px}
+  .g-2{grid-column:span 5;height:520px}
+  .g-3{grid-column:span 4;height:360px}
+  .g-4{grid-column:span 5;height:360px}
+  .g-5{grid-column:span 3;height:360px}
+  .g-6{grid-column:span 5;height:340px}
+  .g-7{grid-column:span 4;height:340px}
+  .g-8{grid-column:span 3;height:340px}
+  .g-9{grid-column:span 3;height:320px}
+  .g-10{grid-column:span 6;height:320px}
+  .g-11{grid-column:span 3;height:320px}
+  .g-12{grid-column:span 12;height:380px}
 
   /* ============ Stories ============ */
   .stories{
@@ -507,7 +515,7 @@
   <div class="gate-inner">
     <div class="gate-ornament"></div>
     <div class="gate-greet" data-i18n="gate.greet">Welcome</div>
-    <h2 class="gate-name">Eth<em>a</em>n<span class="last">Kang</span></h2>
+    <h2 class="gate-name">Ji<em>n</em><span class="last">Kang</span></h2>
     <p class="gate-sub" data-i18n="gate.sub">Choose your language to continue. Your choice will be remembered for the next visit.</p>
     <div class="gate-buttons">
       <button class="gate-btn primary" data-lang="en">English</button>
@@ -518,7 +526,7 @@
 
 <!-- ============ Nav ============ -->
 <nav id="nav">
-  <a href="#top" class="mark always">Ethan <em>Kang</em></a>
+  <a href="#top" class="mark always">Jin <em>Kang</em></a>
   <div class="clock" aria-live="off">
     <span class="dot"></span>
     <span id="clockDate" class="date"></span>
@@ -554,7 +562,7 @@
   <div class="hero-inner">
     <div class="eyebrow" id="slogan">Live in the light you're given.</div>
     <h1>
-      Ethan <em>Kang</em>
+      Jin <em>Kang</em>
       <span class="tag" data-i18n="hero.tag">Moments · Frames · In-between</span>
     </h1>
     <p class="lede" data-i18n="hero.lede">A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for just one more click of the shutter.</p>
@@ -569,13 +577,13 @@
 <section class="about" id="about">
   <div class="wrap about-grid">
     <div class="about-portrait reveal">
-      <img src="assets/art-portrait-1.jpg" alt="Portrait of Ethan Kang">
+      <img src="assets/art-portrait-1.jpg" alt="Portrait of Jin Kang">
     </div>
     <div class="about-text">
       <div class="label reveal" data-i18n="about.label">About</div>
       <p class="reveal d1" data-i18n="about.quote">"Collecting light, one frame at a time."</p>
       <div id="aboutRotating" class="reveal d2"></div>
-      <div class="sig reveal d3">— Ethan Kang</div>
+      <div class="sig reveal d3">— Jin Kang</div>
     </div>
   </div>
 </section>
@@ -591,10 +599,18 @@
       <p class="reveal d2" data-i18n="gallery.desc">A rolling collection of frames — curated loosely, arranged randomly. Some are staged in borrowed apartments with borrowed light; most are stolen from real days that will never return. Each one holds a single, specific second that I couldn't bear to let go.</p>
     </div>
     <div class="gallery-grid">
-      <div class="g-item g-1 reveal"><img src="assets/landscape-1.jpg" alt="Misty mountain lake" loading="lazy"><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
-      <div class="g-item g-2 reveal d1"><img src="assets/landscape-2.jpg" alt="Coastal cliff at sunset" loading="lazy"><div class="cap"><span class="num">02</span><span data-i18n="gallery.c2">Coastal Dusk</span></div></div>
-      <div class="g-item g-3 reveal"><img src="assets/landscape-3.jpg" alt="City alley with cherry blossoms" loading="lazy"><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">City Bloom</span></div></div>
-      <div class="g-item g-4 reveal d1"><img src="assets/landscape-4.jpg" alt="Countryside green fields" loading="lazy"><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
+      <div class="g-item g-1 reveal"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Yunnan+landscape+photography+misty+mountain+lake+Lugu+lake+morning+fog+golden+hour+film+grain+natural+light+photojournalism+style&image_size=landscape_16_9" alt="Lugu Lake in morning mist" loading="lazy"><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
+      <div class="g-item g-2 reveal d1"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Humanistic+street+photography+Dali+old+town+Yunnan%2C+narrow+cobblestone+street%2C+Bai+minority+architecture%2C+evening+golden+sunlight+streams+through+tiles%2C+silhouette+of+old+woman+carrying+basket%2C+film+grain%2C+warm+tones&image_size=portrait_4_3" alt="Dali old town alley" loading="lazy"><div class="cap"><span class="num">02</span><span data-i18n="gallery.c2">Coastal Dusk</span></div></div>
+      <div class="g-item g-3 reveal"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Dali+old+town+rooftops+Yunnan+traditional+architecture+tiled+roofs+soft+mist+blue+hour+evening+atmosphere+documentary+photography+film+grain&image_size=square_hd" alt="Dali old town roofs" loading="lazy"><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">Dali Old Town</span></div></div>
+      <div class="g-item g-4 reveal d1"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Yunnan+Yuanyang+rice+terraces+spectacular+landscape+sunrise+layers+of+green+terraces+rolling+hills+morning+clouds+birds+flying+panoramic+photography+warm+tones&image_size=landscape_16_9" alt="Yuanyang rice terraces sunrise" loading="lazy"><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
+      <div class="g-item g-5 reveal"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Tibetan+Buddhist+monastery+interior+Shangri-La+Yunnan+soft+sunlight+through+wooden+window+incense+smoke+prayer+flags+old+monk+silhouette+contemplative+documentary+photography&image_size=square" alt="Tibetan monastery corner" loading="lazy"><div class="cap"><span class="num">05</span><span data-i18n="gallery.c5">Tibetan Corner</span></div></div>
+      <div class="g-item g-6 reveal d1"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Yunnan+morning+market+Kunming+humanistic+photography+old+woman+selling+vegetables+on+street+morning+sunlight+through+smoke+warm+tones+local+life+documentary+style+film&image_size=landscape_4_3" alt="Morning market in Yunnan" loading="lazy"><div class="cap"><span class="num">06</span><span data-i18n="gallery.c6">Morning Market</span></div></div>
+      <div class="g-item g-7 reveal"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Shangri-La+mountain+pass+road+Yunnan+high+altitude+landscape+yak+grazing+dramatic+sky+clouds+prayer+flags+on+pass+cold+morning+light+panoramic+photography&image_size=square_hd" alt="Shangri-La mountain pass" loading="lazy"><div class="cap"><span class="num">07</span><span data-i18n="gallery.c7">Shangri-La Pass</span></div></div>
+      <div class="g-item g-8 reveal d1"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Lijiang+old+town+tiled+roofs+aerial+view+Yunnan+thousands+of+traditional+Chinese+tiled+roofs+in+warm+afternoon+light+smoke+rising+from+chimneys+documentary+photography&image_size=square" alt="Lijiang tiled roofs" loading="lazy"><div class="cap"><span class="num">08</span><span data-i18n="gallery.c8">Tiled Roofs</span></div></div>
+      <div class="g-item g-9 reveal"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Yunnan+Pu%27er+tea+plantation+terraced+tea+hills+soft+morning+mist+tea+farmer+woman+picking+tea+leaves+wearing+traditional+hat+green+tones+humanistic+photography&image_size=square" alt="Pu'er tea plantation" loading="lazy"><div class="cap"><span class="num">09</span><span data-i18n="gallery.c9">Tea Hill</span></div></div>
+      <div class="g-item g-10 reveal d1"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Lugu+Lake+Yunnan+stilt+houses+mosuo+village+by+the+lake+sunset+golden+hour+reflection+on+calm+water+smoke+from+chimneys+peaceful+landscape+documentary+photography&image_size=landscape_16_9" alt="Lugu Lake stilt village" loading="lazy"><div class="cap"><span class="num">10</span><span data-i18n="gallery.c10">Lugu Water</span></div></div>
+      <div class="g-item g-11 reveal"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Yuanyang+Hani+rice+terraces+Yunnan+close-up+terraced+layers+water+filled+terraces+reflecting+sky+farmer+in+traditional+clothes+walking+on+ridge+cinematic+photography&image_size=square" alt="Hani rice terraces" loading="lazy"><div class="cap"><span class="num">11</span><span data-i18n="gallery.c11">Rice Terraces</span></div></div>
+      <div class="g-item g-12 reveal d1"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Yunnan+cloudy+mountain+sky+landscape+wide+panorama+vast+sky+above+mountain+range+sea+of+clouds+below+golden+sunset+light+on+peaks+Yi+village+on+hilltop+cinematic+wide&image_size=landscape_16_9" alt="Yunnan mountain sky panorama" loading="lazy"><div class="cap"><span class="num">12</span><span data-i18n="gallery.c12">Yunnan Sky</span></div></div>
     </div>
   </div>
 </section>
@@ -663,7 +679,7 @@
 </section>
 
 <footer>
-  © 2026 Ethan Kang<span class="sep">·</span><span data-i18n="footer.made">Made with care</span>
+  © 2026 Jin Kang<span class="sep">·</span><span data-i18n="footer.made">Made with care</span>
 </footer>
 
 <script>
@@ -691,8 +707,16 @@ const I18N = {
     "gallery.desc": "A rolling collection of frames — curated loosely, arranged randomly. Some are staged in borrowed apartments with borrowed light; most are stolen from real days that will never return. Each one holds a single, specific second that I couldn't bear to let go.",
     "gallery.c1": "Silent Lake",
     "gallery.c2": "Coastal Dusk",
-    "gallery.c3": "City Bloom",
+    "gallery.c3": "Dali Old Town",
     "gallery.c4": "Slow Fields",
+    "gallery.c5": "Tibetan Corner",
+    "gallery.c6": "Morning Market",
+    "gallery.c7": "Shangri-La Pass",
+    "gallery.c8": "Tiled Roofs",
+    "gallery.c9": "Tea Hill",
+    "gallery.c10": "Lugu Water",
+    "gallery.c11": "Rice Terraces",
+    "gallery.c12": "Yunnan Sky",
     "stories.label": "Stories",
     "stories.titleMain": "Small letters,",
     "stories.titleEm": "never sent",
@@ -724,8 +748,16 @@ const I18N = {
     "gallery.desc": "一组流动的画面——随意收录、随机排列。有些是在借来的公寓里用借来的光线摆拍的；更多是从永不再来的真实日子里偷取的。每一张都承载着我不忍放手的那独一无二的一秒。",
     "gallery.c1": "静谧湖泊",
     "gallery.c2": "海岸黄昏",
-    "gallery.c3": "城市花季",
+    "gallery.c3": "大理老城",
     "gallery.c4": "田野之间",
+    "gallery.c5": "藏式一隅",
+    "gallery.c6": "清晨集市",
+    "gallery.c7": "香格里拉垭口",
+    "gallery.c8": "瓦屋顶",
+    "gallery.c9": "茶山",
+    "gallery.c10": "泸沽之水",
+    "gallery.c11": "元阳梯田",
+    "gallery.c12": "云南的天空",
     "stories.label": "故事",
     "stories.titleMain": "从未寄出的",
     "stories.titleEm": "短书信",
@@ -757,7 +789,7 @@ function applyLang(lang){
   });
   const btn = document.getElementById("langToggle");
   if(btn) btn.textContent = (lang === "en") ? "中 / EN" : "EN / 中";
-  document.title = (lang === "zh") ? "Ethan Kang · 个人主页" : "Ethan Kang — Personal";
+  document.title = (lang === "zh") ? "Jin Kang · 个人主页" : "Jin Kang — Personal";
 }
 function setLang(lang, persist=true){
   applyLang(lang);
@@ -952,9 +984,9 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       "These are not sad photos. They're grateful ones. Grateful the light existed. Grateful I was there to see it. Grateful the camera was pointed in the right direction at the right half-second."
     ],
     [
-      "Hong Kong is my anchor and my reference point — the city I measure all other cities against. Its energy is loud and unapologetic, but its quiet corners are the ones that taught me how to listen.",
-      "When I'm away, I think about it constantly. The way neon reflects in wet asphalt after rain. The sound of the escalator in the mid-levels at midnight. The specific shade of orange the sky turns over Victoria Harbour in November.",
-      "Every photo here carries a little of that city with it, whether the frame was shot in Hong Kong or not. You can take the photographer out of the city, but you can't take the city out of the frames."
+      "Yunnan is my anchor, my compass, the measure I use for every other place. Its altitude doesn't apologize — 2,000 metres and the sky feels closer, so close that clouds leave a residue of cold on your collar. But it's the small things that teach you how to listen: the silence between two bells, the way sunlight bends through pine smoke, how everyone sits outside their door at dusk like they collectively agreed to do nothing.",
+      "When I'm away, I miss it constantly. The way a Yi village's tiled roofs stack down a hillside. The smell of wild mushroom broth at a roadside stall in August. The specific shade of blue Lugu Lake turns at five p.m., when the wind drops and the water turns to stone.",
+      "Every photograph here carries a little of Yunnan with it, whether the frame was shot there or not. You can take the photographer out of the mountains, but you can't take the mountains out of the frames."
     ]
   ];
 
@@ -990,9 +1022,9 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       "这些不是悲伤的照片。是充满感激的。感谢那束光存在过。感谢我当时在那里看见了。感谢相机在正确的半秒指向了正确的方向。"
     ],
     [
-      "香港是我的锚，是我衡量所有其他城市的参照系——它的能量喧闹而毫不道歉，但那些安静的角落教会了我如何倾听。",
-      "离开的时候，我不停地想它。雨后霓虹倒映在湿柏油路上的样子。午夜半山扶梯的声音。十一月维多利亚港上空那抹特别的橙色。",
-      "这里的每一张照片都带着那座城市的一点气息，不管是不是在香港拍的。你可以把摄影师带出城市，但你带不走城市留在画面里的东西。"
+      "云南是我的锚，是我衡量所有其他地方的参照系。海拔两千米，天空离人近了些——云走过的时候，衣领上会沾一点冷的味道。但真正教会我怎么倾听的，是那些更小的事：两声寺钟之间的静、阳光穿过松烟时的弯曲、傍晚六点，家家户户都搬着小凳子坐在门口，像是大家约好了什么都不做。",
+      "离开的时候，我不停地想它。一个彝族寨子的瓦屋顶顺着山坡叠下去的样子。八月山路边摊的野生菌汤的香。下午五点泸沽湖会变成的那种蓝色——风停时，水硬得像石头。",
+      "这里的每一张照片都带着云南的一点气息，不管是不是在云南拍的。你可以把摄影师带出山，但你带不走山留在画面里的东西。"
     ]
   ];
 
@@ -1024,11 +1056,11 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       {
         type: "Emotional · 01",
         img: "assets/story-1-mong-kok-last-train.jpg",
-        title: "The last train to Mong Kok East",
+        title: "The bus to Dali that wouldn't stop for clouds",
         body: [
-          "You fell asleep on my shoulder somewhere between Sham Shui Po and Hung Hom. The train was nearly empty; the only other passenger was a security guard with his eyes closed, pretending not to see us.",
-          "Outside the window, neon signs slid past in the rain — pink, green, the same colour they've used in all my favourite dream-like films. The earphones we were sharing played a song with no words. I couldn't tell you its name, but I could probably still hum the whole thing from start to finish if you asked me tomorrow.",
-          "I didn't wake you up at your stop. I just let us ride to the end of the line, sitting there, the city moving past us and us not moving at all. Some nights you don't need an ending. You just need the right train, and the right person leaning against you."
+          "The bus was supposed to leave at seven. It left at nine. Nobody complained; the two old women next to me had brought a jar of pickles, and they shared. Somewhere between Chuxiong and Xiaguan, the driver slowed down so suddenly I thought something was wrong. It was just the clouds, he said. Liked to look at them.",
+          "Outside the window, terraces folded down the hillside in greens I didn't know existed — tea green, jade green, the colour of young rice that's just been watered. A man on the side of the road was walking a goat on a leash, and the goat kept stopping to stare at the bus, as if it knew we weren't in a hurry either. We passed a man selling pears from a basket, and the driver bought two. One for him. One for the old woman with the pickles. Nobody said thank you.",
+          "I was going to Dali to meet someone who didn't show up in the end. I don't even remember their name now. But I remember that bus. I remember the pickles, and the pears, and how somewhere, for six hours, we all agreed there were more important things than schedules."
         ]
       },
       {
@@ -1076,11 +1108,11 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       {
         type: "情感 · 零一",
         img: "assets/story-1-mong-kok-last-train.jpg",
-        title: "最后一班往旺角东的火车",
+        title: "去大理的那班慢车，和云一起走",
         body: [
-          "过了深水埗，你靠在我肩上睡着了。车厢里几乎没人，只有一个保安也闭着眼睛，装作没看见我们。",
-          "窗外的霓虹灯在雨里一条一条往后滑——粉红、翠绿，就是我最喜欢看的那些港风电影里的颜色。我们共用的耳机里放着一首没有歌词的歌。我讲不出它的名字，但如果你明天问我，我大概可以从头哼到尾。",
-          "你该下的那站我没叫醒你。就这么坐到了终点站，两个人都没动，只有这座城市在窗外飞驰而过。有些夜晚不需要结局。只需要一列对的火车，和一个对的人，靠着你。"
+          "本来七点发车的大巴，九点才动。没人抱怨；旁边两位老人带来一瓶腌菜，一人给我夹了一筷子。楚雄到下关的路上，司机突然踩了刹车，我以为出了什么事。他说，你看云。他喜欢看。",
+          "窗外的梯田一层一层往山坡下叠——茶绿、玉绿、刚浇完水的嫩稻的那种绿。路边一个人牵着一只羊，羊走两步就停，盯着大巴看，好像知道我们也不急。经过一个卖梨的挑子，司机停下来买了两个，一个自己吃，一个递给带腌菜的老太太。没有人说谢谢。",
+          "我那次去大理，是去见一个最后没出现的人。他的名字我已经记不清了。但那辆大巴我记得。腌菜的味道，梨的味道，还有六个小时里，全车人都默认了一件事：时间表没那么重要。"
         ]
       },
       {
