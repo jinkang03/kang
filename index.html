@@ -181,6 +181,19 @@
   nav .links a:hover{opacity:1}
   nav .links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .4s ease}
   nav .links a:hover::after{width:100%}
+  nav .visitor-ip{
+    font-family:var(--sans);
+    font-size:.7rem;letter-spacing:.04em;color:var(--ink-dim);
+    padding:.35rem .7rem;
+    border:1px solid var(--line);border-radius:999px;
+    background:rgba(255,255,255,.5);
+    white-space:nowrap;
+    opacity:.85;transition:opacity .3s;
+  }
+  nav .visitor-ip:hover{opacity:1}
+  nav .visitor-ip .vip-label{color:var(--accent);margin-right:.15rem;font-weight:500}
+  nav .visitor-ip .vip-val{color:var(--ink);font-weight:500;font-family:var(--serif);font-style:italic;font-size:.8rem;margin-right:.25rem}
+  nav .visitor-ip .vip-loc{opacity:.88}
   .lang-toggle{
     font-family:var(--serif);font-size:.88rem;font-style:italic;font-weight:500;
     padding:.35rem .9rem;border:1px solid var(--line-2);border-radius:999px;
@@ -527,6 +540,8 @@
     nav .clock{display:none}
     nav .links a{display:none}
     nav .right{gap:1rem}
+    nav .visitor-ip{font-size:.58rem;padding:.28rem .5rem}
+    nav .visitor-ip .vip-val{font-size:.64rem}
     .hero h1{font-size:clamp(3.2rem,22vw,6rem)}
     .hero-media video.desktop{display:none}
     .hero-media video.mobile{display:block;object-position:25% 50%}
@@ -577,6 +592,11 @@
       <a href="#connect" data-i18n="nav.connect">Connect</a>
     </div>
     <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN / 中</button>
+    <div class="visitor-ip" id="visitorIp" aria-live="polite">
+      <span class="vip-label" data-i18n="visitor.label">IP地址：</span>
+      <span class="vip-val" id="vipVal">—</span>
+      <span class="vip-loc" id="vipLoc"></span>
+    </div>
   </div>
 </nav>
 
@@ -777,7 +797,8 @@ const I18N = {
     "connect.titleMain": "Find me",
     "connect.titleEm": "elsewhere",
     "connect.sub": "The same person, in a few different places. Come say hello — I reply eventually, though \"eventually\" could mean days or weeks depending on which time zone the light's currently shining. I read everything, even if I don't answer right away.",
-    "footer.made": "Made with care"
+    "footer.made": "Made with care",
+    "visitor.label": "IP · "
   },
   zh: {
     "gate.greet": "欢 · 迎",
@@ -825,7 +846,8 @@ const I18N = {
     "connect.titleMain": "在这些地方",
     "connect.titleEm": "找我",
     "connect.sub": "同一个我，在几个不同的平台。来打个招呼吧——总会回的，只是「总会」可能是几天，也可能是几周，取决于此刻光落在哪个时区。每一条消息我都会读，即使没有立刻回复。",
-    "footer.made": "用心制作"
+    "footer.made": "用心制作",
+    "visitor.label": "IP地址："
   }
 };
 
@@ -973,6 +995,106 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
     }
     window.addEventListener("scroll", onScroll, {passive:true});
   }
+})();
+
+/* ================= Visitor IP + location ================= */
+(function visitor(){
+  const vipVal = document.getElementById("vipVal");
+  const vipLoc = document.getElementById("vipLoc");
+  const vipLabel = document.querySelector(".vip-label");
+  if(!vipVal || !vipLoc) return;
+
+  const CACHE_KEY = "jk_visitor_info_v1";
+  const CACHE_TTL = 30 * 60 * 1000; // 30 min
+
+  try{
+    const cached = localStorage.getItem(CACHE_KEY);
+    if(cached){
+      const parsed = JSON.parse(cached);
+      if(parsed.ts && Date.now() - parsed.ts < CACHE_TTL){
+        render(parsed);
+        fetchInBackground();
+        return;
+      }
+    }
+  }catch(e){}
+
+  fetchInBackground();
+
+  function fetchInBackground(){
+    // Use ipwho.is (CORS-friendly, no API key required, returns country+region+city+isp)
+    fetch("https://ipwho.is/", {method:"GET"})
+      .then(r => r.json())
+      .then(d => {
+        if(d && d.success && d.ip){
+          const info = {
+            ts: Date.now(),
+            ip: d.ip,
+            country: d.country || "",
+            country_code: d.country_code || "",
+            region: d.region || "",
+            city: d.city || "",
+            isp: d.connection && d.connection.isp ? d.connection.isp : ""
+          };
+          try{ localStorage.setItem(CACHE_KEY, JSON.stringify(info)) }catch(e){}
+          render(info);
+        }
+      })
+      .catch(err => {
+        // Fallback: try ipapi.co (lighter, returns country/region/city/org)
+        fetch("https://ipapi.co/json/", {method:"GET"})
+          .then(r => r.json())
+          .then(d => {
+            if(d && d.ip){
+              const info = {
+                ts: Date.now(),
+                ip: d.ip,
+                country: d.country_name || "",
+                country_code: d.country_code || "",
+                region: d.region || "",
+                city: d.city || "",
+                isp: d.org || ""
+              };
+              try{ localStorage.setItem(CACHE_KEY, JSON.stringify(info)) }catch(e){}
+              render(info);
+            }
+          })
+          .catch(()=>{});
+      });
+  }
+
+  function render(info){
+    if(!info || !info.ip) return;
+    vipVal.textContent = info.ip;
+    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
+    const parts = [];
+    if(info.country) parts.push(info.country);
+    if(info.region && info.region !== info.city) parts.push(info.region);
+    if(info.city) parts.push(info.city);
+    // For Chinese users, show ISP name too if present & in China
+    if(info.isp){
+      if(lang === "zh" && info.country_code === "CN"){
+        // Strip common prefixes for readability
+        let short = info.isp
+          .replace(/中国电信.*/g, "电信")
+          .replace(/中国移动.*/g, "移动")
+          .replace(/中国联通.*/g, "联通")
+          .replace(/中国广电.*/g, "广电")
+          .replace(/教育网.*/g, "教育网")
+          .replace(/长城宽带.*/g, "长宽");
+        parts.push(short);
+      }
+    }
+    vipLoc.textContent = parts.join(" ");
+  }
+
+  // Re-render location based on cached data if language changes
+  window.addEventListener("ethan-lang-changed", () => {
+    try{
+      const cached = localStorage.getItem(CACHE_KEY);
+      if(cached) render(JSON.parse(cached));
+    }catch(e){}
+  });
 })();
 
 /* ================= Random rotating slogan ================= */
