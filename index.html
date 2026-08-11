@@ -148,29 +148,28 @@
     font-weight:500;line-height:1;
   }
   nav .mark em{font-style:italic;color:var(--accent)}
-  .visitor-floating{
-    position:fixed;top:1.4rem;left:3rem;z-index:60;
-    width:28px;height:28px;border-radius:50%;
+  nav .visitor-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:24px;height:24px;margin-left:.6rem;
+    border-radius:50%;
     border:1px solid var(--line);
     background:rgba(255,255,255,.5);
     backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
     color:var(--ink-soft);
-    display:flex;align-items:center;justify-content:center;
     cursor:pointer;transition:all .3s ease;
-    box-shadow:0 2px 8px rgba(40,28,20,.08);
-    opacity:.75;
+    opacity:.75;vertical-align:middle;
   }
-  .visitor-floating:hover{
+  nav .visitor-btn:hover{
     opacity:1;color:var(--accent);border-color:var(--accent);
-    transform:scale(1.08);
+    transform:scale(1.1);
   }
-  .visitor-floating .vf-dot{
+  nav .visitor-btn .vf-dot{
     width:6px;height:6px;border-radius:50%;
     background:var(--accent);
     box-shadow:0 0 6px var(--accent),0 0 0 3px var(--accent-soft);
     animation:pulse 2.4s ease-in-out infinite;
   }
-  .visitor-floating[disabled]{opacity:.35;cursor:wait}
+  nav .visitor-btn[disabled]{opacity:.35;cursor:wait}
   @keyframes pulse{
     0%,100%{transform:scale(1);opacity:1}
     50%{transform:scale(.85);opacity:.6}
@@ -604,7 +603,7 @@
   /* ============ Responsive ============ */
   @media(max-width:860px){
     nav{padding:1.1rem 1.4rem;grid-template-columns:1fr 1fr;gap:.6rem}
-    .visitor-floating{top:1.2rem;left:1.4rem}
+    nav .visitor-btn{width:22px;height:22px;margin-left:.4rem}
     nav .clock{grid-column:1 / -1;grid-row:2;order:3;padding-top:.2rem;font-size:1.1rem}
     nav .clock .date{font-size:.88rem}
     nav .clock .days-counter{font-size:1.5rem}
@@ -632,7 +631,7 @@
   }
   @media(max-width:560px){
     nav{grid-template-columns:1fr auto;gap:.5rem}
-    .visitor-floating{top:1rem;left:1rem;width:24px;height:24px}
+    nav .visitor-btn{width:20px;height:20px;margin-left:.3rem}
     nav .clock{display:none}
     nav .links a{display:none}
     nav .right{gap:1rem}
@@ -667,14 +666,12 @@
   </div>
 </div>
 
-<!-- ============ Visitor Floating Button ============ -->
-<button class="visitor-floating" id="visitorBtn" aria-label="Recent visitors" title="最近访问">
-  <span class="vf-dot"></span>
-</button>
-
 <!-- ============ Nav ============ -->
 <nav id="nav">
   <a href="#top" class="mark always">Jin <em>Kang</em></a>
+  <button class="visitor-btn" id="visitorBtn" aria-label="Recent visitors" title="最近访问">
+    <span class="vf-dot"></span>
+  </button>
   <div class="clock" aria-live="off">
     <div class="clock-main">
       <span class="dot"></span>
@@ -841,6 +838,29 @@
 <footer>
   © 2026 Jin Kang<span class="sep">·</span><span data-i18n="footer.made">Made with care</span>
 </footer>
+
+<!-- ============ Visitor Modal ============ -->
+<div class="visitor-modal" id="visitorModal" role="dialog" aria-hidden="true">
+  <div class="vm-backdrop"></div>
+  <div class="vm-panel">
+    <div class="vm-header">
+      <div class="vm-title" data-i18n="visitor.modalTitle">You · <em>on the web</em></div>
+      <button class="vm-close" id="vmClose" aria-label="Close">✕</button>
+    </div>
+    <div class="vm-current" id="vmCurrent">
+      <div class="vm-row"><span class="label" data-i18n="visitor.ip">IP</span><span class="val" id="vmIp">—</span></div>
+      <div class="vm-row"><span class="label" data-i18n="visitor.location">Location</span><span class="val" id="vmLoc">—</span></div>
+      <div class="vm-row"><span class="label" data-i18n="visitor.isp">Network</span><span class="val" id="vmIsp">—</span></div>
+      <div class="vm-row"><span class="label" data-i18n="visitor.time">Time</span><span class="val" id="vmTime">—</span></div>
+    </div>
+    <div class="vm-divider"></div>
+    <div class="vm-history-title" data-i18n="visitor.historyTitle">Recent visits on this device</div>
+    <div class="vm-list" id="vmList">
+      <div class="vm-empty" data-i18n="visitor.empty">No history yet</div>
+    </div>
+    <div class="vm-footer" data-i18n="visitor.footer">Data stored locally · not shared</div>
+  </div>
+</div>
 
 <script>
 /* ================= i18n ================= */
@@ -1115,6 +1135,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 })();
 
 /* ================= Visitor IP + location ================= */
+document.addEventListener("DOMContentLoaded", function(){
 (function visitor(){
   const BTN = document.getElementById("visitorBtn");
   const MODAL = document.getElementById("visitorModal");
@@ -1172,14 +1193,15 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
       timeEl.textContent = "···";
     }
 
-    // Render history
+    // Render history - show only last 3
     let history = [];
     try{ history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }catch(e){}
     if(history.length === 0){
-      listEl.innerHTML = `<div class="vm-empty" data-i18n="visitor.empty">${lang === "zh" ? "尚无记录" : "No history yet"}</div>`;
+      listEl.innerHTML = `<div class="vm-empty">${lang === "zh" ? "尚无记录" : "No history yet"}</div>`;
       return;
     }
-    listEl.innerHTML = history.map(h => {
+    const recent = history.slice(0, 3);
+    listEl.innerHTML = recent.map(h => {
       const t = formatTime(new Date(h.ts), lang);
       const loc = buildLocation(h, lang);
       return `<div class="vm-item"><span class="vm-item-time">${t}</span><span class="vm-item-ip">${h.ip}</span><span style="flex:1"></span><span style="color:var(--ink-dim);font-size:.6rem">${loc}</span></div>`;
@@ -1282,6 +1304,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
     if(MODAL.classList.contains("show")) renderModal();
   });
 })();
+}); // end DOMContentLoaded
 
 /* ================= Random rotating slogan ================= */
 (function slogans(){
@@ -1822,27 +1845,5 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   }
 })();
 </script>
-<!-- ============ Visitor Modal ============ -->
-<div class="visitor-modal" id="visitorModal" role="dialog" aria-hidden="true">
-  <div class="vm-backdrop"></div>
-  <div class="vm-panel">
-    <div class="vm-header">
-      <div class="vm-title" data-i18n="visitor.modalTitle">You · <em>on the web</em></div>
-      <button class="vm-close" id="vmClose" aria-label="Close">✕</button>
-    </div>
-    <div class="vm-current" id="vmCurrent">
-      <div class="vm-row"><span class="label" data-i18n="visitor.ip">IP</span><span class="val" id="vmIp">—</span></div>
-      <div class="vm-row"><span class="label" data-i18n="visitor.location">Location</span><span class="val" id="vmLoc">—</span></div>
-      <div class="vm-row"><span class="label" data-i18n="visitor.isp">Network</span><span class="val" id="vmIsp">—</span></div>
-      <div class="vm-row"><span class="label" data-i18n="visitor.time">Time</span><span class="val" id="vmTime">—</span></div>
-    </div>
-    <div class="vm-divider"></div>
-    <div class="vm-history-title" data-i18n="visitor.historyTitle">Recent visits on this device</div>
-    <div class="vm-list" id="vmList">
-      <div class="vm-empty" data-i18n="visitor.empty">No history yet</div>
-    </div>
-    <div class="vm-footer" data-i18n="visitor.footer">Data stored locally · not shared</div>
-  </div>
-</div>
 </body>
 </html>
