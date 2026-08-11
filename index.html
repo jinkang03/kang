@@ -145,9 +145,36 @@
   nav .mark{
     font-family:var(--serif);
     font-size:1.5rem;letter-spacing:.04em;
-    font-weight:500;line-height:1;justify-self:start;
+    font-weight:500;line-height:1;
   }
   nav .mark em{font-style:italic;color:var(--accent)}
+  .visitor-floating{
+    position:fixed;top:1.4rem;left:3rem;z-index:60;
+    width:28px;height:28px;border-radius:50%;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.5);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .3s ease;
+    box-shadow:0 2px 8px rgba(40,28,20,.08);
+    opacity:.75;
+  }
+  .visitor-floating:hover{
+    opacity:1;color:var(--accent);border-color:var(--accent);
+    transform:scale(1.08);
+  }
+  .visitor-floating .vf-dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 6px var(--accent),0 0 0 3px var(--accent-soft);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  .visitor-floating[disabled]{opacity:.35;cursor:wait}
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:1}
+    50%{transform:scale(.85);opacity:.6}
+  }
   nav .clock{
     justify-self:center;text-align:center;
     font-family:var(--serif);font-style:italic;
@@ -181,19 +208,6 @@
   nav .links a:hover{opacity:1}
   nav .links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .4s ease}
   nav .links a:hover::after{width:100%}
-  nav .visitor-ip{
-    font-family:var(--sans);
-    font-size:.7rem;letter-spacing:.04em;color:var(--ink-dim);
-    padding:.35rem .7rem;
-    border:1px solid var(--line);border-radius:999px;
-    background:rgba(255,255,255,.5);
-    white-space:nowrap;
-    opacity:.85;transition:opacity .3s;
-  }
-  nav .visitor-ip:hover{opacity:1}
-  nav .visitor-ip .vip-label{color:var(--accent);margin-right:.15rem;font-weight:500}
-  nav .visitor-ip .vip-val{color:var(--ink);font-weight:500;font-family:var(--serif);font-style:italic;font-size:.8rem;margin-right:.25rem}
-  nav .visitor-ip .vip-loc{opacity:.88}
   .lang-toggle{
     font-family:var(--serif);font-size:.88rem;font-style:italic;font-weight:500;
     padding:.35rem .9rem;border:1px solid var(--line-2);border-radius:999px;
@@ -489,6 +503,86 @@
   }
   .social:hover .arrow{opacity:1;transform:none}
 
+  /* ============ Visitor Modal ============ */
+  .visitor-modal{
+    position:fixed;inset:0;z-index:100;
+    display:flex;align-items:flex-start;justify-content:flex-start;
+    padding:5.5rem 3rem 1rem;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .visitor-modal.show{opacity:1;pointer-events:auto}
+  .visitor-modal .vm-backdrop{
+    position:absolute;inset:0;
+    background:rgba(20,14,10,.35);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .visitor-modal .vm-panel{
+    position:relative;max-width:360px;width:100%;
+    background:var(--bg);
+    border:1px solid var(--line);border-radius:18px;
+    padding:1.4rem 1.5rem 1.2rem;
+    box-shadow:0 24px 60px rgba(40,28,20,.18);
+    transform:translateY(-16px) scale(.98);
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+    margin-left:0;
+  }
+  .visitor-modal.show .vm-panel{transform:translateY(0) scale(1)}
+  .visitor-modal .vm-header{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:1rem;
+  }
+  .visitor-modal .vm-title{
+    font-family:var(--serif);font-weight:500;font-size:1rem;
+    color:var(--ink);letter-spacing:.02em;
+  }
+  .visitor-modal .vm-title em{color:var(--accent);font-style:italic}
+  .visitor-modal .vm-close{
+    width:28px;height:28px;border:none;background:transparent;
+    color:var(--ink-soft);cursor:pointer;font-size:1.1rem;line-height:1;
+    border-radius:50%;transition:all .2s;
+  }
+  .visitor-modal .vm-close:hover{background:var(--bg-3);color:var(--ink)}
+  .visitor-modal .vm-current{
+    background:var(--bg-2);border:1px solid var(--line);
+    border-radius:14px;padding:.9rem 1rem;margin-bottom:1rem;
+  }
+  .visitor-modal .vm-row{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:.76rem;color:var(--ink-soft);padding:.25rem 0;
+    font-family:var(--sans);
+  }
+  .visitor-modal .vm-row .label{color:var(--ink-dim);letter-spacing:.06em;font-size:.66rem;text-transform:uppercase}
+  .visitor-modal .vm-row .val{color:var(--ink);font-weight:500;font-family:var(--serif);font-style:italic}
+  .visitor-modal .vm-row + .vm-row{border-top:1px dashed var(--line)}
+  .visitor-modal .vm-divider{
+    height:1px;background:var(--line);margin:.6rem 0 .8rem;
+  }
+  .visitor-modal .vm-history-title{
+    font-family:var(--serif);font-size:.78rem;color:var(--ink-soft);
+    margin-bottom:.6rem;letter-spacing:.02em;
+  }
+  .visitor-modal .vm-list{max-height:200px;overflow-y:auto}
+  .visitor-modal .vm-item{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:.4rem 0;border-bottom:1px dashed var(--line);
+    font-size:.7rem;color:var(--ink);font-family:var(--sans);
+  }
+  .visitor-modal .vm-item:last-child{border-bottom:none}
+  .visitor-modal .vm-item .vm-item-time{color:var(--ink-dim);font-size:.6rem;margin-right:.6rem;white-space:nowrap}
+  .visitor-modal .vm-item .vm-item-ip{font-family:var(--serif);font-style:italic;font-weight:500}
+  .visitor-modal .vm-empty{
+    font-size:.7rem;color:var(--ink-dim);font-family:var(--sans);
+    padding:.8rem 0;text-align:center;
+  }
+  .visitor-modal .vm-footer{
+    margin-top:.8rem;padding-top:.6rem;
+    border-top:1px solid var(--line);
+    font-size:.6rem;color:var(--ink-dim);font-family:var(--sans);
+    text-align:center;letter-spacing:.04em;
+  }
+
   /* ============ Footer ============ */
   footer{
     background:var(--bg);color:var(--ink-dim);
@@ -510,6 +604,7 @@
   /* ============ Responsive ============ */
   @media(max-width:860px){
     nav{padding:1.1rem 1.4rem;grid-template-columns:1fr 1fr;gap:.6rem}
+    .visitor-floating{top:1.2rem;left:1.4rem}
     nav .clock{grid-column:1 / -1;grid-row:2;order:3;padding-top:.2rem;font-size:1.1rem}
     nav .clock .date{font-size:.88rem}
     nav .clock .days-counter{font-size:1.5rem}
@@ -537,11 +632,10 @@
   }
   @media(max-width:560px){
     nav{grid-template-columns:1fr auto;gap:.5rem}
+    .visitor-floating{top:1rem;left:1rem;width:24px;height:24px}
     nav .clock{display:none}
     nav .links a{display:none}
     nav .right{gap:1rem}
-    nav .visitor-ip{font-size:.58rem;padding:.28rem .5rem}
-    nav .visitor-ip .vip-val{font-size:.64rem}
     .hero h1{font-size:clamp(3.2rem,22vw,6rem)}
     .hero-media video.desktop{display:none}
     .hero-media video.mobile{display:block;object-position:25% 50%}
@@ -573,6 +667,11 @@
   </div>
 </div>
 
+<!-- ============ Visitor Floating Button ============ -->
+<button class="visitor-floating" id="visitorBtn" aria-label="Recent visitors" title="最近访问">
+  <span class="vf-dot"></span>
+</button>
+
 <!-- ============ Nav ============ -->
 <nav id="nav">
   <a href="#top" class="mark always">Jin <em>Kang</em></a>
@@ -592,11 +691,6 @@
       <a href="#connect" data-i18n="nav.connect">Connect</a>
     </div>
     <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN / 中</button>
-    <div class="visitor-ip" id="visitorIp" aria-live="polite">
-      <span class="vip-label" data-i18n="visitor.label">IP地址：</span>
-      <span class="vip-val" id="vipVal">—</span>
-      <span class="vip-loc" id="vipLoc"></span>
-    </div>
   </div>
 </nav>
 
@@ -798,7 +892,16 @@ const I18N = {
     "connect.titleEm": "elsewhere",
     "connect.sub": "The same person, in a few different places. Come say hello — I reply eventually, though \"eventually\" could mean days or weeks depending on which time zone the light's currently shining. I read everything, even if I don't answer right away.",
     "footer.made": "Made with care",
-    "visitor.label": "IP · "
+    "visitor.label": "IP · ",
+    "visitor.floatingLabel": "Recent visitor",
+    "visitor.modalTitle": "You · <em>on the web</em>",
+    "visitor.ip": "IP",
+    "visitor.location": "Location",
+    "visitor.isp": "Network",
+    "visitor.time": "Time",
+    "visitor.historyTitle": "Recent visits on this device",
+    "visitor.empty": "No history yet",
+    "visitor.footer": "Data stored locally · not shared"
   },
   zh: {
     "gate.greet": "欢 · 迎",
@@ -847,7 +950,16 @@ const I18N = {
     "connect.titleEm": "找我",
     "connect.sub": "同一个我，在几个不同的平台。来打个招呼吧——总会回的，只是「总会」可能是几天，也可能是几周，取决于此刻光落在哪个时区。每一条消息我都会读，即使没有立刻回复。",
     "footer.made": "用心制作",
-    "visitor.label": "IP地址："
+    "visitor.label": "IP地址：",
+    "visitor.floatingLabel": "最近访问",
+    "visitor.modalTitle": "你 · 在网络上",
+    "visitor.ip": "IP",
+    "visitor.location": "位置",
+    "visitor.isp": "网络",
+    "visitor.time": "时间",
+    "visitor.historyTitle": "本机最近访问记录",
+    "visitor.empty": "尚无记录",
+    "visitor.footer": "数据存储在本地 · 未共享"
   }
 };
 
@@ -871,6 +983,11 @@ function applyLang(lang){
   });
   const btn = document.getElementById("langToggle");
   if(btn) btn.textContent = (lang === "en") ? "中 / EN" : "EN / 中";
+  const vBtn = document.getElementById("visitorBtn");
+  if(vBtn){
+    const label = dict["visitor.floatingLabel"];
+    if(label){ vBtn.setAttribute("title", label); vBtn.setAttribute("aria-label", label); }
+  }
   document.title = (lang === "zh") ? "Jin Kang · 个人主页" : "Jin Kang — Personal";
 }
 function setLang(lang, persist=true){
@@ -999,101 +1116,170 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
 /* ================= Visitor IP + location ================= */
 (function visitor(){
-  const vipVal = document.getElementById("vipVal");
-  const vipLoc = document.getElementById("vipLoc");
-  const vipLabel = document.querySelector(".vip-label");
-  if(!vipVal || !vipLoc) return;
+  const BTN = document.getElementById("visitorBtn");
+  const MODAL = document.getElementById("visitorModal");
+  const CLOSE = document.getElementById("vmClose");
+  const BACKDROP = MODAL ? MODAL.querySelector(".vm-backdrop") : null;
+  if(!BTN || !MODAL) return;
 
-  const CACHE_KEY = "jk_visitor_info_v1";
-  const CACHE_TTL = 30 * 60 * 1000; // 30 min
+  const CURRENT_KEY = "jk_visitor_current";
+  const HISTORY_KEY = "jk_visitor_history";
+  const MAX_HISTORY = 20;
+  const LOG_ENDPOINT = ""; // optional: set to your backend URL to log visits
 
-  try{
-    const cached = localStorage.getItem(CACHE_KEY);
-    if(cached){
-      const parsed = JSON.parse(cached);
-      if(parsed.ts && Date.now() - parsed.ts < CACHE_TTL){
-        render(parsed);
-        fetchInBackground();
-        return;
-      }
-    }
-  }catch(e){}
+  // Fetched on load, kept in memory
+  let currentInfo = null;
 
-  fetchInBackground();
+  // Fetch + log on page load
+  fetchCurrentInfo();
 
-  function fetchInBackground(){
-    // Use ipwho.is (CORS-friendly, no API key required, returns country+region+city+isp)
-    fetch("https://ipwho.is/", {method:"GET"})
-      .then(r => r.json())
-      .then(d => {
-        if(d && d.success && d.ip){
-          const info = {
-            ts: Date.now(),
-            ip: d.ip,
-            country: d.country || "",
-            country_code: d.country_code || "",
-            region: d.region || "",
-            city: d.city || "",
-            isp: d.connection && d.connection.isp ? d.connection.isp : ""
-          };
-          try{ localStorage.setItem(CACHE_KEY, JSON.stringify(info)) }catch(e){}
-          render(info);
-        }
-      })
-      .catch(err => {
-        // Fallback: try ipapi.co (lighter, returns country/region/city/org)
-        fetch("https://ipapi.co/json/", {method:"GET"})
-          .then(r => r.json())
-          .then(d => {
-            if(d && d.ip){
-              const info = {
-                ts: Date.now(),
-                ip: d.ip,
-                country: d.country_name || "",
-                country_code: d.country_code || "",
-                region: d.region || "",
-                city: d.city || "",
-                isp: d.org || ""
-              };
-              try{ localStorage.setItem(CACHE_KEY, JSON.stringify(info)) }catch(e){}
-              render(info);
-            }
-          })
-          .catch(()=>{});
-      });
+  BTN.addEventListener("click", openModal);
+  CLOSE.addEventListener("click", closeModal);
+  if(BACKDROP) BACKDROP.addEventListener("click", closeModal);
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape" && MODAL.classList.contains("show")) closeModal();
+  });
+
+  function openModal(){
+    renderModal();
+    MODAL.classList.add("show");
+    MODAL.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    MODAL.classList.remove("show");
+    MODAL.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
   }
 
-  function render(info){
-    if(!info || !info.ip) return;
-    vipVal.textContent = info.ip;
+  function renderModal(){
     const lang = document.documentElement.lang === "zh" ? "zh" : "en";
+    const ipEl = document.getElementById("vmIp");
+    const locEl = document.getElementById("vmLoc");
+    const ispEl = document.getElementById("vmIsp");
+    const timeEl = document.getElementById("vmTime");
+    const listEl = document.getElementById("vmList");
+
+    if(currentInfo){
+      ipEl.textContent = currentInfo.ip || "—";
+      locEl.textContent = buildLocation(currentInfo, lang);
+      ispEl.textContent = buildIsp(currentInfo, lang);
+      timeEl.textContent = formatTime(new Date(currentInfo.ts), lang);
+    } else {
+      ipEl.textContent = "···";
+      locEl.textContent = "···";
+      ispEl.textContent = "···";
+      timeEl.textContent = "···";
+    }
+
+    // Render history
+    let history = [];
+    try{ history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }catch(e){}
+    if(history.length === 0){
+      listEl.innerHTML = `<div class="vm-empty" data-i18n="visitor.empty">${lang === "zh" ? "尚无记录" : "No history yet"}</div>`;
+      return;
+    }
+    listEl.innerHTML = history.map(h => {
+      const t = formatTime(new Date(h.ts), lang);
+      const loc = buildLocation(h, lang);
+      return `<div class="vm-item"><span class="vm-item-time">${t}</span><span class="vm-item-ip">${h.ip}</span><span style="flex:1"></span><span style="color:var(--ink-dim);font-size:.6rem">${loc}</span></div>`;
+    }).join("");
+  }
+
+  function fetchCurrentInfo(){
+    // Try cache first (5 min)
+    try{
+      const cached = JSON.parse(localStorage.getItem(CURRENT_KEY) || "null");
+      if(cached && Date.now() - cached.ts < 5 * 60 * 1000){
+        currentInfo = cached;
+        addToHistory(cached);
+        logToBackend(cached);
+        return;
+      }
+    }catch(e){}
+
+    const onData = d => {
+      const info = {
+        ts: Date.now(),
+        ip: d.ip || "",
+        country: d.country_name || d.country || "",
+        country_code: d.country_code || "",
+        region: d.region || "",
+        city: d.city || "",
+        isp: d.connection && d.connection.isp ? d.connection.isp : (d.org || "")
+      };
+      currentInfo = info;
+      try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(info)); }catch(e){}
+      addToHistory(info);
+      logToBackend(info);
+    };
+
+    // Primary: ipwho.is
+    fetch("https://ipwho.is/").then(r => r.json()).then(d => {
+      if(d && d.success && d.ip) onData(d);
+      else throw new Error("no data");
+    }).catch(() => {
+      // Fallback: ipapi.co
+      fetch("https://ipapi.co/json/").then(r => r.json()).then(d => {
+        if(d && d.ip) onData(d);
+      }).catch(() => {});
+    });
+  }
+
+  function addToHistory(info){
+    let history = [];
+    try{ history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }catch(e){}
+    // Avoid duplicates (same IP within 10 min)
+    const last = history[0];
+    if(last && last.ip === info.ip && Date.now() - last.ts < 10 * 60 * 1000) return;
+    history.unshift(info);
+    if(history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
+    try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }catch(e){}
+  }
+
+  function logToBackend(info){
+    if(!LOG_ENDPOINT) return;
+    fetch(LOG_ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(info)
+    }).catch(()=>{});
+  }
+
+  function buildLocation(info, lang){
     const parts = [];
     if(info.country) parts.push(info.country);
     if(info.region && info.region !== info.city) parts.push(info.region);
     if(info.city) parts.push(info.city);
-    // For Chinese users, show ISP name too if present & in China
-    if(info.isp){
-      if(lang === "zh" && info.country_code === "CN"){
-        // Strip common prefixes for readability
-        let short = info.isp
-          .replace(/中国电信.*/g, "电信")
-          .replace(/中国移动.*/g, "移动")
-          .replace(/中国联通.*/g, "联通")
-          .replace(/中国广电.*/g, "广电")
-          .replace(/教育网.*/g, "教育网")
-          .replace(/长城宽带.*/g, "长宽");
-        parts.push(short);
-      }
-    }
-    vipLoc.textContent = parts.join(" ");
+    return parts.join(" · ") || "—";
   }
 
-  // Re-render location based on cached data if language changes
+  function buildIsp(info, lang){
+    if(!info.isp) return "—";
+    if(lang === "zh" && info.country_code === "CN"){
+      let short = info.isp
+        .replace(/中国电信.*/g, "电信")
+        .replace(/中国移动.*/g, "移动")
+        .replace(/中国联通.*/g, "联通")
+        .replace(/中国广电.*/g, "广电")
+        .replace(/教育网.*/g, "教育网")
+        .replace(/长城宽带.*/g, "长宽");
+      return short;
+    }
+    return info.isp;
+  }
+
+  function formatTime(d, lang){
+    const pad = n => String(n).padStart(2, "0");
+    if(lang === "zh"){
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  // Re-render modal on language change if currently open
   window.addEventListener("ethan-lang-changed", () => {
-    try{
-      const cached = localStorage.getItem(CACHE_KEY);
-      if(cached) render(JSON.parse(cached));
-    }catch(e){}
+    if(MODAL.classList.contains("show")) renderModal();
   });
 })();
 
@@ -1636,5 +1822,27 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   }
 })();
 </script>
+<!-- ============ Visitor Modal ============ -->
+<div class="visitor-modal" id="visitorModal" role="dialog" aria-hidden="true">
+  <div class="vm-backdrop"></div>
+  <div class="vm-panel">
+    <div class="vm-header">
+      <div class="vm-title" data-i18n="visitor.modalTitle">You · <em>on the web</em></div>
+      <button class="vm-close" id="vmClose" aria-label="Close">✕</button>
+    </div>
+    <div class="vm-current" id="vmCurrent">
+      <div class="vm-row"><span class="label" data-i18n="visitor.ip">IP</span><span class="val" id="vmIp">—</span></div>
+      <div class="vm-row"><span class="label" data-i18n="visitor.location">Location</span><span class="val" id="vmLoc">—</span></div>
+      <div class="vm-row"><span class="label" data-i18n="visitor.isp">Network</span><span class="val" id="vmIsp">—</span></div>
+      <div class="vm-row"><span class="label" data-i18n="visitor.time">Time</span><span class="val" id="vmTime">—</span></div>
+    </div>
+    <div class="vm-divider"></div>
+    <div class="vm-history-title" data-i18n="visitor.historyTitle">Recent visits on this device</div>
+    <div class="vm-list" id="vmList">
+      <div class="vm-empty" data-i18n="visitor.empty">No history yet</div>
+    </div>
+    <div class="vm-footer" data-i18n="visitor.footer">Data stored locally · not shared</div>
+  </div>
+</div>
 </body>
 </html>
