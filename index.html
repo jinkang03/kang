@@ -519,68 +519,89 @@
     -webkit-backdrop-filter:blur(6px);
   }
   .visitor-modal .vm-panel{
-    position:relative;max-width:360px;width:100%;
+    position:relative;max-width:340px;width:100%;
     background:var(--bg);
     border:1px solid var(--line);border-radius:18px;
-    padding:1.4rem 1.5rem 1.2rem;
+    padding:1.3rem 1.4rem 1.2rem;
     box-shadow:0 24px 60px rgba(40,28,20,.18);
     transform:translateY(-16px) scale(.98);
     transition:transform .35s cubic-bezier(.22,1,.36,1);
-    margin-left:0;
   }
   .visitor-modal.show .vm-panel{transform:translateY(0) scale(1)}
   .visitor-modal .vm-header{
     display:flex;align-items:center;justify-content:space-between;
-    margin-bottom:1rem;
+    margin-bottom:.9rem;
   }
   .visitor-modal .vm-title{
-    font-family:var(--serif);font-weight:500;font-size:1rem;
+    font-family:var(--serif);font-weight:500;font-size:.98rem;
     color:var(--ink);letter-spacing:.02em;
   }
-  .visitor-modal .vm-title em{color:var(--accent);font-style:italic}
   .visitor-modal .vm-close{
-    width:28px;height:28px;border:none;background:transparent;
-    color:var(--ink-soft);cursor:pointer;font-size:1.1rem;line-height:1;
+    width:26px;height:26px;border:none;background:transparent;
+    color:var(--ink-soft);cursor:pointer;font-size:1rem;line-height:1;
     border-radius:50%;transition:all .2s;
   }
   .visitor-modal .vm-close:hover{background:var(--bg-3);color:var(--ink)}
   .visitor-modal .vm-current{
     background:var(--bg-2);border:1px solid var(--line);
-    border-radius:14px;padding:.9rem 1rem;margin-bottom:1rem;
+    border-radius:14px;padding:.85rem 1rem;
   }
   .visitor-modal .vm-row{
-    display:flex;justify-content:space-between;align-items:center;
-    font-size:.76rem;color:var(--ink-soft);padding:.25rem 0;
-    font-family:var(--sans);
+    padding:.35rem 0;
+    display:flex;flex-direction:column;gap:.2rem;
   }
-  .visitor-modal .vm-row .label{color:var(--ink-dim);letter-spacing:.06em;font-size:.66rem;text-transform:uppercase}
-  .visitor-modal .vm-row .val{color:var(--ink);font-weight:500;font-family:var(--serif);font-style:italic}
   .visitor-modal .vm-row + .vm-row{border-top:1px dashed var(--line)}
+  .visitor-modal .vm-label{
+    font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-dim);font-weight:500;
+  }
+  .visitor-modal .vm-ip-row .vm-ip-val{
+    font-family:var(--serif);font-style:italic;font-weight:500;
+    font-size:1rem;color:var(--ink);letter-spacing:.02em;
+    word-break:break-all;
+  }
+  .visitor-modal .vm-two-line .vm-two{
+    display:flex;flex-direction:column;align-items:flex-start;gap:.05rem;
+  }
+  .visitor-modal .vm-line-en{
+    font-size:.78rem;color:var(--ink);font-family:var(--sans);font-weight:500;
+  }
+  .visitor-modal .vm-line-zh{
+    font-size:.72rem;color:var(--ink-soft);font-family:var(--sans);
+    opacity:.85;
+  }
+  .visitor-modal .vm-time-row .vm-time-val{
+    font-size:.78rem;color:var(--ink);font-family:var(--sans);
+    font-variant-numeric:tabular-nums;
+  }
   .visitor-modal .vm-divider{
-    height:1px;background:var(--line);margin:.6rem 0 .8rem;
+    height:1px;background:var(--line);margin:.65rem 0 .75rem;
   }
   .visitor-modal .vm-history-title{
     font-family:var(--serif);font-size:.78rem;color:var(--ink-soft);
-    margin-bottom:.6rem;letter-spacing:.02em;
+    margin-bottom:.5rem;letter-spacing:.02em;
   }
-  .visitor-modal .vm-list{max-height:200px;overflow-y:auto}
+  .visitor-modal .vm-list{max-height:180px;overflow-y:auto}
   .visitor-modal .vm-item{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:.4rem 0;border-bottom:1px dashed var(--line);
-    font-size:.7rem;color:var(--ink);font-family:var(--sans);
+    display:flex;flex-direction:column;gap:.15rem;
+    padding:.45rem 0;border-bottom:1px dashed var(--line);
   }
   .visitor-modal .vm-item:last-child{border-bottom:none}
-  .visitor-modal .vm-item .vm-item-time{color:var(--ink-dim);font-size:.6rem;margin-right:.6rem;white-space:nowrap}
-  .visitor-modal .vm-item .vm-item-ip{font-family:var(--serif);font-style:italic;font-weight:500}
+  .visitor-modal .vm-item-top{
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .visitor-modal .vm-item-time{color:var(--ink-dim);font-size:.6rem;white-space:nowrap}
+  .visitor-modal .vm-item-ip{
+    font-family:var(--serif);font-style:italic;font-weight:500;
+    font-size:.72rem;color:var(--ink);word-break:break-all;
+  }
+  .visitor-modal .vm-item-loc{
+    font-size:.64rem;color:var(--ink-soft);font-family:var(--sans);
+    line-height:1.35;
+  }
   .visitor-modal .vm-empty{
     font-size:.7rem;color:var(--ink-dim);font-family:var(--sans);
-    padding:.8rem 0;text-align:center;
-  }
-  .visitor-modal .vm-footer{
-    margin-top:.8rem;padding-top:.6rem;
-    border-top:1px solid var(--line);
-    font-size:.6rem;color:var(--ink-dim);font-family:var(--sans);
-    text-align:center;letter-spacing:.04em;
+    padding:.7rem 0;text-align:center;
   }
 
   /* ============ Footer ============ */
@@ -848,21 +869,37 @@
   <div class="vm-backdrop"></div>
   <div class="vm-panel">
     <div class="vm-header">
-      <div class="vm-title" data-i18n="visitor.modalTitle">You · <em>on the web</em></div>
+      <div class="vm-title" data-i18n="visitor.modalTitle">Your IP</div>
       <button class="vm-close" id="vmClose" aria-label="Close">✕</button>
     </div>
     <div class="vm-current" id="vmCurrent">
-      <div class="vm-row"><span class="label" data-i18n="visitor.ip">IP</span><span class="val" id="vmIp">—</span></div>
-      <div class="vm-row"><span class="label" data-i18n="visitor.location">Location</span><span class="val" id="vmLoc">—</span></div>
-      <div class="vm-row"><span class="label" data-i18n="visitor.isp">Network</span><span class="val" id="vmIsp">—</span></div>
-      <div class="vm-row"><span class="label" data-i18n="visitor.time">Time</span><span class="val" id="vmTime">—</span></div>
+      <div class="vm-row vm-ip-row">
+        <span class="vm-ip-val" id="vmIp">—</span>
+      </div>
+      <div class="vm-row vm-two-line">
+        <div class="vm-label" data-i18n="visitor.location">Location</div>
+        <div class="vm-two">
+          <span class="vm-line-en" id="vmLocEn">—</span>
+          <span class="vm-line-zh" id="vmLocZh"></span>
+        </div>
+      </div>
+      <div class="vm-row vm-two-line">
+        <div class="vm-label" data-i18n="visitor.isp">Network</div>
+        <div class="vm-two">
+          <span class="vm-line-en" id="vmIspEn">—</span>
+          <span class="vm-line-zh" id="vmIspZh"></span>
+        </div>
+      </div>
+      <div class="vm-row vm-time-row">
+        <div class="vm-label" data-i18n="visitor.time">Time</div>
+        <span class="vm-time-val" id="vmTime">—</span>
+      </div>
     </div>
     <div class="vm-divider"></div>
     <div class="vm-history-title" data-i18n="visitor.historyTitle">Recent visits on this device</div>
     <div class="vm-list" id="vmList">
       <div class="vm-empty" data-i18n="visitor.empty">No history yet</div>
     </div>
-    <div class="vm-footer" data-i18n="visitor.footer">Data stored locally · not shared</div>
   </div>
 </div>
 
@@ -918,14 +955,12 @@ const I18N = {
     "footer.made": "Made with care",
     "visitor.label": "IP · ",
     "visitor.floatingLabel": "Recent visitor",
-    "visitor.modalTitle": "You · <em>on the web</em>",
-    "visitor.ip": "IP",
+    "visitor.modalTitle": "Your IP",
     "visitor.location": "Location",
     "visitor.isp": "Network",
     "visitor.time": "Time",
     "visitor.historyTitle": "Recent visits on this device",
-    "visitor.empty": "No history yet",
-    "visitor.footer": "Data stored locally · not shared"
+    "visitor.empty": "No history yet"
   },
   zh: {
     "gate.greet": "欢 · 迎",
@@ -976,14 +1011,12 @@ const I18N = {
     "footer.made": "用心制作",
     "visitor.label": "IP地址：",
     "visitor.floatingLabel": "最近访问",
-    "visitor.modalTitle": "你 · 在网络上",
-    "visitor.ip": "IP",
+    "visitor.modalTitle": "您的IP",
     "visitor.location": "位置",
     "visitor.isp": "网络",
     "visitor.time": "时间",
     "visitor.historyTitle": "本机最近访问记录",
-    "visitor.empty": "尚无记录",
-    "visitor.footer": "数据存储在本地 · 未共享"
+    "visitor.empty": "尚无记录"
   }
 };
 
@@ -1152,8 +1185,60 @@ document.addEventListener("DOMContentLoaded", function(){
   const MAX_HISTORY = 20;
   const LOG_ENDPOINT = ""; // optional: set to your backend URL to log visits
 
-  // Fetched on load, kept in memory
   let currentInfo = null;
+
+  // Country code → Chinese name mapping
+  const CN_MAP = {
+    US:"美国",CN:"中国",JP:"日本",KR:"韩国",GB:"英国",FR:"法国",DE:"德国",IT:"意大利",
+    ES:"西班牙",PT:"葡萄牙",RU:"俄罗斯",CA:"加拿大",AU:"澳大利亚",NZ:"新西兰",IN:"印度",
+    SG:"新加坡",MY:"马来西亚",TH:"泰国",VN:"越南",ID:"印度尼西亚",PH:"菲律宾",
+    NL:"荷兰",BE:"比利时",SE:"瑞典",NO:"挪威",DK:"丹麦",FI:"芬兰",PL:"波兰",
+    CH:"瑞士",AT:"奥地利",IE:"爱尔兰",CZ:"捷克",HU:"匈牙利",RO:"罗马尼亚",BG:"保加利亚",
+    GR:"希腊",TR:"土耳其",UA:"乌克兰",BR:"巴西",MX:"墨西哥",AR:"阿根廷",CL:"智利",
+    ZA:"南非",EG:"埃及",SA:"沙特阿拉伯",AE:"阿联酋",IL:"以色列",
+    HK:"中国香港",TW:"中国台湾",MO:"中国澳门"
+  };
+
+  // ISP Chinese mapping for CN
+  const ISP_CN_MAP = [
+    [/中国电信|China Telecom/i, "中国电信"],
+    [/中国移动|China Mobile/i, "中国移动"],
+    [/中国联通|China Unicom/i, "中国联通"],
+    [/中国广电|China Broadcasting/i, "中国广电"],
+    [/教育网|CERNET/i, "教育网"],
+    [/长城宽带|Great Wall/i, "长宽宽带"],
+    [/鹏博士|Dr.Peng/i, "鹏博士"],
+    [/广电|CBN/i, "广电网络"]
+  ];
+
+  // Chinese province/city common names
+  const REGION_CN = {
+    "Guangdong":"广东","Guangdong Sheng":"广东","Beijing":"北京","Beijing Shi":"北京",
+    "Shanghai":"上海","Shanghai Shi":"上海","Tianjin":"天津","Tianjin Shi":"天津",
+    "Chongqing":"重庆","Chongqing Shi":"重庆","Jiangsu":"江苏","Zhejiang":"浙江",
+    "Shandong":"山东","Henan":"河南","Hebei":"河北","Hubei":"湖北","Hunan":"湖南",
+    "Sichuan":"四川","Yunnan":"云南","Guizhou":"贵州","Fujian":"福建","Anhui":"安徽",
+    "Jiangxi":"江西","Liaoning":"辽宁","Jilin":"吉林","Heilongjiang":"黑龙江",
+    "Shaanxi":"陕西","Gansu":"甘肃","Qinghai":"青海","Ningxia":"宁夏",
+    "Nei Mongol":"内蒙古","Inner Mongolia":"内蒙古","Xinjiang":"新疆","Tibet":"西藏",
+    "Guangxi":"广西","Hainan":"海南","Hong Kong":"香港","Macau":"澳门","Taiwan":"台湾"
+  };
+
+  const CITY_CN = {
+    "Shenzhen":"深圳","Guangzhou":"广州","Foshan":"佛山","Dongguan":"东莞",
+    "Beijing":"北京","Shanghai":"上海","Tianjin":"天津","Chongqing":"重庆",
+    "Chengdu":"成都","Hangzhou":"杭州","Nanjing":"南京","Wuhan":"武汉",
+    "Xi'an":"西安","Suzhou":"苏州","Zhengzhou":"郑州","Changsha":"长沙",
+    "Shenyang":"沈阳","Qingdao":"青岛","Jinan":"济南","Dalian":"大连",
+    "Kunming":"昆明","Qujing":"曲靖","Honghe":"红河","Hekou":"河口",
+    "Jianshui":"建水","Mengzi":"蒙自","Gejiu":"个旧","Anning":"安宁",
+    "Tokyo":"东京","Osaka":"大阪","Kyoto":"京都","Yokohama":"横滨",
+    "Seoul":"首尔","Busan":"釜山",
+    "New York":"纽约","Los Angeles":"洛杉矶","San Francisco":"旧金山",
+    "London":"伦敦","Paris":"巴黎","Berlin":"柏林","Rome":"罗马",
+    "Singapore":"新加坡","Kuala Lumpur":"吉隆坡","Bangkok":"曼谷",
+    "Hong Kong":"香港","Taipei":"台北"
+  };
 
   // Fetch + log on page load
   fetchCurrentInfo();
@@ -1177,27 +1262,96 @@ document.addEventListener("DOMContentLoaded", function(){
     document.body.style.overflow = "";
   }
 
+  function cnRegion(name){
+    if(!name) return "";
+    if(REGION_CN[name]) return REGION_CN[name];
+    // Try fuzzy match
+    for(const k in REGION_CN){
+      if(name.indexOf(k) >= 0 || k.indexOf(name) >= 0) return REGION_CN[k];
+    }
+    return name;
+  }
+
+  function cnCity(name){
+    if(!name) return "";
+    if(CITY_CN[name]) return CITY_CN[name];
+    for(const k in CITY_CN){
+      if(name.indexOf(k) >= 0) return CITY_CN[k];
+    }
+    return name;
+  }
+
+  function buildLocationEn(info){
+    const parts = [];
+    if(info.country) parts.push(info.country);
+    if(info.region && info.region !== info.city) parts.push(info.region);
+    if(info.city) parts.push(info.city);
+    return parts.join(" · ") || "—";
+  }
+
+  function buildLocationZh(info){
+    if(!info.country_code) return "";
+    const parts = [];
+    const countryZh = CN_MAP[info.country_code] || "";
+    if(countryZh) parts.push(countryZh);
+    if(info.region && info.region !== info.city){
+      const r = cnRegion(info.region);
+      if(r) parts.push(r);
+    }
+    if(info.city){
+      const c = cnCity(info.city);
+      if(c) parts.push(c);
+    }
+    return parts.join(" · ");
+  }
+
+  function buildIspEn(info){
+    return info.isp || "—";
+  }
+
+  function buildIspZh(info){
+    if(!info.isp) return "";
+    if(info.country_code === "CN"){
+      for(const [re, zh] of ISP_CN_MAP){
+        if(re.test(info.isp)) return zh;
+      }
+    }
+    return "";
+  }
+
   function renderModal(){
     const lang = document.documentElement.lang === "zh" ? "zh" : "en";
     const ipEl = document.getElementById("vmIp");
-    const locEl = document.getElementById("vmLoc");
-    const ispEl = document.getElementById("vmIsp");
+    const locEnEl = document.getElementById("vmLocEn");
+    const locZhEl = document.getElementById("vmLocZh");
+    const ispEnEl = document.getElementById("vmIspEn");
+    const ispZhEl = document.getElementById("vmIspZh");
     const timeEl = document.getElementById("vmTime");
     const listEl = document.getElementById("vmList");
 
     if(currentInfo){
       ipEl.textContent = currentInfo.ip || "—";
-      locEl.textContent = buildLocation(currentInfo, lang);
-      ispEl.textContent = buildIsp(currentInfo, lang);
+      locEnEl.textContent = buildLocationEn(currentInfo);
+      const locZh = buildLocationZh(currentInfo);
+      locZhEl.textContent = locZh;
+      locZhEl.style.display = locZh ? "block" : "none";
+
+      ispEnEl.textContent = buildIspEn(currentInfo);
+      const ispZh = buildIspZh(currentInfo);
+      ispZhEl.textContent = ispZh;
+      ispZhEl.style.display = ispZh ? "block" : "none";
+
       timeEl.textContent = formatTime(new Date(currentInfo.ts), lang);
     } else {
       ipEl.textContent = "···";
-      locEl.textContent = "···";
-      ispEl.textContent = "···";
+      locEnEl.textContent = "···";
+      locZhEl.style.display = "none";
+      ispEnEl.textContent = "···";
+      ispZhEl.style.display = "none";
       timeEl.textContent = "···";
     }
 
-    // Render history - show only last 3
+    // Render history - two-line per item (IP top, location bottom)
     let history = [];
     try{ history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }catch(e){}
     if(history.length === 0){
@@ -1207,13 +1361,20 @@ document.addEventListener("DOMContentLoaded", function(){
     const recent = history.slice(0, 3);
     listEl.innerHTML = recent.map(h => {
       const t = formatTime(new Date(h.ts), lang);
-      const loc = buildLocation(h, lang);
-      return `<div class="vm-item"><span class="vm-item-time">${t}</span><span class="vm-item-ip">${h.ip}</span><span style="flex:1"></span><span style="color:var(--ink-dim);font-size:.6rem">${loc}</span></div>`;
+      const locEn = buildLocationEn(h);
+      const locZh = buildLocationZh(h);
+      const locZhHtml = locZh ? `<div class="vm-item-loc">${locEn}<br><span style="color:var(--ink-dim)">${locZh}</span></div>` : `<div class="vm-item-loc">${locEn}</div>`;
+      return `<div class="vm-item">
+        <div class="vm-item-top">
+          <span class="vm-item-time">${t}</span>
+          <span class="vm-item-ip">${h.ip}</span>
+        </div>
+        ${locZhHtml}
+      </div>`;
     }).join("");
   }
 
   function fetchCurrentInfo(){
-    // Try cache first (5 min)
     try{
       const cached = JSON.parse(localStorage.getItem(CURRENT_KEY) || "null");
       if(cached && Date.now() - cached.ts < 5 * 60 * 1000){
@@ -1240,12 +1401,10 @@ document.addEventListener("DOMContentLoaded", function(){
       logToBackend(info);
     };
 
-    // Primary: ipwho.is
     fetch("https://ipwho.is/").then(r => r.json()).then(d => {
       if(d && d.success && d.ip) onData(d);
       else throw new Error("no data");
     }).catch(() => {
-      // Fallback: ipapi.co
       fetch("https://ipapi.co/json/").then(r => r.json()).then(d => {
         if(d && d.ip) onData(d);
       }).catch(() => {});
@@ -1255,7 +1414,6 @@ document.addEventListener("DOMContentLoaded", function(){
   function addToHistory(info){
     let history = [];
     try{ history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }catch(e){}
-    // Avoid duplicates (same IP within 10 min)
     const last = history[0];
     if(last && last.ip === info.ip && Date.now() - last.ts < 10 * 60 * 1000) return;
     history.unshift(info);
@@ -1270,29 +1428,6 @@ document.addEventListener("DOMContentLoaded", function(){
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(info)
     }).catch(()=>{});
-  }
-
-  function buildLocation(info, lang){
-    const parts = [];
-    if(info.country) parts.push(info.country);
-    if(info.region && info.region !== info.city) parts.push(info.region);
-    if(info.city) parts.push(info.city);
-    return parts.join(" · ") || "—";
-  }
-
-  function buildIsp(info, lang){
-    if(!info.isp) return "—";
-    if(lang === "zh" && info.country_code === "CN"){
-      let short = info.isp
-        .replace(/中国电信.*/g, "电信")
-        .replace(/中国移动.*/g, "移动")
-        .replace(/中国联通.*/g, "联通")
-        .replace(/中国广电.*/g, "广电")
-        .replace(/教育网.*/g, "教育网")
-        .replace(/长城宽带.*/g, "长宽");
-      return short;
-    }
-    return info.isp;
   }
 
   function formatTime(d, lang){
