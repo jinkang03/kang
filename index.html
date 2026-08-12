@@ -148,9 +148,10 @@
     font-weight:500;line-height:1;
   }
   nav .mark em{font-style:italic;color:var(--accent)}
+  nav .left{display:flex;align-items:center;gap:.7rem;justify-self:start}
   nav .visitor-btn{
     display:inline-flex;align-items:center;justify-content:center;
-    width:24px;height:24px;margin-left:.6rem;
+    width:24px;height:24px;
     border-radius:50%;
     border:1px solid var(--line);
     background:rgba(255,255,255,.5);
@@ -201,8 +202,8 @@
   nav .clock.scrolled .dot{width:4px;height:4px;box-shadow:0 0 0 3px var(--accent-soft)}
   nav .clock.scrolled .date{font-size:.76rem;color:var(--ink-dim)}
   nav .clock.scrolled .days-counter{font-size:.64rem;color:var(--ink-dim);opacity:.9;margin-top:.05rem}
-  nav .right{display:flex;align-items:center;gap:2rem;justify-self:end}
-  nav .links{display:flex;gap:2.4rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;font-weight:500}
+  nav .right{display:flex;align-items:center;gap:1.8rem;justify-self:end}
+  nav .links{display:flex;gap:2rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;font-weight:500}
   nav .links a{position:relative;opacity:.72;transition:opacity .3s}
   nav .links a:hover{opacity:1}
   nav .links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .4s ease}
@@ -603,7 +604,7 @@
   /* ============ Responsive ============ */
   @media(max-width:860px){
     nav{padding:1.1rem 1.4rem;grid-template-columns:1fr 1fr;gap:.6rem}
-    nav .visitor-btn{width:22px;height:22px;margin-left:.4rem}
+    nav .visitor-btn{width:22px;height:22px}
     nav .clock{grid-column:1 / -1;grid-row:2;order:3;padding-top:.2rem;font-size:1.1rem}
     nav .clock .date{font-size:.88rem}
     nav .clock .days-counter{font-size:1.5rem}
@@ -631,7 +632,8 @@
   }
   @media(max-width:560px){
     nav{grid-template-columns:1fr auto;gap:.5rem}
-    nav .visitor-btn{width:20px;height:20px;margin-left:.3rem}
+    nav .left{gap:.4rem}
+    nav .visitor-btn{width:20px;height:20px}
     nav .clock{display:none}
     nav .links a{display:none}
     nav .right{gap:1rem}
@@ -668,10 +670,12 @@
 
 <!-- ============ Nav ============ -->
 <nav id="nav">
-  <a href="#top" class="mark always">Jin <em>Kang</em></a>
-  <button class="visitor-btn" id="visitorBtn" aria-label="Recent visitors" title="最近访问">
-    <span class="vf-dot"></span>
-  </button>
+  <div class="left">
+    <a href="#top" class="mark always">Jin <em>Kang</em></a>
+    <button class="visitor-btn" id="visitorBtn" aria-label="Recent visitors" title="最近访问">
+      <span class="vf-dot"></span>
+    </button>
+  </div>
   <div class="clock" aria-live="off">
     <div class="clock-main">
       <span class="dot"></span>
