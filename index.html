@@ -11,7 +11,7 @@
 <link rel="preload" href="assets/hero-bg.mp4" as="video" type="video/mp4">
 <link rel="preload" href="assets/art-portrait-1.jpg" as="image">
 <link rel="preload" href="assets/landscape-1.jpg" as="image">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FAF7F2;
@@ -187,19 +187,12 @@
     display:flex;align-items:center;gap:.9rem;
     transition:gap .5s cubic-bezier(.22,1,.36,1);
   }
-  nav .clock .dot{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 0 4px var(--accent-soft);
-    transition:width .5s cubic-bezier(.22,1,.36,1), height .5s cubic-bezier(.22,1,.36,1), box-shadow .5s cubic-bezier(.22,1,.36,1);
-  }
   nav .clock .date{font-size:1.05rem;letter-spacing:.08em;color:var(--ink-soft);font-style:normal;font-family:var(--sans);font-weight:400;transition:font-size .5s cubic-bezier(.22,1,.36,1)}
-  nav .clock .days-counter{font-size:2rem;letter-spacing:.04em;color:var(--accent);font-style:normal;font-family:var(--serif);font-weight:500;margin-top:.1rem;line-height:1;transition:font-size .5s cubic-bezier(.22,1,.36,1), color .5s}
+  nav .clock .days-counter{font-size:2rem;letter-spacing:.02em;color:var(--accent);font-style:italic;font-family:'Playfair Display',var(--serif);font-weight:600;margin-top:.1rem;line-height:1;transition:font-size .5s cubic-bezier(.22,1,.36,1), color .5s}
   nav .clock.scrolled{
     font-size:.95rem;
   }
   nav .clock.scrolled .clock-main{gap:.75rem}
-  nav .clock.scrolled .dot{width:4px;height:4px;box-shadow:0 0 0 3px var(--accent-soft)}
   nav .clock.scrolled .date{font-size:.76rem;color:var(--ink-dim)}
   nav .clock.scrolled .days-counter{font-size:.64rem;color:var(--ink-dim);opacity:.9;margin-top:.05rem}
   nav .right{display:flex;align-items:center;gap:1.8rem;justify-self:end}
@@ -699,7 +692,6 @@
   </div>
   <div class="clock" aria-live="off">
     <div class="clock-main">
-      <span class="dot"></span>
       <span id="clockDate" class="date"></span>
       <span id="clockTime"></span>
     </div>
