@@ -1570,40 +1570,10 @@ document.addEventListener("DOMContentLoaded", function(){
   window.addEventListener("ethan-lang-changed", render);
 })();
 
-/* ================= Stories — pick one per visit (11 pool, EN+ZH) ================= */
+/* ================= Stories — pick one per visit (4 pool, EN+ZH) ================= */
 (function stories(){
   const STORIES = {
     en: [
-      {
-        type: "Emotional · 01",
-        img: "assets/story-1-mong-kok-last-train.jpg",
-        title: "The bus to Dali that wouldn't stop for clouds",
-        body: [
-          "The bus was supposed to leave at seven. It left at nine. Nobody complained; the two old women next to me had brought a jar of pickles, and they shared. Somewhere between Chuxiong and Xiaguan, the driver slowed down so suddenly I thought something was wrong. It was just the clouds, he said. Liked to look at them.",
-          "Outside the window, terraces folded down the hillside in greens I didn't know existed — tea green, jade green, the colour of young rice that's just been watered. A man on the side of the road was walking a goat on a leash, and the goat kept stopping to stare at the bus, as if it knew we weren't in a hurry either. We passed a man selling pears from a basket, and the driver bought two. One for him. One for the old woman with the pickles. Nobody said thank you.",
-          "I was going to Dali to meet someone who didn't show up in the end. I don't even remember their name now. But I remember that bus. I remember the pickles, and the pears, and how somewhere, for six hours, we all agreed there were more important things than schedules."
-        ]
-      },
-      {
-        type: "Emotional · 02",
-        img: "assets/story-2-jasmine-after-rain.jpg",
-        title: "Let's see each other again, after the rain",
-        body: [
-          "The jasmine you gave me three years ago finally bloomed, the day after you left. Just one flower, really — small, stubborn, white. It smelled exactly like the summer we first met, which is to say it smelled like nothing I can describe and everything I can't forget.",
-          "A few petals fell on the windowsill this morning. I didn't sweep them away. I stood there for a while listening to the drip of the gutter, and for no reason I could name I almost picked up the phone to tell you.",
-          "Maybe if it rains again next week I will. Maybe I'll say nothing important, just: the flowers are fine, the window still leaks a little, nothing's changed since the last time you were here except that I notice the silence now, and I think about you every time the jasmine turns towards the sun."
-        ]
-      },
-      {
-        type: "Emotional · 03",
-        img: "assets/story-3-old-sweater.jpg",
-        title: "The old sweater my mother knitted for me",
-        body: [
-          "It doesn't fit anymore. The sleeves are too short, the shoulders have gone soft at the seams, the cream colour has turned yellow in the places where the sun has hit it for twenty years. But I still put it on sometimes, when the apartment is quiet and I have absolutely nowhere to be.",
-          "She taught herself to knit on the boat. She said everyone else was playing mah-jong and she needed something to keep her hands busy because she was too scared to sleep. She was nineteen. She had never knitted anything before in her life. Every stitch is wrong, every row is slightly different, and the whole thing is so uneven it could almost be a piece of art.",
-          "I used to pretend I hated it when she made me wear it as a kid. Now I would give every single item of clothing I own for one more sweater that doesn't quite fit."
-        ]
-      },
       {
         type: "Ideal · 01",
         img: "assets/story-4-lighthouse-letter.jpg",
@@ -1615,16 +1585,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "Ideal · 02",
-        img: "assets/story-5-lost-bookshop.jpg",
-        title: "A small shop that doesn't need to make money, only for the lost",
-        body: [
-          "Someday I want to open a bookshop in a city where I don't belong yet. Small, cramped, the kind of shop that's impossible to find unless someone who loves you gives you directions — and even then, you'll probably walk past it twice.",
-          "The coffee will be mediocre but always warm. There will be one cat, asleep on top of the poetry section, and he'll have a name that sounds like an old man's, like Frederick or Arthur. I won't check how much we sold at the end of the day. Not because I don't care, but because I care about the other thing more: the person who came in crying and left an hour later with a 1970s paperback they didn't know they needed.",
-          "It'll close at strange hours. Sometimes midnight. Sometimes never, if someone's still reading by the window. You don't have to buy anything. You just have to be okay with being lost, for a little while, in the same room as me."
-        ]
-      },
-      {
         type: "Places · Jianshui",
         img: "assets/story-jianshui-shop.jpg",
         title: "The old shop that sold nothing I could name",
@@ -1632,26 +1592,6 @@ document.addEventListener("DOMContentLoaded", function(){
           "There's a shop in Jianshui that doesn't seem to sell anything. It has a counter, a scale, two glass jars of candy, and an old woman behind the counter who is always peeling garlic. Over the years I've found myself walking past it in different company, always by accident, never quite on purpose.",
           "No group ever buys anything. We ask for water and she gives us small glasses, cloudy with a little sugar at the bottom. She doesn't speak much Mandarin, and whoever is with me always bungles the dialect, so we mostly nod and smile. When we leave she presses a handful of red candies into every pocket — the kind that cost one fen each, wrapped in translucent paper that sticks to your fingers.",
           "I passed by again last winter, alone, eight winters removed from the first time. The shop was still there. She was still peeling garlic. She didn't recognize me, or maybe she did and didn't say. I bought two bags of those candies. They tasted exactly the same — faintly artificial, faintly sweet, faintly every age I've ever been."
-        ]
-      },
-      {
-        type: "Places · Hekou",
-        img: "assets/story-hekou-border.jpg",
-        title: "The border town where the river decides the weather",
-        body: [
-          "Hekou is the kind of town where the river decides what day it is. On foggy mornings the street lamps stay on until ten. On clear afternoons the sidewalks smell of jackfruit and diesel. For a long season I'd ride my bike to the bridge every weekend and sit on the low wall, not to look at anything across the border, just to watch the water move.",
-          "Once a week a train would come through, slow, two or three carriages only, its bell ringing in a way that sounded half announcement, half apology. We'd all stand there, even the ones who acted too cool to care, and wait for it to pass. Then we'd ride home in a bunch, no one talking, our hair pushed flat by the wind it left behind.",
-          "I took the train away three years ago, the day after my twentieth birthday. I cried all the way to Kunming, not because I was leaving, but because I didn't know I was going to miss a town this much until I was already on the other side of the hill."
-        ]
-      },
-      {
-        type: "Places · Kunming",
-        img: "assets/story-kunming-cherry.jpg",
-        title: "A spring I spent watching cherries fall instead of living",
-        body: [
-          "Cherry blossoms by the old city wall last about eleven days. I counted them one spring, because I was meant to be doing something else entirely and couldn't focus on any of it. So instead I sat under the cherry trees with a notebook I never wrote in, and watched the blossoms drop in the wind.",
-          "A girl with a film camera sat down beside me on the fourth day. She was also doing nothing. We didn't exchange names for three days, only opinions: which tree had the best light, whether the petals were better with or without wind, why the wonton shop by the east gate was the only one worth queuing for.",
-          "We're not in touch anymore. But I've been back to that little corner of the city twice, and both times I sat under that same tree, and both times the petals fell exactly the same way they always do — gentle, brief, a little apologetic — like they knew you'd be back to watch."
         ]
       },
       {
@@ -1677,36 +1617,6 @@ document.addEventListener("DOMContentLoaded", function(){
     ],
     zh: [
       {
-        type: "情感 · 零一",
-        img: "assets/story-1-mong-kok-last-train.jpg",
-        title: "去大理的那班慢车，和云一起走",
-        body: [
-          "本来七点发车的大巴，九点才动。没人抱怨；旁边两位老人带来一瓶腌菜，一人给我夹了一筷子。楚雄到下关的路上，司机突然踩了刹车，我以为出了什么事。他说，你看云。他喜欢看。",
-          "窗外的梯田一层一层往山坡下叠——茶绿、玉绿、刚浇完水的嫩稻的那种绿。路边一个人牵着一只羊，羊走两步就停，盯着大巴看，好像知道我们也不急。经过一个卖梨的挑子，司机停下来买了两个，一个自己吃，一个递给带腌菜的老太太。没有人说谢谢。",
-          "我那次去大理，是去见一个最后没出现的人。他的名字我已经记不清了。但那辆大巴我记得。腌菜的味道，梨的味道，还有六个小时里，全车人都默认了一件事：时间表没那么重要。"
-        ]
-      },
-      {
-        type: "情感 · 零二",
-        img: "assets/story-2-jasmine-after-rain.jpg",
-        title: "雨停之后，我们再见面好吗",
-        body: [
-          "三年前你送我的那盆茉莉，在你走的第二天终于开了。只有一朵——小小的，倔倔的，白色的。香得和我们第一次见面那个夏天一模一样。也就是：我描述不出来，但什么都忘不了的那种味道。",
-          "今天早上窗台上掉了几片花瓣。我没扫。就站在那儿听了一会儿排水管的滴答声，毫无理由地差点拿起手机打给你。",
-          "如果下礼拜再下雨，我可能就打了。可能什么都不说，只讲：花开了，窗台还是有点漏雨，你上次走了之后什么都没变，只是现在屋子里安静的时候我会听见。还有——每次茉莉转向太阳，我就想起你。"
-        ]
-      },
-      {
-        type: "情感 · 零三",
-        img: "assets/story-3-old-sweater.jpg",
-        title: "妈妈织给我的那件旧毛衣",
-        body: [
-          "现在已经不合身了。袖子短了一截，肩线松松垮垮，米白色的线在晒了二十年太阳的地方，已经变成温柔的黄。可屋子一静下来、我一整天都没地方可去的时候，我还是会穿上它。",
-          "她说她是在船上自学的织毛衣。别人都在打麻将，她太害怕睡不着，得让手有点事情做。那年她十九岁，这辈子第一次碰毛线。每一针都不对，每行都有一点不一样，整件毛衣歪歪扭扭，丑得几乎可以算艺术品。",
-          "小时候她逼我穿，我还装作很讨厌的样子。现在我愿意把衣柜里所有新衣服都拿去换一件——不合身，但每一针都是她。"
-        ]
-      },
-      {
         type: "理想 · 零一",
         img: "assets/story-4-lighthouse-letter.jpg",
         title: "二十岁写给自己的那封信，三十岁终于收到了",
@@ -1717,16 +1627,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "理想 · 零二",
-        img: "assets/story-5-lost-bookshop.jpg",
-        title: "开一家不用赚钱的店，只开给迷路的人",
-        body: [
-          "总有一天，我要在一个我还不属于的城市，开一家小书店。窄窄的，挤挤的，那种不被真正爱你的人指两三次路就绝对找不到的店。",
-          "咖啡会难喝，但永远是热的。会有一只猫，趴在诗集区上睡觉，名字要像老头子一样，比如「弗雷德里克」或者「亚瑟」。打烊时我不会数今天卖了几本书——不是不在乎，是因为更在乎另一件事：那个进来时眼睛红红的人，一小时之后带着一本七十年代的旧平装本走了，说她以前从来不知道她需要这本书。",
-          "开门的时间会很奇怪。有时开到半夜十二点。有时有人还在窗边看书，就干脆不开门了。你什么都不用买。只要你也愿意——和我一起，在这间屋子里，迷失一小会儿。"
-        ]
-      },
-      {
         type: "地方 · 建水",
         img: "assets/story-jianshui-shop.jpg",
         title: "那家什么也不怎么卖的老店",
@@ -1734,26 +1634,6 @@ document.addEventListener("DOMContentLoaded", function(){
           "建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。许多年里，我和不同的人路过它——每一次都像无意中撞上，从来不是专程去找的。",
           "什么也没买过。只要了水。她给的玻璃杯总是小的，杯底有一点点糖，浑浑的。她普通话不好，谁跟我一块儿去，谁的建水话也都够烂，所以全程就是点头、笑。临走时她往每人兜里都塞一把红糖——一分钱一颗的那种，糖纸半透明，粘手指。",
           "去年冬天我又路过，独自一人，离第一次去有八年了。店还在，她还在剥大蒜。她没认出我，或者认出了没说。我买了两袋那种糖。味道一模一样——有点人工、有点甜、有点我活过的每一年。"
-        ]
-      },
-      {
-        type: "地方 · 河口",
-        img: "assets/story-hekou-border.jpg",
-        title: "这座被江水决定天气的边城",
-        body: [
-          "河口是那种江水决定日子的小镇。雾重的早晨路灯亮到十点才关；天晴的午后人行道上飘着菠萝蜜和柴油的味道。很长一段时间里，每个周末我都会骑车去桥那儿，坐在低矮的墙边，不是看对岸，只是看水怎么流。",
-          "每周会有一班火车经过，慢慢的，只有两三节车厢，汽笛声像在宣告又像在道歉。我们全站着，哪怕那些装作不在乎的人也会等它过去。然后一群人骑车回家，没人说话，头发被火车留下的风压得平平的。",
-          "三年前，过完二十岁生日的第二天，我坐那班火车离开了。一路哭到昆明。不是舍不得走，是没发现自己会这么舍不得，直到车已经翻过了那道看不见的山。"
-        ]
-      },
-      {
-        type: "地方 · 昆明",
-        img: "assets/story-kunming-cherry.jpg",
-        title: "那个只顾看樱花落的春天",
-        body: [
-          "老城墙边的樱花大概只开十一天。有一年春天我数着过，因为本应在做别的事，却怎么也静不下来。于是我带了一本永远没翻开的笔记本，坐到樱花树下，看花瓣一片一片被风吹下来。",
-          "第四天，一个带胶片机的女生坐到我旁边。她也什么都没做。我们三天没交换名字，只谈看法：哪棵树的光最好、花瓣有风没风的哪种好看、为什么只有东门那家馄饨店值得排队。",
-          "后来没再联系。但我回过那片樱花林两次，每次都坐到那棵树下，每次花瓣落下来的样子都一模一样——温柔、短暂、带着一点点歉意——像它们知道你还会回来等。"
         ]
       },
       {
