@@ -219,7 +219,7 @@
   }
   .hero-media{
     position:absolute;inset:0;
-    background:#f5efe5 url(assets/hero-poster.jpg) center/cover no-repeat;
+    background:#f5efe5;
     will-change:transform,opacity,filter;
     transform-origin:50% 45%;
     transform:scale(calc(1 - var(--scroll) * 0.32));
@@ -227,10 +227,18 @@
     filter:saturate(calc(1 + var(--scroll) * 0.08)) contrast(calc(1.01 + var(--scroll) * 0.02));
     transition:transform .08s linear,opacity .08s linear;
   }
+  .hero-media::before{
+    content:"";position:absolute;inset:0;
+    background:url(assets/hero-poster.jpg) center/cover no-repeat;
+    opacity:1;
+    transition:opacity 1s ease;
+  }
+  .hero-media.video-on::before{opacity:0}
   .hero-media video{
+    position:absolute;inset:0;
     width:100%;height:100%;object-fit:cover;object-position:center;
     opacity:0;
-    transition:opacity 1.2s ease;
+    transition:opacity 1s ease;
     background:transparent;
   }
   .hero-media video.loaded{opacity:.6}
@@ -1078,16 +1086,26 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 (function heroVideo(){
   const v = document.getElementById("heroVideo");
   const vm = document.querySelector(".hero-media video.mobile");
-  if(!v) return;
-  const onLoaded = (el)=>{ if(el) el.classList.add("loaded"); };
-  v.addEventListener("loadeddata", ()=>onLoaded(v));
-  v.addEventListener("playing", ()=>onLoaded(v));
+  const media = document.getElementById("heroMedia");
+  if(!v || !media) return;
+  const showVideo = ()=>{
+    v.classList.add("loaded");
+    media.classList.add("video-on");
+  };
+  const showVideoM = ()=>{
+    if(vm) vm.classList.add("loaded");
+    media.classList.add("video-on");
+  };
+  v.addEventListener("loadeddata", showVideo);
+  v.addEventListener("playing", showVideo);
   v.addEventListener("error", ()=>{ v.style.display="none"; });
   if(vm){
-    vm.addEventListener("loadeddata", ()=>onLoaded(vm));
-    vm.addEventListener("playing", ()=>onLoaded(vm));
+    vm.addEventListener("loadeddata", showVideoM);
+    vm.addEventListener("playing", showVideoM);
     vm.addEventListener("error", ()=>{ vm.style.display="none"; });
   }
+  // If video already loaded before listeners attached
+  if(v.readyState >= 2) showVideo();
   const tryPlay = ()=>{ const p = v.play(); if(p && p.catch) p.catch(()=>{}); };
   if(document.readyState === "complete") tryPlay();
   else window.addEventListener("load", tryPlay);
