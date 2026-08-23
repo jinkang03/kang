@@ -8,9 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="assets/hero-poster.jpg" as="image">
-<link rel="preload" href="assets/hero-bg.mp4" as="video" type="video/mp4">
 <link rel="preload" href="assets/art-portrait-1.jpg" as="image">
-<link rel="preload" href="assets/landscape-1.jpg" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -119,12 +117,6 @@
   .gate-btn:hover::before{transform:translateY(0)}
   .gate-btn:hover{color:#fff;border-color:var(--ink);transform:translateY(-2px)}
   .gate-btn.primary:hover{color:var(--accent)}
-  .gate-foot{
-    position:absolute;left:50%;bottom:1.8rem;transform:translateX(-50%);
-    font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;
-    color:var(--ink-dim);
-    opacity:0;animation:rise 1s 1.1s ease forwards;
-  }
   @keyframes rise{to{opacity:1;transform:translateY(0)}}
 
   /* ============ Nav ============ */
@@ -437,7 +429,6 @@
     width:100%;
     text-align:center;
   }
-  .story-body .kicker{display:none}
   .story-body h3{
     font-family:var(--serif);font-weight:500;
     font-size:clamp(1.25rem, 2.6vw, 2.4rem);
@@ -796,7 +787,6 @@
       <div class="story-scrim"></div>
       <div class="story-body">
         <div class="story-content">
-          <div class="kicker"><span class="dot"></span><span id="storyKicker"></span></div>
           <h3 id="storyTitle"></h3>
           <div class="prose" id="storyProse"></div>
           <div class="sig-pill">— E.K.</div>
@@ -1607,7 +1597,6 @@ document.addEventListener("DOMContentLoaded", function(){
   const STORIES = {
     en: [
       {
-        type: "Ideal · 01",
         img: "assets/story-4-lighthouse-letter.jpg",
         title: "The letter I wrote myself at twenty finally arrived at thirty",
         body: [
@@ -1617,7 +1606,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "Places · Jianshui",
         img: "assets/story-jianshui-shop.jpg",
         title: "The old shop that sold nothing I could name",
         body: [
@@ -1627,7 +1615,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "Places · Mengzi",
         img: "assets/story-mengzi-station.jpg",
         title: "The train station that smelled like an unwritten letter",
         body: [
@@ -1637,7 +1624,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "Places · Anning",
         img: "assets/story-anning-spring-night.jpg",
         title: "A night in Anning when nobody was in a hurry",
         body: [
@@ -1649,7 +1635,6 @@ document.addEventListener("DOMContentLoaded", function(){
     ],
     zh: [
       {
-        type: "理想 · 零一",
         img: "assets/story-4-lighthouse-letter.jpg",
         title: "二十岁写给自己的那封信，三十岁终于收到了",
         body: [
@@ -1659,7 +1644,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "地方 · 建水",
         img: "assets/story-jianshui-shop.jpg",
         title: "那家什么也不怎么卖的老店",
         body: [
@@ -1669,7 +1653,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "地方 · 蒙自",
         img: "assets/story-mengzi-station.jpg",
         title: "那座闻起来像未寄出的信的小火车站",
         body: [
@@ -1679,7 +1662,6 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        type: "地方 · 安宁",
         img: "assets/story-anning-spring-night.jpg",
         title: "安宁那个没人着急的夜晚",
         body: [
@@ -1696,7 +1678,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const lang = document.documentElement.lang === "zh" ? "zh" : "en";
     const s = STORIES[lang][chosenIndex];
     const bg = document.getElementById("storyBg");
-    const kicker = document.getElementById("storyKicker");
     const title = document.getElementById("storyTitle");
     const prose = document.getElementById("storyProse");
     const card = document.getElementById("storyCard");
@@ -1718,7 +1699,7 @@ document.addEventListener("DOMContentLoaded", function(){
   window.addEventListener("ethan-lang-changed", renderStories);
 })();
 
-/* ================= Background Music (hidden, reliable, loop) ================= */
+/* ================= Background Music (random track, stall-rotate, loop) ================= */
 (function bgMusic(){
   const TRACKS = [
     "assets/music/01-Fading-Away.mp3",
@@ -1729,11 +1710,17 @@ document.addEventListener("DOMContentLoaded", function(){
     "assets/music/06-The-Truth-That-You-Leave-Pianoboy.flac"
   ];
 
+  const PLAY_TIMEOUT = 9000;        // rotate track if not audible within this window
+  const MAX_ROTATIONS = TRACKS.length - 1;
+  const MAX_TRIES = 25;
+
   let audio = null;
   let started = false;
-  let retryTimer = null;
-  let retryCount = 0;
-  const MAX_RETRIES = 15;
+  let rotations = 0;
+  let tries = 0;
+  let watchdog = null;
+
+  function pickTrack(){ return TRACKS[Math.floor(Math.random() * TRACKS.length)]; }
 
   function ensureAudio(){
     if(!audio){
@@ -1742,122 +1729,89 @@ document.addEventListener("DOMContentLoaded", function(){
       audio.loop = true;
       audio.volume = 0.55;
       audio.setAttribute("playsinline", "");
-      audio.crossOrigin = "anonymous";
       document.body.appendChild(audio);
+      audio.addEventListener("playing", ()=>{ started = true; clearWatchdog(); }, { once: true });
+      // chosen track failed to load or decode -> switch to another one
+      audio.addEventListener("error", ()=>{
+        if(started || rotations >= MAX_ROTATIONS) return;
+        rotations++;
+        load(pickTrack());
+        play();
+      });
     }
     return audio;
   }
 
-  function attemptPlay(){
-    const a = ensureAudio();
-    if(!a.paused) return true;
-    try {
-      const p = a.play();
-      if(p && typeof p.then === "function"){
-        p.then(()=>{
-          started = true;
-          retryCount = 0;
-          if(retryTimer){ clearTimeout(retryTimer); retryTimer = null; }
-        }).catch(()=>{
-          // Browser blocked - retry will handle
-        });
-        return true;
-      } else {
-        started = true;
-        return true;
-      }
-    } catch(e){
-      return false;
-    }
+  function clearWatchdog(){
+    if(watchdog){ clearTimeout(watchdog); watchdog = null; }
   }
 
-  function scheduleRetry(){
-    if(started || retryCount >= MAX_RETRIES) return;
-    retryCount++;
-    const delay = 400 + retryCount * 350;
-    retryTimer = setTimeout(()=>{
-      const ok = attemptPlay();
-      if(!ok && !started){
-        scheduleRetry();
-      }
-    }, delay);
+  function load(src){
+    const a = ensureAudio();
+    a.src = src;
+    a.load();
   }
 
-  function startMusic(){
-    if(started) return;
+  function armWatchdog(){
+    clearWatchdog();
+    watchdog = setTimeout(()=>{
+      if(started || !audio) return;
+      // download stalled or still buffering -> rotate to another track
+      if(rotations < MAX_ROTATIONS){
+        rotations++;
+        load(pickTrack());
+      }
+      play();
+    }, PLAY_TIMEOUT);
+  }
+
+  function play(){
     const a = ensureAudio();
-
-    // Pick random track
-    if(!a.src || a.src.endsWith("about:blank")){
-      const idx = Math.floor(Math.random() * TRACKS.length);
-      a.src = TRACKS[idx];
+    if(started || !a.paused) return;
+    if(!a.src) load(pickTrack());
+    const p = a.play();
+    if(p && p.catch){
+      p.catch(()=>{
+        // autoplay blocked or interrupted -> retry with backoff
+        if(tries < MAX_TRIES){
+          tries++;
+          setTimeout(play, 400 + tries * 300);
+        }
+      });
     }
-    a.loop = true;
-    a.volume = 0.55;
-
-    // Try immediately
-    if(attemptPlay()) return;
-
-    // Also try when audio becomes ready
-    const readyHandler = () => {
-      if(!started) attemptPlay();
-    };
-    a.addEventListener("loadeddata", readyHandler, { once: true });
-    a.addEventListener("canplaythrough", readyHandler, { once: true });
-    a.addEventListener("playing", () => { started = true; retryCount = 0; if(retryTimer){ clearTimeout(retryTimer); retryTimer = null; } }, { once: true });
-
-    // Retry loop as safety net
-    scheduleRetry();
+    armWatchdog();
   }
 
   function trigger(){
     if(started) return;
-    startMusic();
-    if(!started){
-      // One more push after a short delay
-      setTimeout(startMusic, 600);
-    }
-  }
-
-  // Primary trigger: language gate buttons
-  function hook(el){
-    if(!el || el.__musicHooked) return;
-    el.__musicHooked = true;
-    el.addEventListener("click", () => setTimeout(trigger, 250), {passive:true});
+    play();
+    setTimeout(()=>{ if(!started) play(); }, 600);
   }
 
   function bind(){
-    document.querySelectorAll(".gate-btn").forEach(hook);
-    const navToggle = document.getElementById("langToggle");
-    if(navToggle && !navToggle.__musicHooked){
-      navToggle.__musicHooked = true;
-      navToggle.addEventListener("click", () => setTimeout(trigger, 250), {passive:true});
+    document.querySelectorAll(".gate-btn").forEach(el=>{
+      if(el.__musicHooked) return;
+      el.__musicHooked = true;
+      el.addEventListener("click", ()=>setTimeout(trigger, 200), {passive:true});
+    });
+    const langToggle = document.getElementById("langToggle");
+    if(langToggle && !langToggle.__musicHooked){
+      langToggle.__musicHooked = true;
+      langToggle.addEventListener("click", ()=>setTimeout(trigger, 200), {passive:true});
     }
-
-    // Universal: ANY first user interaction triggers music
-    const firstInteract = () => {
-      trigger();
-      window.removeEventListener("pointerdown", firstInteract, true);
-      window.removeEventListener("keydown", firstInteract, true);
-      window.removeEventListener("touchstart", firstInteract, true);
-    };
-    window.addEventListener("pointerdown", firstInteract, { once: true, capture: true, passive: true });
-    window.addEventListener("keydown", firstInteract, { once: true, capture: true, passive: true });
-    window.addEventListener("touchstart", firstInteract, { once: true, capture: true, passive: true });
+    // any first user interaction starts the music
+    ["pointerdown","keydown","touchstart"].forEach(ev=>{
+      window.addEventListener(ev, trigger, { once:true, capture:true, passive:true });
+    });
   }
 
-  // Pre-create audio element early, load track in background
-  function preload(){
-    const a = ensureAudio();
-    const idx = Math.floor(Math.random() * TRACKS.length);
-    a.src = TRACKS[idx];
-    a.load();
-  }
+  // pick a track and start buffering immediately
+  load(pickTrack());
 
   if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", () => { preload(); bind(); });
+    document.addEventListener("DOMContentLoaded", bind);
   } else {
-    preload(); bind();
+    bind();
   }
 })();
 </script>
