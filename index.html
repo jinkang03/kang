@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#FAF7F2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="assets/hero-poster.jpg" as="image" fetchpriority="high">
+<link rel="preload" href="assets/hero-poster.webp" as="image" fetchpriority="high" type="image/webp">
 <script>
   /* Defer Google Fonts CSS so it never blocks the first paint. */
   (function () {
@@ -235,7 +235,7 @@
   }
   .hero-media::before{
     content:"";position:absolute;inset:0;
-    background:url(assets/hero-poster.jpg) center/cover no-repeat;
+    background:url(assets/hero-poster.webp) center/cover no-repeat;
     opacity:1;
     transition:opacity 1s ease;
   }
@@ -720,13 +720,13 @@
   <div class="hero-media" id="heroMedia" aria-hidden="true">
     <video class="desktop" id="heroVideo"
       autoplay muted loop playsinline preload="metadata"
-      poster="assets/hero-poster.jpg"
+      poster="assets/hero-poster.webp"
       disablepictureinpicture x5-playsinline>
       <source src="assets/hero-bg.mp4" type="video/mp4">
     </video>
     <video class="mobile"
       autoplay muted loop playsinline preload="none"
-      poster="assets/hero-poster.jpg"
+      poster="assets/hero-poster.webp"
       disablepictureinpicture x5-playsinline>
       <source src="assets/hero-bg.mp4" type="video/mp4">
     </video>
@@ -749,7 +749,10 @@
 <section class="about" id="about">
   <div class="wrap about-grid">
     <div class="about-portrait reveal">
-      <img src="assets/art-portrait-1.jpg" alt="Portrait of Jin Kang" loading="lazy" decoding="async" fetchpriority="low">
+      <picture>
+        <source srcset="assets/art-portrait-1.webp" type="image/webp">
+        <img src="assets/art-portrait-1.jpg" alt="Portrait of Jin Kang" loading="lazy" decoding="async" fetchpriority="low" width="1285" height="1600">
+      </picture>
     </div>
     <div class="about-text">
       <div class="label reveal" data-i18n="about.label">About</div>
@@ -771,18 +774,18 @@
       <p class="reveal d2" data-i18n="gallery.desc">A rolling collection of frames — curated loosely, arranged randomly. Some are staged in borrowed apartments with borrowed light; most are stolen from real days that will never return. Each one holds a single, specific second that I couldn't bear to let go.</p>
     </div>
     <div class="gallery-grid">
-      <div class="g-item g-1 reveal"><img src="assets/gallery-01-lugu-lake.jpg" alt="Lugu Lake in morning mist" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
-      <div class="g-item g-15 reveal d1"><img src="assets/gallery-15-user.jpg" alt="Hometown mountain panorama" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">02</span><span data-i18n="gallery.c15">Old Mountains, Home</span></div></div>
-      <div class="g-item g-3 reveal"><img src="assets/gallery-03-dali-roofs.jpg" alt="Dali old town roofs" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">Dali Old Town</span></div></div>
-      <div class="g-item g-4 reveal d1"><img src="assets/gallery-04-yuanyang-terraces.jpg" alt="Yuanyang rice terraces sunrise" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
-      <div class="g-item g-13 reveal"><img src="assets/gallery-13-user.jpg" alt="City under blue sky" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">05</span><span data-i18n="gallery.c13">City Under Clouds</span></div></div>
-      <div class="g-item g-10 reveal d1"><img src="assets/gallery-10-lugu-water.jpg" alt="Lugu Lake stilt village" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">06</span><span data-i18n="gallery.c10">Lugu Water</span></div></div>
-      <div class="g-item g-11 reveal"><img src="assets/gallery-11-rice-terraces.jpg" alt="Hani rice terraces" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">07</span><span data-i18n="gallery.c11">Rice Terraces</span></div></div>
-      <div class="g-item g-17 reveal d1"><img src="assets/gallery-17-user.jpg" alt="Anning golden autumn" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">08</span><span data-i18n="gallery.c17">All Gold</span></div></div>
-      <div class="g-item g-18 reveal"><img src="assets/gallery-18-user.jpg" alt="School building against blue sky" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">09</span><span data-i18n="gallery.c18">Sky and Wall</span></div></div>
-      <div class="g-item g-19 reveal d1"><img src="assets/gallery-19-user.jpg" alt="Hekou border town at night" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">10</span><span data-i18n="gallery.c19">Border Night Fires</span></div></div>
-      <div class="g-item g-16 reveal"><img src="assets/gallery-16-user.jpg" alt="Flowers in shadow" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">11</span><span data-i18n="gallery.c16">Bloom in Shadow</span></div></div>
-      <div class="g-item g-12 reveal d1"><img src="assets/gallery-12-yunnan-sky.jpg" alt="Yunnan mountain sky panorama" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">12</span><span data-i18n="gallery.c12">Yunnan Sky</span></div></div>
+      <div class="g-item g-1 reveal"><picture><source srcset="assets/gallery-01-lugu-lake.webp" type="image/webp"><img src="assets/gallery-01-lugu-lake.jpg" alt="Lugu Lake in morning mist" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="900"></picture><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
+      <div class="g-item g-15 reveal d1"><picture><source srcset="assets/gallery-15-user.webp" type="image/webp"><img src="assets/gallery-15-user.jpg" alt="Hometown mountain panorama" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1200"></picture><div class="cap"><span class="num">02</span><span data-i18n="gallery.c15">Old Mountains, Home</span></div></div>
+      <div class="g-item g-3 reveal"><picture><source srcset="assets/gallery-03-dali-roofs.webp" type="image/webp"><img src="assets/gallery-03-dali-roofs.jpg" alt="Dali old town roofs" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1600"></picture><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">Dali Old Town</span></div></div>
+      <div class="g-item g-4 reveal d1"><picture><source srcset="assets/gallery-04-yuanyang-terraces.webp" type="image/webp"><img src="assets/gallery-04-yuanyang-terraces.jpg" alt="Yuanyang rice terraces sunrise" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="900"></picture><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
+      <div class="g-item g-13 reveal"><picture><source srcset="assets/gallery-13-user.webp" type="image/webp"><img src="assets/gallery-13-user.jpg" alt="City under blue sky" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1067"></picture><div class="cap"><span class="num">05</span><span data-i18n="gallery.c13">City Under Clouds</span></div></div>
+      <div class="g-item g-10 reveal d1"><picture><source srcset="assets/gallery-10-lugu-water.webp" type="image/webp"><img src="assets/gallery-10-lugu-water.jpg" alt="Lugu Lake stilt village" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="900"></picture><div class="cap"><span class="num">06</span><span data-i18n="gallery.c10">Lugu Water</span></div></div>
+      <div class="g-item g-11 reveal"><picture><source srcset="assets/gallery-11-rice-terraces.webp" type="image/webp"><img src="assets/gallery-11-rice-terraces.jpg" alt="Hani rice terraces" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1600"></picture><div class="cap"><span class="num">07</span><span data-i18n="gallery.c11">Rice Terraces</span></div></div>
+      <div class="g-item g-17 reveal d1"><picture><source srcset="assets/gallery-17-user.webp" type="image/webp"><img src="assets/gallery-17-user.jpg" alt="Anning golden autumn" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1200"></picture><div class="cap"><span class="num">08</span><span data-i18n="gallery.c17">All Gold</span></div></div>
+      <div class="g-item g-18 reveal"><picture><source srcset="assets/gallery-18-user.webp" type="image/webp"><img src="assets/gallery-18-user.jpg" alt="School building against blue sky" loading="lazy" decoding="async" fetchpriority="low" width="1200" height="1600"></picture><div class="cap"><span class="num">09</span><span data-i18n="gallery.c18">Sky and Wall</span></div></div>
+      <div class="g-item g-19 reveal d1"><picture><source srcset="assets/gallery-19-user.webp" type="image/webp"><img src="assets/gallery-19-user.jpg" alt="Hekou border town at night" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1200"></picture><div class="cap"><span class="num">10</span><span data-i18n="gallery.c19">Border Night Fires</span></div></div>
+      <div class="g-item g-16 reveal"><picture><source srcset="assets/gallery-16-user.webp" type="image/webp"><img src="assets/gallery-16-user.jpg" alt="Flowers in shadow" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="1200"></picture><div class="cap"><span class="num">11</span><span data-i18n="gallery.c16">Bloom in Shadow</span></div></div>
+      <div class="g-item g-12 reveal d1"><picture><source srcset="assets/gallery-12-yunnan-sky.webp" type="image/webp"><img src="assets/gallery-12-yunnan-sky.jpg" alt="Yunnan mountain sky panorama" loading="lazy" decoding="async" fetchpriority="low" width="1600" height="900"></picture><div class="cap"><span class="num">12</span><span data-i18n="gallery.c12">Yunnan Sky</span></div></div>
     </div>
   </div>
 </section>
@@ -1611,7 +1614,7 @@ document.addEventListener("DOMContentLoaded", function(){
   const STORIES = {
     en: [
       {
-        img: "assets/story-4-lighthouse-letter.jpg",
+        img: "assets/story-4-lighthouse-letter.webp",
         title: "The letter I wrote myself at twenty finally arrived at thirty",
         body: [
           "Dear future me — I hope you have figured out how to be brave by now. I hope you have seen the sea. I hope you still cry at the right movies and that you never became the kind of person who walks past a busker without putting something in the case. I hope you have kept your promises, especially the ones you made to yourself.",
@@ -1620,7 +1623,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        img: "assets/story-jianshui-shop.jpg",
+        img: "assets/story-jianshui-shop.webp",
         title: "The old shop that sold nothing I could name",
         body: [
           "There's a shop in Jianshui that doesn't seem to sell anything. It has a counter, a scale, two glass jars of candy, and an old woman behind the counter who is always peeling garlic. Over the years I've found myself walking past it in different company, always by accident, never quite on purpose.",
@@ -1629,7 +1632,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        img: "assets/story-mengzi-station.jpg",
+        img: "assets/story-mengzi-station.webp",
         title: "The train station that smelled like an unwritten letter",
         body: [
           "Mengzi station is small enough that you can hear the announcement from the ticket office. It has a specific way of making you feel like you're leaving something, even when you're only passing through — the kind of smallness that holds every goodbye ever said there.",
@@ -1638,7 +1641,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        img: "assets/story-anning-spring-night.jpg",
+        img: "assets/story-anning-spring-night.webp",
         title: "A night in Anning when nobody was in a hurry",
         body: [
           "The old Magnolia house in Anning has a quiet landing on the fifth floor where no one sits, except me, in the weeks before we had to leave. I'd go up there with a cup of lukewarm soybean milk and sit on the windowsill watching the old magnolia tree across the road. It would bloom twice a year, and each time I'd say to myself: remember this, you're going to want it later.",
@@ -1649,7 +1652,7 @@ document.addEventListener("DOMContentLoaded", function(){
     ],
     zh: [
       {
-        img: "assets/story-4-lighthouse-letter.jpg",
+        img: "assets/story-4-lighthouse-letter.webp",
         title: "二十岁写给自己的那封信，三十岁终于收到了",
         body: [
           "「未来的你：我希望你到那个时候已经学会了勇敢。我希望你亲眼看见过海。我希望你看对的电影还是会哭，希望你永远不会是那种从街头卖艺人身边走过、什么都不往琴盒里放的人。我希望你守住了所有承诺——尤其是对自己许过的。」",
@@ -1658,7 +1661,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        img: "assets/story-jianshui-shop.jpg",
+        img: "assets/story-jianshui-shop.webp",
         title: "那家什么也不怎么卖的老店",
         body: [
           "建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。许多年里，我和不同的人路过它——每一次都像无意中撞上，从来不是专程去找的。",
@@ -1667,7 +1670,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        img: "assets/story-mengzi-station.jpg",
+        img: "assets/story-mengzi-station.webp",
         title: "那座闻起来像未寄出的信的小火车站",
         body: [
           "蒙自车站小到在售票处就能听见广播。它有一种特别的本事：哪怕你只是经过，也会觉得自己要失去点什么——这种小，装得下所有曾在这儿说过的再见。",
@@ -1676,7 +1679,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ]
       },
       {
-        img: "assets/story-anning-spring-night.jpg",
+        img: "assets/story-anning-spring-night.webp",
         title: "安宁那个没人着急的夜晚",
         body: [
           "安宁那栋老玉兰楼的五楼有个没人坐的安静转角，要搬走的前几周我总在那儿。拿一杯温掉的豆奶坐在窗台上，看马路对面那棵老玉兰。它一年开两次，每次我都跟自己说：记住这个，以后会想的。",
