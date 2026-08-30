@@ -5,11 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jin Kang — Personal</title>
 <meta name="description" content="Jin Kang's personal site — moments, frames, and the in-between.">
+<meta name="theme-color" content="#FAF7F2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="assets/hero-poster.jpg" as="image">
-<link rel="preload" href="assets/art-portrait-1.jpg" as="image">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/hero-poster.jpg" as="image" fetchpriority="high">
+<script>
+  /* Defer Google Fonts CSS so it never blocks the first paint. */
+  (function () {
+    var href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap";
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = href;
+    l.media = 'print';
+    l.onload = function () { l.media = 'all'; l.removeAttribute('onload'); };
+    document.head.appendChild(l);
+    var nos = document.createElement('noscript');
+    nos.innerHTML = '<link rel="stylesheet" href="' + href + '">';
+    document.head.appendChild(nos);
+  })();
+</script>
 <style>
   :root{
     --bg:#FAF7F2;
@@ -705,13 +719,13 @@
 <header class="hero" id="top">
   <div class="hero-media" id="heroMedia" aria-hidden="true">
     <video class="desktop" id="heroVideo"
-      autoplay muted loop playsinline preload="auto"
+      autoplay muted loop playsinline preload="metadata"
       poster="assets/hero-poster.jpg"
       disablepictureinpicture x5-playsinline>
       <source src="assets/hero-bg.mp4" type="video/mp4">
     </video>
     <video class="mobile"
-      autoplay muted loop playsinline preload="metadata"
+      autoplay muted loop playsinline preload="none"
       poster="assets/hero-poster.jpg"
       disablepictureinpicture x5-playsinline>
       <source src="assets/hero-bg.mp4" type="video/mp4">
@@ -735,7 +749,7 @@
 <section class="about" id="about">
   <div class="wrap about-grid">
     <div class="about-portrait reveal">
-      <img src="assets/art-portrait-1.jpg" alt="Portrait of Jin Kang">
+      <img src="assets/art-portrait-1.jpg" alt="Portrait of Jin Kang" loading="lazy" decoding="async" fetchpriority="low">
     </div>
     <div class="about-text">
       <div class="label reveal" data-i18n="about.label">About</div>
@@ -757,18 +771,18 @@
       <p class="reveal d2" data-i18n="gallery.desc">A rolling collection of frames — curated loosely, arranged randomly. Some are staged in borrowed apartments with borrowed light; most are stolen from real days that will never return. Each one holds a single, specific second that I couldn't bear to let go.</p>
     </div>
     <div class="gallery-grid">
-      <div class="g-item g-1 reveal"><img src="assets/gallery-01-lugu-lake.jpg" alt="Lugu Lake in morning mist" loading="lazy"><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
-      <div class="g-item g-15 reveal d1"><img src="assets/gallery-15-user.jpg" alt="Hometown mountain panorama" loading="lazy"><div class="cap"><span class="num">02</span><span data-i18n="gallery.c15">Old Mountains, Home</span></div></div>
-      <div class="g-item g-3 reveal"><img src="assets/gallery-03-dali-roofs.jpg" alt="Dali old town roofs" loading="lazy"><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">Dali Old Town</span></div></div>
-      <div class="g-item g-4 reveal d1"><img src="assets/gallery-04-yuanyang-terraces.jpg" alt="Yuanyang rice terraces sunrise" loading="lazy"><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
-      <div class="g-item g-13 reveal"><img src="assets/gallery-13-user.jpg" alt="City under blue sky" loading="lazy"><div class="cap"><span class="num">05</span><span data-i18n="gallery.c13">City Under Clouds</span></div></div>
-      <div class="g-item g-10 reveal d1"><img src="assets/gallery-10-lugu-water.jpg" alt="Lugu Lake stilt village" loading="lazy"><div class="cap"><span class="num">06</span><span data-i18n="gallery.c10">Lugu Water</span></div></div>
-      <div class="g-item g-11 reveal"><img src="assets/gallery-11-rice-terraces.jpg" alt="Hani rice terraces" loading="lazy"><div class="cap"><span class="num">07</span><span data-i18n="gallery.c11">Rice Terraces</span></div></div>
-      <div class="g-item g-17 reveal d1"><img src="assets/gallery-17-user.jpg" alt="Anning golden autumn" loading="lazy"><div class="cap"><span class="num">08</span><span data-i18n="gallery.c17">All Gold</span></div></div>
-      <div class="g-item g-18 reveal"><img src="assets/gallery-18-user.jpg" alt="School building against blue sky" loading="lazy"><div class="cap"><span class="num">09</span><span data-i18n="gallery.c18">Sky and Wall</span></div></div>
-      <div class="g-item g-19 reveal d1"><img src="assets/gallery-19-user.jpg" alt="Hekou border town at night" loading="lazy"><div class="cap"><span class="num">10</span><span data-i18n="gallery.c19">Border Night Fires</span></div></div>
-      <div class="g-item g-16 reveal"><img src="assets/gallery-16-user.jpg" alt="Flowers in shadow" loading="lazy"><div class="cap"><span class="num">11</span><span data-i18n="gallery.c16">Bloom in Shadow</span></div></div>
-      <div class="g-item g-12 reveal d1"><img src="assets/gallery-12-yunnan-sky.jpg" alt="Yunnan mountain sky panorama" loading="lazy"><div class="cap"><span class="num">12</span><span data-i18n="gallery.c12">Yunnan Sky</span></div></div>
+      <div class="g-item g-1 reveal"><img src="assets/gallery-01-lugu-lake.jpg" alt="Lugu Lake in morning mist" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
+      <div class="g-item g-15 reveal d1"><img src="assets/gallery-15-user.jpg" alt="Hometown mountain panorama" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">02</span><span data-i18n="gallery.c15">Old Mountains, Home</span></div></div>
+      <div class="g-item g-3 reveal"><img src="assets/gallery-03-dali-roofs.jpg" alt="Dali old town roofs" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">Dali Old Town</span></div></div>
+      <div class="g-item g-4 reveal d1"><img src="assets/gallery-04-yuanyang-terraces.jpg" alt="Yuanyang rice terraces sunrise" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
+      <div class="g-item g-13 reveal"><img src="assets/gallery-13-user.jpg" alt="City under blue sky" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">05</span><span data-i18n="gallery.c13">City Under Clouds</span></div></div>
+      <div class="g-item g-10 reveal d1"><img src="assets/gallery-10-lugu-water.jpg" alt="Lugu Lake stilt village" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">06</span><span data-i18n="gallery.c10">Lugu Water</span></div></div>
+      <div class="g-item g-11 reveal"><img src="assets/gallery-11-rice-terraces.jpg" alt="Hani rice terraces" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">07</span><span data-i18n="gallery.c11">Rice Terraces</span></div></div>
+      <div class="g-item g-17 reveal d1"><img src="assets/gallery-17-user.jpg" alt="Anning golden autumn" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">08</span><span data-i18n="gallery.c17">All Gold</span></div></div>
+      <div class="g-item g-18 reveal"><img src="assets/gallery-18-user.jpg" alt="School building against blue sky" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">09</span><span data-i18n="gallery.c18">Sky and Wall</span></div></div>
+      <div class="g-item g-19 reveal d1"><img src="assets/gallery-19-user.jpg" alt="Hekou border town at night" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">10</span><span data-i18n="gallery.c19">Border Night Fires</span></div></div>
+      <div class="g-item g-16 reveal"><img src="assets/gallery-16-user.jpg" alt="Flowers in shadow" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">11</span><span data-i18n="gallery.c16">Bloom in Shadow</span></div></div>
+      <div class="g-item g-12 reveal d1"><img src="assets/gallery-12-yunnan-sky.jpg" alt="Yunnan mountain sky panorama" loading="lazy" decoding="async" fetchpriority="low"><div class="cap"><span class="num">12</span><span data-i18n="gallery.c12">Yunnan Sky</span></div></div>
     </div>
   </div>
 </section>
@@ -1674,7 +1688,8 @@ document.addEventListener("DOMContentLoaded", function(){
   };
 
   let chosenIndex = Math.floor(Math.random() * STORIES.en.length);
-  function renderStories(){
+  let storiesLoaded = false;
+  function renderStories(force){
     const lang = document.documentElement.lang === "zh" ? "zh" : "en";
     const s = STORIES[lang][chosenIndex];
     const bg = document.getElementById("storyBg");
@@ -1682,21 +1697,43 @@ document.addEventListener("DOMContentLoaded", function(){
     const prose = document.getElementById("storyProse");
     const card = document.getElementById("storyCard");
     if(!card) return;
+    if(!force && !storiesLoaded){
+      /* Defer loading the story image until the section is near the viewport. */
+      if("IntersectionObserver" in window){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){
+              storiesLoaded = true;
+              io.disconnect();
+              renderStories(true);
+            }
+          });
+        }, { rootMargin: "400px 0px" });
+        io.observe(card);
+      } else {
+        storiesLoaded = true;
+        renderStories(true);
+      }
+      /* Still fill text immediately so layout is stable. */
+      title.textContent = s.title;
+      prose.innerHTML = s.body.map(p=>"<p>"+p+"</p>").join("");
+      return;
+    }
     card.style.opacity = 0;
     card.style.transform = "translateY(18px)";
-    setTimeout(()=>{
-      bg.style.backgroundImage = `url('${s.img}')`;
+    setTimeout(function(){
+      bg.style.backgroundImage = "url('"+s.img+"')";
       title.textContent = s.title;
-      prose.innerHTML = s.body.map(p=>`<p>${p}</p>`).join("");
+      prose.innerHTML = s.body.map(p=>"<p>"+p+"</p>").join("");
       card.style.transition = "opacity .9s ease, transform .9s ease";
-      requestAnimationFrame(()=>{
+      requestAnimationFrame(function(){
         card.style.opacity = 1;
         card.style.transform = "translateY(0)";
       });
     }, 250);
   }
   renderStories();
-  window.addEventListener("ethan-lang-changed", renderStories);
+  window.addEventListener("ethan-lang-changed", function(){ renderStories(true); });
 })();
 
 /* ================= Background Music (random track, stall-rotate, loop) ================= */
@@ -1725,7 +1762,7 @@ document.addEventListener("DOMContentLoaded", function(){
   function ensureAudio(){
     if(!audio){
       audio = new Audio();
-      audio.preload = "auto";
+      audio.preload = "none";
       audio.loop = true;
       audio.volume = 0.55;
       audio.setAttribute("playsinline", "");
@@ -1805,14 +1842,14 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  // pick a track and start buffering immediately
-  load(pickTrack());
-
   if(document.readyState === "loading"){
     document.addEventListener("DOMContentLoaded", bind);
   } else {
     bind();
   }
+  // Do NOT start buffering audio on page load.
+  // Music starts only after a user gesture (pointerdown / keydown / touchstart / gate click)
+  // to avoid wasting 6–23 MB of bandwidth before the user ever engages.
 })();
 </script>
 </body>
