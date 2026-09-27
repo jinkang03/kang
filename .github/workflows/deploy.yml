@@ -22,9 +22,14 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Collect the public site
+        run: |
+          mkdir -p site
+          cp index.html favicon.svg .nojekyll site/
+          cp -a assets site/assets
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: site
 
   deploy:
     needs: build
