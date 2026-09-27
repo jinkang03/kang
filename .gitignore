@@ -8,6 +8,7 @@ _*.ps1
 compare.html
 *.log
 node_modules/
+visitor-worker/.wrangler/
 .DS_Store
 Thumbs.db
 
@@ -21,3 +22,10 @@ assets/gallery-3.jpg
 assets/hero-portrait.jpg
 assets/portrait-about.jpg
 assets/portrait.jpg
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

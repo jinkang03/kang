@@ -1,0 +1,9 @@
+name = "kang-visitors"
+main = "src/index.js"
+compatibility_date = "2026-09-27"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kang-visitors"
+database_id = "ee4eca27-6ede-48e0-90a1-9a9857c68cd3"

@@ -1252,11 +1252,10 @@ document.addEventListener("DOMContentLoaded", function(){
   const BACKDROP = MODAL ? MODAL.querySelector(".vm-backdrop") : null;
   if(!BTN || !MODAL) return;
 
-  const BOARD = "https://crudcrud.com/api/a0fd1985a2f6448188f5ccae12f4ac52/visitors";
+  const BOARD = "https://kang-visitors.jinkang03.workers.dev/visitors";
   const CACHE_KEY = "jk_visitor_board";
   const CURRENT_KEY = "jk_visitor_current";
   const MAX_VISITORS = 80;
-  const DEDUPE_MS = 10 * 60 * 1000;
 
   let currentInfo = null;
   let board = [];
@@ -1478,93 +1477,101 @@ document.addEventListener("DOMContentLoaded", function(){
       const cached = JSON.parse(localStorage.getItem(CURRENT_KEY) || "null");
       if(cached && validIp(cached.ip) && Date.now() - cached.ts < 5 * 60 * 1000){
         currentInfo = cached;
-        publishVisit(cached);
-        return;
       }
     }catch(e){}
 
-    const onData = d => {
+    recordVisit();
+
+    const applyGeo = d => {
+      if(!d || !d.ip) return;
+      const isp = d.connection && d.connection.isp ? d.connection.isp : (d.org || "");
+      if(currentInfo && validIp(currentInfo.ip) && d.ip !== currentInfo.ip) return;
       const info = {
-        ts: Date.now(),
-        ip: d.ip || "",
-        country: d.country_name || d.country || "",
-        country_code: d.country_code || "",
-        region: d.region || "",
-        city: d.city || "",
-        isp: d.connection && d.connection.isp ? d.connection.isp : (d.org || "")
+        ts: (currentInfo && currentInfo.ts) || Date.now(),
+        ip: (currentInfo && currentInfo.ip) || d.ip,
+        country: d.country_name || d.country || (currentInfo && currentInfo.country) || "",
+        country_code: d.country_code || (currentInfo && currentInfo.country_code) || "",
+        region: d.region || (currentInfo && currentInfo.region) || "",
+        city: d.city || (currentInfo && currentInfo.city) || "",
+        isp: isp || (currentInfo && currentInfo.isp) || ""
       };
       if(!validIp(info.ip)) return;
       currentInfo = info;
-      try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(info)); }catch(e){}
-      publishVisit(info);
+      try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
+      if(MODAL.classList.contains("show")) renderModal();
     };
 
     fetch("https://ipwho.is/").then(r => r.json()).then(d => {
-      if(d && d.success && d.ip) onData(d);
+      if(d && d.success && d.ip) applyGeo(d);
       else throw new Error("no data");
     }).catch(() => {
       fetch("https://ipapi.co/json/").then(r => r.json()).then(d => {
-        if(d && d.ip) onData(d);
-        else loadBoard().then(list => { board = list; }).catch(() => {});
-      }).catch(() => { loadBoard().then(list => { board = list; }).catch(() => {}); });
+        if(d && d.ip) applyGeo(d);
+      }).catch(() => {});
     });
   }
 
-  function publishVisit(info){
-    const locEn = clip(buildLocationEn(info));
-    const locZh = clip(buildLocationZh(info));
-    return loadBoard().then(list => {
-      const now = Date.now();
-      if(list.some(x => x.ip === info.ip && now - Number(x.ts) < DEDUPE_MS)){
-        board = list;
-        if(MODAL.classList.contains("show")) renderModal();
-        return board;
-      }
-      return fetch(BOARD, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ ip: info.ip, ts: String(now), locEn: locEn, locZh: locZh })
-      }).then(r => {
-        if(!r.ok) throw new Error("post");
-        return r.json();
-      }).then(created => {
-        const next = list.concat({
-          _id: created._id,
-          ip: info.ip,
-          ts: now,
-          locEn: locEn,
-          locZh: locZh
-        }).sort((a,b) => Number(b.ts) - Number(a.ts));
-        next.slice(MAX_VISITORS).forEach(x => {
-          if(x && x._id) fetch(BOARD + "/" + encodeURIComponent(x._id), {method: "DELETE"}).catch(() => {});
-        });
-        board = next.slice(0, MAX_VISITORS);
-        try{ localStorage.setItem(CACHE_KEY, JSON.stringify(board)); }catch(e){}
-        if(MODAL.classList.contains("show")) renderModal();
-        return board;
-      });
-    }).catch(() => board);
+  function rowsFrom(data){
+    const list = data && Array.isArray(data.visitors) ? data.visitors : [];
+    return list.filter(x => x && validIp(x.ip)).map(x => {
+      const info = {
+        country: x.country || "",
+        country_code: x.country_code || "",
+        region: x.region || "",
+        city: x.city || ""
+      };
+      return {
+        ip: x.ip,
+        ts: Number(x.ts) || 0,
+        locEn: clip(buildLocationEn(info) || x.locEn),
+        locZh: clip(buildLocationZh(info) || x.locZh)
+      };
+    }).sort((a,b) => b.ts - a.ts).slice(0, MAX_VISITORS);
+  }
+
+  function saveBoard(list){
+    board = list;
+    try{ localStorage.setItem(CACHE_KEY, JSON.stringify(board)); }catch(e){}
+    if(MODAL.classList.contains("show")) renderModal();
+    return board;
+  }
+
+  function applyYou(you){
+    if(!you || !validIp(you.ip)) return;
+    const prev = currentInfo && currentInfo.ip === you.ip ? currentInfo : null;
+    currentInfo = {
+      ts: Number(you.ts) || (prev && prev.ts) || Date.now(),
+      ip: you.ip,
+      country: (prev && prev.country) || you.country || "",
+      country_code: (prev && prev.country_code) || you.country_code || "",
+      region: (prev && prev.region) || you.region || "",
+      city: (prev && prev.city) || you.city || "",
+      isp: (prev && prev.isp) || you.isp || ""
+    };
+    try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
+  }
+
+  function recordVisit(){
+    return fetch(BOARD, { method: "POST" }).then(r => {
+      if(!r.ok) throw new Error("post");
+      return r.json();
+    }).then(data => {
+      applyYou(data && data.you);
+      return saveBoard(rowsFrom(data));
+    }).catch(() => loadBoard().catch(() => board));
   }
 
   function loadBoard(){
     return fetch(BOARD).then(r => {
       if(!r.ok) throw new Error("get");
       return r.json();
-    }).then(data => {
-      const list = (Array.isArray(data) ? data : []).filter(x => x && validIp(x.ip)).map(x => ({
-        _id: x._id,
-        ip: x.ip,
-        ts: Number(x.ts) || 0,
-        locEn: clip(x.locEn),
-        locZh: clip(x.locZh)
-      }));
-      list.sort((a,b) => b.ts - a.ts);
-      try{ localStorage.setItem(CACHE_KEY, JSON.stringify(list.slice(0, MAX_VISITORS))); }catch(e){}
-      return list;
-    }).catch(err => {
+    }).then(data => saveBoard(rowsFrom(data))).catch(err => {
       try{
         const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "[]");
-        if(Array.isArray(cached) && cached.length) return cached.filter(x => x && validIp(x.ip));
+        if(Array.isArray(cached) && cached.length){
+          board = cached.filter(x => x && validIp(x.ip));
+          return board;
+        }
       }catch(e){}
       throw err;
     });
