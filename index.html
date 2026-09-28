@@ -1299,7 +1299,7 @@ document.addEventListener("DOMContentLoaded", function(){
   };
 
   const CITY_CN = {
-    "Shenzhen":"深圳","Guangzhou":"广州","Foshan":"佛山","Dongguan":"东莞",
+    "Shenzhen":"深圳","Guangzhou":"广州","Zhanjiang":"湛江","Foshan":"佛山","Dongguan":"东莞",
     "Beijing":"北京","Shanghai":"上海","Tianjin":"天津","Chongqing":"重庆",
     "Chengdu":"成都","Hangzhou":"杭州","Nanjing":"南京","Wuhan":"武汉",
     "Xi'an":"西安","Suzhou":"苏州","Zhengzhou":"郑州","Changsha":"长沙",
@@ -1551,14 +1551,71 @@ document.addEventListener("DOMContentLoaded", function(){
     try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
   }
 
+  function carrierFromAddr(addr){
+    const text = String(addr || "");
+    if(text.indexOf("联通") >= 0) return "中国联通";
+    if(text.indexOf("电信") >= 0) return "中国电信";
+    if(text.indexOf("移动") >= 0) return "中国移动";
+    if(text.indexOf("广电") >= 0) return "中国广电";
+    return "";
+  }
+
+  function parseIpip(text){
+    const ipMatch = /IP[:：]\s*([0-9a-fA-F:.]+)/.exec(text || "");
+    if(!ipMatch || !validIp(ipMatch[1])) return null;
+    const from = /来自于[:：]\s*(.*)/.exec(text || "");
+    const parts = from ? from[1].trim().split(/\s+/).filter(Boolean) : [];
+    return {
+      ip: ipMatch[1],
+      pro: parts[1] || "",
+      city: parts.length >= 4 ? parts[2] : "",
+      addr: parts.length ? parts[parts.length - 1] : ""
+    };
+  }
+
+  function domesticInfo(){
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 1800);
+    return fetch("https://myip.ipip.net/", { signal: ctrl.signal, cache: "no-store" })
+      .then(r => r.ok ? r.text() : "")
+      .then(parseIpip)
+      .catch(() => null)
+      .finally(() => clearTimeout(timer));
+  }
+
+  function showDomestic(data){
+    if(!data || !validIp(data.ip)) return;
+    currentInfo = {
+      ts: Date.now(),
+      ip: data.ip,
+      country: "China",
+      country_code: "CN",
+      region: data.pro || "",
+      city: data.city || "",
+      isp: carrierFromAddr(data.addr)
+    };
+    try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
+    if(MODAL.classList.contains("show")) renderModal();
+  }
+
   function recordVisit(){
-    return fetch(BOARD, { method: "POST" }).then(r => {
-      if(!r.ok) throw new Error("post");
-      return r.json();
-    }).then(data => {
-      applyYou(data && data.you);
-      return saveBoard(rowsFrom(data));
-    }).catch(() => loadBoard().catch(() => board));
+    return domesticInfo().then(domestic => {
+      const opts = { method: "POST" };
+      if(domestic && domestic.ip){
+        opts.headers = { "Content-Type": "application/json" };
+        opts.body = JSON.stringify({ reportedIp: domestic.ip });
+      }
+      return fetch(BOARD, opts).then(r => {
+        if(!r.ok) throw new Error("post");
+        return r.json();
+      }).then(data => {
+        applyYou(data && data.you);
+        return saveBoard(rowsFrom(data));
+      }).catch(() => {
+        if(domestic) showDomestic(domestic);
+        return loadBoard().catch(() => board);
+      });
+    });
   }
 
   function loadBoard(){

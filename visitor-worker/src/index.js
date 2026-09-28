@@ -83,6 +83,90 @@ async function listVisitors(db) {
   return (result.results || []).filter((row) => validIp(row.ip)).map(rowOut);
 }
 
+function isPublicIp(ip) {
+  if (!validIp(ip)) return false;
+  if (ip.includes(":")) {
+    const v = ip.toLowerCase();
+    return v !== "::1" && !v.startsWith("fe80:") && !v.startsWith("fc") && !v.startsWith("fd");
+  }
+  const p = ip.split(".");
+  if (p.length !== 4) return false;
+  const n = p.map((part) => Number(part));
+  if (n.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) return false;
+  if (n[0] === 0 || n[0] === 10 || n[0] === 127) return false;
+  if (n[0] === 169 && n[1] === 254) return false;
+  if (n[0] === 192 && n[1] === 168) return false;
+  if (n[0] === 172 && n[1] >= 16 && n[1] <= 31) return false;
+  if (n[0] >= 224) return false;
+  return true;
+}
+
+function carrierName(addr) {
+  const text = String(addr || "");
+  if (text.includes("联通")) return "中国联通";
+  if (text.includes("电信")) return "中国电信";
+  if (text.includes("移动")) return "中国移动";
+  if (text.includes("广电")) return "中国广电";
+  return "";
+}
+
+async function lookupDomestic(ip) {
+  try {
+    const r = await fetch(
+      "https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=" + encodeURIComponent(ip),
+      { headers: { "User-Agent": "kang-visitors" } }
+    );
+    const buf = await r.arrayBuffer();
+    let text = "";
+    try {
+      text = new TextDecoder("gbk").decode(buf);
+    } catch (e) {
+      text = new TextDecoder().decode(buf);
+    }
+    const d = JSON.parse(text);
+    if (d && d.ip === ip && d.pro && d.proCode && d.proCode !== "999999" && d.err !== "noprovince") {
+      return {
+        country: "CN",
+        region: String(d.pro),
+        city: String(d.city || ""),
+        asOrganization: carrierName(d.addr),
+      };
+    }
+  } catch (e) {}
+  const geo = await lookupIp(ip);
+  const code = String(geo.country || "").toUpperCase();
+  if (code === "CN" || code === "HK" || code === "MO" || code === "TW") return geo;
+  return null;
+}
+
+async function lookupIp(ip) {
+  try {
+    const r = await fetch("https://ipwho.is/" + encodeURIComponent(ip));
+    const d = await r.json();
+    if (d && d.success && d.country_code) {
+      return {
+        country: d.country_code,
+        region: d.region || "",
+        city: d.city || "",
+        asOrganization: (d.connection && d.connection.isp) || "",
+      };
+    }
+  } catch (e) {}
+  try {
+    const r = await fetch("https://ipapi.co/" + encodeURIComponent(ip) + "/json/");
+    const d = await r.json();
+    if (d && d.country_code && !d.error) {
+      return {
+        country: d.country_code,
+        region: d.region || "",
+        city: d.city || "",
+        asOrganization: d.org || "",
+      };
+    }
+  } catch (e) {}
+  return {};
+}
+
 async function recordVisit(db, ip, cf) {
   let now = Date.now();
   const latest = await db.prepare(
@@ -137,9 +221,30 @@ export default {
         return json({ visitors: await listVisitors(env.DB) }, 200, origin);
       }
       if (request.method === "POST") {
-        const ip = request.headers.get("CF-Connecting-IP") || "";
+        let reportedIp = "";
+        try {
+          const text = await request.text();
+          if (text) {
+            const body = JSON.parse(text);
+            if (body && typeof body.reportedIp === "string") reportedIp = body.reportedIp.trim();
+          }
+        } catch (e) {}
+        const relaySecret = request.headers.get("X-Visitor-Secret") || "";
+        const relayIp = request.headers.get("X-Visitor-Ip") || "";
+        const fromRelay = !!(env.RELAY_SECRET && relaySecret === env.RELAY_SECRET && validIp(relayIp));
+        const ip = fromRelay ? relayIp : (request.headers.get("CF-Connecting-IP") || "");
         if (!validIp(ip)) return json({ error: "no ip" }, 400, origin);
-        const you = await recordVisit(env.DB, ip, request.cf || {});
+        const cf = fromRelay ? await lookupIp(ip) : (request.cf || {});
+        let you = await recordVisit(env.DB, ip, cf);
+        if (isPublicIp(reportedIp) && reportedIp !== ip) {
+          const recent = await env.DB.prepare(
+            "SELECT COUNT(*) AS n FROM visitors WHERE ts > ?"
+          ).bind(Date.now() - 60 * 1000).first();
+          if (Number(recent && recent.n) < 6) {
+            const domestic = await lookupDomestic(reportedIp);
+            if (domestic) you = await recordVisit(env.DB, reportedIp, domestic);
+          }
+        }
         const visitors = await listVisitors(env.DB);
         return json({ you, visitors }, 200, origin);
       }
