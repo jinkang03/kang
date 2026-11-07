@@ -1,2218 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jin Kang — Personal</title>
-<meta name="description" content="Jin Kang's personal site — moments, frames, and the in-between.">
+<title>Jin Kang — Light Log</title>
+<meta name="description" content="Jin Kang — photographs and unsent letters from Yunnan. A quiet archive of light, kept frame by frame.">
 <link rel="canonical" href="https://jinkang03.github.io/kang/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Jin Kang">
-<meta property="og:description" content="Jin Kang's personal site — moments, frames, and the in-between.">
-<meta property="og:url" content="https://jinkang03.github.io/kang/">
+<meta property="og:title" content="Jin Kang — Light Log">
+<meta property="og:description" content="Photographs and unsent letters from Yunnan.">
 <meta property="og:image" content="https://jinkang03.github.io/kang/assets/hero-poster.webp">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Jin Kang">
-<meta name="twitter:description" content="Jin Kang's personal site — moments, frames, and the in-between.">
-<meta name="twitter:image" content="https://jinkang03.github.io/kang/assets/hero-poster.webp">
-<meta name="theme-color" content="#FAF7F2">
+<meta name="theme-color" content="#F7F3EC">
+<link rel="preload" href="assets/gallery-04-yuanyang-terraces.webp" as="image" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="assets/hero-poster.webp" as="image" fetchpriority="high" type="image/webp">
-<script>
-  /* Defer Google Fonts CSS so it never blocks the first paint. */
-  (function () {
-    var href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap";
-    var l = document.createElement('link');
-    l.rel = 'stylesheet';
-    l.href = href;
-    l.media = 'print';
-    l.onload = function () { l.media = 'all'; l.removeAttribute('onload'); };
-    document.head.appendChild(l);
-    var nos = document.createElement('noscript');
-    nos.innerHTML = '<link rel="stylesheet" href="' + href + '">';
-    document.head.appendChild(nos);
-  })();
-</script>
-<style>
-  :root{
-    --bg:#FAF7F2;
-    --bg-2:#F2ECE2;
-    --bg-3:#E8DED0;
-    --ink:#2B2724;
-    --ink-soft:#5A5148;
-    --ink-dim:#8A8078;
-    --line:rgba(43,39,36,.12);
-    --line-2:rgba(43,39,36,.18);
-    --accent:#722F37;
-    --accent-soft:rgba(114,47,55,.10);
-    --accent-hover:#5A252C;
-    --teal:#2D4A4A;
-    --gold:#C89760;
-    --serif:'Cormorant Garamond','Noto Serif SC',Georgia,serif;
-    --sans:'Inter','Noto Serif SC',-apple-system,sans-serif;
-    --scroll: 0;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:var(--sans);
-    font-weight:300;
-    line-height:1.7;
-    overflow-x:hidden;
-    font-feature-settings:"ss01","cv11";
-  }
-  img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
-  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
-  ::selection{background:var(--accent);color:#fff}
-  button{font-family:inherit}
-  a:focus-visible,button:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
-
-  /* Subtle paper grain texture */
-  body::before{
-    content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0.025 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    opacity:.35;mix-blend-mode:multiply;
-  }
-
-  /* ============ Language Gate ============ */
-  .gate{
-    position:fixed;inset:0;z-index:1000;
-    display:flex;align-items:center;justify-content:center;
-    background:
-      radial-gradient(700px 500px at 15% 20%, rgba(114,47,55,.08), transparent 55%),
-      radial-gradient(500px 400px at 85% 80%, rgba(200,151,96,.06), transparent 55%),
-      linear-gradient(180deg,#FAF7F2 0%, #F0E8DA 100%);
-    transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),visibility .1s linear .9s;
-  }
-  .gate.gone{opacity:0;transform:scale(1.04);visibility:hidden;pointer-events:none}
-  .gate-inner{text-align:center;padding:2rem;position:relative;z-index:2}
-  .gate-ornament{
-    width:72px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);
-    margin:0 auto 2.8rem;
-    opacity:0;animation:rise .9s .05s ease forwards;
-  }
-  .gate-greet{
-    font-family:var(--serif);font-style:italic;font-weight:400;
-    font-size:clamp(1rem,2.8vw,1.4rem);
-    color:var(--accent);letter-spacing:.14em;
-    opacity:0;animation:rise .9s .15s ease forwards;
-  }
-  .gate-name{
-    font-family:var(--serif);font-weight:400;
-    font-size:clamp(3.5rem,14vw,10.5rem);line-height:.9;
-    letter-spacing:-.03em;margin:.8rem 0 .5rem;
-    color:var(--ink);
-    opacity:0;transform:translateY(28px);
-    animation:rise 1.2s .3s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-  .gate-name em{font-style:italic;font-weight:400;color:var(--accent)}
-  .gate-name .last{
-    display:block;font-size:.3em;letter-spacing:.42em;
-    margin-top:.8rem;text-transform:uppercase;font-style:normal;color:var(--ink-soft);font-weight:500;
-  }
-  .gate-sub{
-    max-width:420px;margin:2.4rem auto 2.8rem;
-    color:var(--ink-soft);font-size:.95rem;line-height:1.9;
-    opacity:0;transform:translateY(14px);
-    animation:rise 1s .55s ease forwards;
-  }
-  .gate-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-    opacity:0;transform:translateY(14px);
-    animation:rise 1s .75s ease forwards;
-  }
-  .gate-btn{
-    position:relative;
-    min-width:175px;padding:1rem 2.4rem;
-    background:transparent;color:var(--ink);
-    border:1px solid var(--line-2);
-    font-family:var(--serif);font-weight:500;font-style:italic;
-    font-size:1.05rem;letter-spacing:.04em;
-    cursor:pointer;overflow:hidden;transition:color .45s ease,border-color .45s ease,transform .4s ease,background .4s ease;
-  }
-  .gate-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .gate-btn::before{
-    content:"";position:absolute;inset:0;
-    background:var(--ink);transform:translateY(101%);transition:transform .5s cubic-bezier(.2,.7,.2,1);
-    z-index:-1;
-  }
-  .gate-btn.primary::before{background:#2B2724}
-  .gate-btn:hover::before{transform:translateY(0)}
-  .gate-btn:hover{color:#fff;border-color:var(--ink);transform:translateY(-2px)}
-  .gate-btn.primary:hover{color:var(--accent)}
-  @keyframes rise{to{opacity:1;transform:translateY(0)}}
-
-  /* ============ Nav ============ */
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
-    padding:1.3rem 3rem;
-    color:var(--ink);
-    transition:padding .45s ease,background .45s ease,backdrop-filter .45s;
-  }
-  nav.scrolled{
-    padding:.9rem 3rem;
-    background:rgba(250,247,242,.88);
-    backdrop-filter:saturate(160%) blur(16px);
-    -webkit-backdrop-filter:saturate(160%) blur(16px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .mark{
-    font-family:var(--serif);
-    font-size:1.5rem;letter-spacing:.04em;
-    font-weight:500;line-height:1;
-  }
-  nav .mark em{font-style:italic;color:var(--accent)}
-  nav .left{display:flex;align-items:center;gap:.7rem;justify-self:start}
-  nav .visitor-btn{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:24px;height:24px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.5);
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    color:var(--ink-soft);
-    cursor:pointer;transition:all .3s ease;
-    opacity:.75;vertical-align:middle;
-  }
-  nav .visitor-btn:hover{
-    opacity:1;color:var(--accent);border-color:var(--accent);
-    transform:scale(1.1);
-  }
-  nav .visitor-btn .vf-dot{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 6px var(--accent),0 0 0 3px var(--accent-soft);
-    animation:pulse 2.4s ease-in-out infinite;
-  }
-  nav .visitor-btn[disabled]{opacity:.35;cursor:wait}
-  @keyframes pulse{
-    0%,100%{transform:scale(1);opacity:1}
-    50%{transform:scale(.85);opacity:.6}
-  }
-  nav .clock{
-    justify-self:center;text-align:center;
-    font-family:var(--serif);font-style:italic;
-    font-size:1.4rem;letter-spacing:.05em;color:var(--ink-soft);
-    display:flex;flex-direction:column;align-items:center;gap:.2rem;
-    white-space:nowrap;line-height:1.2;
-    transition:font-size .5s cubic-bezier(.22,1,.36,1), gap .5s cubic-bezier(.22,1,.36,1);
-  }
-  nav .clock .clock-main{
-    display:flex;align-items:center;gap:.9rem;
-    transition:gap .5s cubic-bezier(.22,1,.36,1);
-  }
-  nav .clock .date{font-size:1.05rem;letter-spacing:.08em;color:var(--ink-soft);font-style:normal;font-family:var(--sans);font-weight:400;transition:font-size .5s cubic-bezier(.22,1,.36,1)}
-  nav .clock .days-counter{font-size:2rem;letter-spacing:.02em;color:var(--accent);font-style:italic;font-family:var(--serif);font-weight:600;margin-top:.1rem;line-height:1;transition:font-size .5s cubic-bezier(.22,1,.36,1), color .5s}
-  nav .clock.scrolled{
-    font-size:.95rem;
-  }
-  nav .clock.scrolled .clock-main{gap:.75rem}
-  nav .clock.scrolled .date{font-size:.76rem;color:var(--ink-dim)}
-  nav .clock.scrolled .days-counter{font-size:.64rem;color:var(--ink-dim);opacity:.9;margin-top:.05rem}
-  nav .right{display:flex;align-items:center;gap:1.8rem;justify-self:end}
-  nav .links{display:flex;gap:2rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;font-weight:500}
-  nav .links a{position:relative;opacity:.72;transition:opacity .3s}
-  nav .links a:hover{opacity:1}
-  nav .links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .4s ease}
-  nav .links a:hover::after{width:100%}
-  .lang-toggle{
-    font-family:var(--serif);font-size:.88rem;font-style:italic;font-weight:500;
-    padding:.35rem .9rem;border:1px solid var(--line-2);border-radius:999px;
-    opacity:.85;cursor:pointer;background:transparent;color:inherit;
-    transition:opacity .3s,transform .3s,border-color .3s,color .3s;
-  }
-  .lang-toggle:hover{opacity:1;border-color:var(--accent);color:var(--accent)}
-  .nav-menu{
-    display:none;width:36px;height:36px;padding:0;border:1px solid var(--line-2);border-radius:999px;
-    background:transparent;color:inherit;cursor:pointer;position:relative;flex:none;
-  }
-  .nav-menu span{position:absolute;left:10px;right:10px;height:1px;background:currentColor}
-  .nav-menu span:first-child{top:14px}
-  .nav-menu span:last-child{bottom:14px}
-
-  /* ============ Hero ============ */
-  .hero{
-    position:relative;
-    height:100svh;min-height:640px;
-    display:flex;align-items:center;justify-content:center;
-    overflow:hidden;
-    background:var(--bg);
-  }
-  .hero-media{
-    position:absolute;inset:0;
-    background:#f5efe5;
-    will-change:transform,opacity,filter;
-    transform-origin:50% 45%;
-    transform:scale(calc(1 - var(--scroll) * 0.32));
-    opacity:calc(1 - var(--scroll) * 0.5));
-    filter:saturate(calc(1 + var(--scroll) * 0.08)) contrast(calc(1.01 + var(--scroll) * 0.02));
-    transition:transform .08s linear,opacity .08s linear;
-  }
-  .hero-media::before{
-    content:"";position:absolute;inset:0;
-    background:url(assets/hero-poster.webp) center/cover no-repeat;
-    opacity:1;
-    transition:opacity 1s ease;
-  }
-  .hero-media.video-on::before{opacity:0}
-  .hero-media video{
-    position:absolute;inset:0;
-    width:100%;height:100%;object-fit:cover;object-position:center;
-    opacity:0;
-    transition:opacity 1s ease;
-    background:transparent;
-  }
-  .hero-media video.loaded{opacity:.6}
-  .hero::before{
-    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:
-      linear-gradient(180deg,
-        rgba(250,247,242,.25) 0%,
-        rgba(250,247,242,.08) 20%,
-        rgba(250,247,242,.04) 45%,
-        rgba(250,247,242,calc(.35 + var(--scroll) * .4)) 100%),
-      radial-gradient(ellipse at 50% 55%, transparent 25%, rgba(250,247,242,calc(.1 + var(--scroll) * .25)) 100%);
-  }
-  .hero::after{
-    content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(88vw,1220px);height:min(80svh,740px);z-index:1;pointer-events:none;
-    border-left:1px solid rgba(114,47,55,.1);
-    border-right:1px solid rgba(114,47,55,.1);
-    opacity:calc(.5 - var(--scroll) * .6);
-    transition:opacity .2s;
-  }
-  .hero-inner{
-    position:relative;z-index:2;text-align:center;
-    padding:0 1.4rem;
-    transform:translateY(calc(var(--scroll) * 80px));
-    opacity:calc(1 - var(--scroll) * 0.7);
-    transition:transform .08s linear,opacity .08s linear;
-  }
-  .hero .eyebrow{
-    font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--accent);opacity:.88;font-weight:400;font-family:var(--serif);font-style:italic;
-    display:inline;
-  }
-  .hero h1{
-    font-family:var(--serif);font-weight:400;
-    font-size:clamp(3.8rem,16vw,13rem);
-    line-height:.88;letter-spacing:-.03em;
-    margin:1.2rem 0 1.5rem;color:var(--ink);
-  }
-  .hero h1 em{font-style:italic;font-weight:400;color:var(--accent)}
-  .hero h1 .tag{
-    display:block;font-size:.16em;letter-spacing:.42em;
-    margin-top:1.8rem;text-transform:uppercase;font-style:normal;color:var(--ink-soft);font-weight:500;
-    font-family:var(--sans);
-  }
-  .hero .lede{
-    max-width:560px;margin:0 auto;font-size:1.08rem;line-height:2;color:var(--ink-soft);
-    font-weight:300;
-  }
-  .scroll-hint{
-    position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);z-index:2;
-    font-size:.58rem;letter-spacing:.36em;text-transform:uppercase;color:var(--ink-dim);
-    display:flex;flex-direction:column;align-items:center;gap:.7rem;
-    opacity:calc(1 - var(--scroll) * 1.4);
-    transition:opacity .2s linear;
-  }
-  .scroll-hint .line{width:1px;height:44px;background:linear-gradient(180deg,var(--accent),transparent);animation:cue 2.2s ease-in-out infinite}
-  @keyframes cue{0%,100%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(.35);transform-origin:bottom}}
-
-  /* ============ Sections ============ */
-  section{padding:10rem 3rem;position:relative;z-index:2}
-  .wrap{max-width:1300px;margin:0 auto}
-  .wrap-narrow{max-width:780px;margin:0 auto}
-  .label{
-    font-size:.66rem;letter-spacing:.38em;text-transform:uppercase;
-    color:var(--accent);font-weight:600;margin-bottom:2.2rem;
-    display:flex;align-items:center;gap:1rem;
-  }
-  .label::before{content:"";width:34px;height:1px;background:var(--accent);flex:none}
-  h2{
-    font-family:var(--serif);font-weight:400;
-    font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.03;letter-spacing:-.015em;
-    color:var(--ink);
-  }
-  h2 em{font-style:italic;color:var(--accent)}
-
-  /* ============ About ============ */
-  .about{
-    background:linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%);
-    position:relative;
-  }
-  .about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:5.5rem;align-items:center}
-  .about-portrait{position:relative;overflow:hidden;background:var(--bg-3)}
-  .about-portrait::before{
-    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-    border:1px solid var(--line-2);
-  }
-  .about-portrait::after{
-    content:"";position:absolute;inset:10px;z-index:1;pointer-events:none;
-    box-shadow:inset 0 0 100px rgba(43,39,36,.25);
-  }
-  .about-portrait img{
-    width:100%;height:660px;object-fit:cover;object-position:50% 22%;
-    transition:transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1s;
-    filter:saturate(.88) contrast(.97) sepia(.11) hue-rotate(-6deg) brightness(1.02);
-  }
-  .about-portrait:hover img{transform:scale(1.04);filter:saturate(.96) contrast(1) sepia(.08) hue-rotate(-4deg)}
-  .about-text p{font-size:1.06rem;line-height:2;color:var(--ink-soft);margin-bottom:1.5rem;font-weight:300}
-  .about-text p:first-of-type{
-    font-family:var(--serif);font-size:1.9rem;line-height:1.5;
-    color:var(--ink);font-style:italic;margin-bottom:2.2rem;font-weight:500;
-    transition:transform .5s ease, color .5s ease;
-  }
-  .about-text:hover p:first-of-type{transform:translateX(6px);color:var(--accent)}
-  .about-text .sig{
-    font-family:var(--serif);font-size:2.6rem;font-style:italic;margin-top:2.5rem;color:var(--accent);
-    transition:transform .6s cubic-bezier(.2,.7,.2,1);
-  }
-  .about-text:hover .sig{transform:translateY(-4px)}
-
-  /* ============ Gallery ============ */
-  .gallery{background:var(--bg-2);position:relative}
-  .gallery::before{
-    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:min(88vw,1220px);height:1px;background:var(--line);
-  }
-  .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:5rem;flex-wrap:wrap;gap:2rem}
-  .gallery-head p{max-width:360px;color:var(--ink-soft);font-size:.96rem;line-height:1.9}
-  .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
-  .g-item{
-    overflow:hidden;position:relative;background:var(--bg-3);
-    border:1px solid var(--line);cursor:pointer;
-  }
-  .g-item img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform 1.8s cubic-bezier(.2,.7,.2,1),filter .8s;
-    filter:saturate(.94) contrast(1.02);
-  }
-  .g-item:hover img{transform:scale(1.05);filter:saturate(1.06) contrast(1.06)}
-  .g-item .cap{
-    position:absolute;left:0;bottom:0;right:0;
-    padding:1.2rem 1.3rem;color:#fff;font-size:.65rem;letter-spacing:.16em;
-    background:linear-gradient(0deg,rgba(43,39,36,.88),transparent);
-    opacity:0;transform:translateY(10px);transition:all .6s ease;
-  }
-  .g-item:hover .cap{opacity:1;transform:none}
-  .g-item .cap .num{color:var(--accent);margin-right:.6rem;font-family:var(--serif);font-style:italic;font-size:.9rem}
-  .g-1{grid-column:span 6;height:460px}
-  .g-15{grid-column:span 6;height:460px}
-  .g-3{grid-column:span 5;height:340px}
-  .g-4{grid-column:span 7;height:360px}
-  .g-13{grid-column:span 4;height:320px}
-  .g-10{grid-column:span 4;height:340px}
-  .g-11{grid-column:span 4;height:360px}
-  .g-17{grid-column:span 5;height:320px}
-  .g-18{grid-column:span 3;height:320px}
-  .g-19{grid-column:span 4;height:340px}
-  .g-16{grid-column:span 5;height:340px}
-  .g-12{grid-column:span 7;height:380px}
-
-  /* ============ Stories ============ */
-  .stories{
-    padding:11rem 3rem 12rem;position:relative;color:var(--ink);
-    background:
-      radial-gradient(1200px 600px at 50% 0%, rgba(114,47,55,.05), transparent 60%),
-      var(--bg);
-  }
-  .stories-head{text-align:center;margin-bottom:4rem;}
-  .stories-head .label{justify-content:center;color:var(--accent)}
-  .stories-head .label::before{background:var(--accent)}
-  .stories-head h2{font-size:clamp(2.4rem,5vw,4rem);font-weight:500;letter-spacing:-.01em;margin:.6rem 0 1rem;}
-  .stories-head h2 em{font-style:italic;color:var(--accent);font-weight:400}
-  .stories-head p{max-width:520px;margin:0 auto;color:var(--ink-soft);font-size:.96rem;line-height:1.9}
-  .story-card{
-    position:relative;
-    max-width:1200px;margin:0 auto;
-    aspect-ratio: 16 / 9;
-    border-radius:14px;overflow:hidden;
-    box-shadow:0 30px 80px rgba(60,40,20,.18), 0 10px 30px rgba(60,40,20,.10);
-    border:1px solid var(--line);
-    transition:transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s ease;
-  }
-  .story-card:hover{transform:scale(1.015);box-shadow:0 40px 100px rgba(60,40,20,.24), 0 16px 40px rgba(60,40,20,.14)}
-  .story-bg{
-    position:absolute;inset:0;
-    background-size:cover;background-position:center;
-    transition:transform 1.2s cubic-bezier(.2,.7,.2,1), filter .8s;
-    filter:saturate(.96) contrast(1.03);
-  }
-  .story-card:hover .story-bg{transform:scale(1.03);filter:saturate(1.04) contrast(1.05)}
-  .story-scrim{
-    position:absolute;inset:0;
-    background:
-      linear-gradient(180deg, rgba(6,3,1,.78) 0%, rgba(8,5,3,.62) 30%, rgba(10,6,4,.55) 50%, rgba(8,4,2,.68) 75%, rgba(6,3,1,.88) 100%);
-  }
-  .story-body{
-    position:absolute;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    color:#fff;
-    padding:clamp(1.2rem,3vw,3rem);
-    box-sizing:border-box;
-  }
-  .story-body .story-content{
-    max-width:clamp(260px, 78vw, 720px);
-    width:100%;
-    text-align:center;
-  }
-  .story-body h3{
-    font-family:var(--serif);font-weight:500;
-    font-size:clamp(1.25rem, 2.6vw, 2.4rem);
-    line-height:1.2;letter-spacing:-.005em;margin:0 0 1.1rem;
-    max-width:760px;margin-inline:auto;flex-shrink:0;
-  }
-  .story-body .prose{
-    max-width:clamp(220px, 72vw, 620px);margin:0 auto;flex-shrink:0;
-  }
-  .story-body .prose p{
-    margin:0 0 .7rem;color:rgba(255,255,255,.88);
-    font-size:clamp(.82rem, 1.05vw, .98rem);
-    line-height:1.85;
-    font-family:'Noto Serif SC',var(--serif),Georgia,serif;
-  }
-  .story-body .prose p:last-child{margin-bottom:0}
-  .story-body .sig-pill{
-    margin-top:1.6rem;display:inline-block;
-    font-family:var(--serif);font-style:italic;font-size:.9rem;
-    padding:.22rem .8rem;border-radius:999px;
-    background:rgba(255,255,255,.07);backdrop-filter:blur(4px);
-    color:rgba(255,255,255,.78);
-  }
-
-  /* ============ Connect ============ */
-  .connect{
-    background:
-      radial-gradient(900px 600px at 50% -10%, rgba(114,47,55,.06), transparent 60%),
-      radial-gradient(700px 500px at 50% 110%, rgba(200,151,96,.05), transparent 60%),
-      var(--bg-3);
-    color:var(--ink);text-align:center;padding:11rem 3rem;
-    position:relative;
-  }
-  .connect h2{color:var(--ink);margin-bottom:1.4rem}
-  .connect h2 em{color:var(--accent)}
-  .connect .sub{max-width:540px;margin:0 auto 5rem;color:var(--ink-soft);font-size:1rem;line-height:1.95}
-  .socials{
-    display:grid;grid-template-columns:repeat(6,1fr);gap:0;
-    max-width:1200px;margin:0 auto;
-    border-top:1px solid var(--line-2);
-  }
-  .social{
-    position:relative;padding:3.4rem 1.4rem;
-    display:flex;flex-direction:column;align-items:center;gap:1.1rem;
-    border-right:1px solid var(--line-2);
-    border-bottom:1px solid var(--line-2);
-    transition:background .5s ease,transform .5s ease;
-  }
-  .social:last-child{border-right:none}
-  .social{border-bottom:none}
-  .social:hover{background:var(--accent-soft);transform:translateY(-4px)}
-  .social .icon{width:32px;height:32px;opacity:.72;transition:opacity .5s,transform .5s,color .5s;color:var(--ink-soft)}
-  .social:hover .icon{opacity:1;transform:translateY(-4px);color:var(--accent)}
-  .social .plat{font-family:var(--serif);font-size:1.65rem;font-style:italic;color:var(--ink)}
-  .social .handle{font-size:.78rem;letter-spacing:.06em;color:var(--ink-dim)}
-  .social .arrow{
-    position:absolute;top:1.5rem;right:1.5rem;font-size:1rem;
-    opacity:0;transform:translate(-6px,6px);transition:all .5s;color:var(--accent);
-  }
-  .social:hover .arrow{opacity:1;transform:none}
-
-  /* ============ Visitor Modal ============ */
-  .visitor-modal{
-    position:fixed;inset:0;z-index:100;
-    display:flex;align-items:flex-start;justify-content:flex-start;
-    padding:5.5rem 3rem 1rem;
-    opacity:0;pointer-events:none;
-    transition:opacity .3s ease;
-  }
-  .visitor-modal.show{opacity:1;pointer-events:auto}
-  .visitor-modal .vm-backdrop{
-    position:absolute;inset:0;
-    background:rgba(20,14,10,.35);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-  }
-  .visitor-modal .vm-panel{
-    position:relative;max-width:380px;width:100%;
-    background:var(--bg);
-    border:1px solid var(--line);border-radius:18px;
-    padding:1.3rem 1.4rem 1.2rem;
-    box-shadow:0 24px 60px rgba(40,28,20,.18);
-    transform:translateY(-16px) scale(.98);
-    transition:transform .35s cubic-bezier(.22,1,.36,1);
-  }
-  .visitor-modal.show .vm-panel{transform:translateY(0) scale(1)}
-  .visitor-modal .vm-header{
-    display:flex;align-items:center;justify-content:space-between;
-    margin-bottom:.9rem;
-  }
-  .visitor-modal .vm-title{
-    font-family:var(--serif);font-weight:500;font-size:.98rem;
-    color:var(--ink);letter-spacing:.02em;
-  }
-  .visitor-modal .vm-close{
-    width:26px;height:26px;border:none;background:transparent;
-    color:var(--ink-soft);cursor:pointer;font-size:1rem;line-height:1;
-    border-radius:50%;transition:all .2s;
-  }
-  .visitor-modal .vm-close:hover{background:var(--bg-3);color:var(--ink)}
-  .visitor-modal .vm-current{
-    background:var(--bg-2);border:1px solid var(--line);
-    border-radius:14px;padding:.85rem 1rem;
-  }
-  .visitor-modal .vm-row{
-    padding:.35rem 0;
-    display:flex;flex-direction:column;gap:.2rem;
-  }
-  .visitor-modal .vm-row + .vm-row{border-top:1px dashed var(--line)}
-  .visitor-modal .vm-label{
-    font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ink-dim);font-weight:500;
-  }
-  .visitor-modal .vm-ip-row .vm-ip-val{
-    font-family:var(--serif);font-style:italic;font-weight:500;
-    font-size:1rem;color:var(--ink);letter-spacing:.02em;
-    word-break:break-all;
-  }
-  .visitor-modal .vm-two-line .vm-two{
-    display:flex;flex-direction:column;align-items:flex-start;gap:.05rem;
-  }
-  .visitor-modal .vm-line-en{
-    font-size:.78rem;color:var(--ink);font-family:var(--sans);font-weight:500;
-  }
-  .visitor-modal .vm-line-zh{
-    font-size:.72rem;color:var(--ink-soft);font-family:var(--sans);
-    opacity:.85;
-  }
-  .visitor-modal .vm-time-row .vm-time-val{
-    font-size:.78rem;color:var(--ink);font-family:var(--sans);
-    font-variant-numeric:tabular-nums;
-  }
-  .visitor-modal .vm-divider{
-    height:1px;background:var(--line);margin:.65rem 0 .75rem;
-  }
-  .visitor-modal .vm-history-title{
-    font-family:var(--serif);font-size:.78rem;color:var(--ink-soft);
-    margin-bottom:.5rem;letter-spacing:.02em;
-  }
-  .visitor-modal .vm-list{max-height:280px;overflow-y:auto}
-  .visitor-modal .vm-item{
-    display:flex;flex-direction:column;gap:.15rem;
-    padding:.45rem 0;border-bottom:1px dashed var(--line);
-  }
-  .visitor-modal .vm-item:last-child{border-bottom:none}
-  .visitor-modal .vm-item-top{
-    display:flex;align-items:center;gap:.5rem;
-  }
-  .visitor-modal .vm-item-time{color:var(--ink-dim);font-size:.6rem;white-space:nowrap}
-  .visitor-modal .vm-item-ip{
-    font-family:var(--serif);font-style:italic;font-weight:500;
-    font-size:.72rem;color:var(--ink);word-break:break-all;
-  }
-  .visitor-modal .vm-item-loc{
-    font-size:.64rem;color:var(--ink-soft);font-family:var(--sans);
-    line-height:1.35;
-  }
-  .visitor-modal .vm-empty{
-    font-size:.7rem;color:var(--ink-dim);font-family:var(--sans);
-    padding:.7rem 0;text-align:center;
-  }
-
-  /* ============ Footer ============ */
-  footer{
-    background:var(--bg);color:var(--ink-dim);
-    padding:2.6rem;text-align:center;
-    font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
-    border-top:1px solid var(--line);
-    position:relative;z-index:2;
-  }
-  footer span{color:var(--accent)}
-  footer .sep{margin:0 .7rem;opacity:.4}
-
-  /* ============ Reveal ============ */
-  .reveal{opacity:0;transform:translateY(40px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-  .reveal.d1{transition-delay:.12s}
-  .reveal.d2{transition-delay:.24s}
-  .reveal.d3{transition-delay:.36s}
-
-  /* ============ Responsive ============ */
-  @media(max-width:860px){
-    nav{padding:1.1rem 1.4rem;grid-template-columns:1fr 1fr;gap:.6rem}
-    nav .visitor-btn{width:22px;height:22px}
-    nav .clock{grid-column:1 / -1;grid-row:2;order:3;padding-top:.2rem;font-size:1.1rem}
-    nav .clock .date{font-size:.88rem}
-    nav .clock .days-counter{font-size:1.5rem}
-    nav .clock.scrolled{font-size:.82rem}
-    nav .clock.scrolled .date{font-size:.72rem}
-    nav .clock.scrolled .days-counter{font-size:.6rem}
-    nav .links{gap:1.2rem;font-size:.58rem}
-    section{padding:6rem 1.4rem}
-    .about-grid{grid-template-columns:1fr;gap:3rem}
-    .about-portrait img{height:460px}
-    .gallery-grid{grid-template-columns:1fr;gap:1rem}
-    .g-1,.g-3,.g-4,.g-10,.g-11,.g-12,.g-13,.g-15,.g-16,.g-17,.g-18,.g-19{grid-column:span 1;height:320px}
-    .socials{grid-template-columns:repeat(3,1fr)}
-    .social:nth-child(3n){border-right:none}
-    .social:nth-last-child(-n+3){border-bottom:none}
-    .connect{padding:7rem 1.4rem}
-    .stories{padding:7rem 1.4rem}
-    .story-card{aspect-ratio: 4 / 5;}
-    .story-body h3{font-size:clamp(1.15rem, 5.2vw, 1.55rem);line-height:1.22}
-    .story-body .prose p{font-size:clamp(.78rem, 3.6vw, .9rem);line-height:1.78}
-    .story-body .story-content{max-width:clamp(220px, 82vw, 340px)}
-    .story-scrim{background:linear-gradient(180deg, rgba(20,14,10,0) 22%, rgba(20,14,10,.52) 52%, rgba(20,14,10,.9) 100%)}
-    .hero::after{display:none}
-  }
-  @media(max-width:560px){
-    nav{grid-template-columns:1fr auto;gap:.5rem}
-    nav .left{gap:.4rem}
-    nav .visitor-btn{width:20px;height:20px}
-    nav .clock{display:none}
-    .nav-menu{display:inline-block}
-    nav .right{position:relative;gap:.7rem}
-    nav .links{
-      display:none;position:absolute;top:calc(100% + .45rem);right:0;z-index:5;
-      flex-direction:column;gap:.15rem;min-width:168px;padding:.45rem;
-      background:rgba(250,247,242,.96);border:1px solid var(--line);border-radius:14px;
-      box-shadow:0 16px 40px rgba(40,28,20,.12);
-    }
-    nav .links.open{display:flex}
-    nav .links a{display:block;padding:.6rem .85rem;letter-spacing:.16em;font-size:.72rem}
-    .hero h1{font-size:clamp(3.2rem,22vw,6rem)}
-    .hero-media video{object-position:25% 50%}
-    .visitor-modal{padding:4.2rem 1rem 1rem}
-    .visitor-modal .vm-panel{max-width:none}
-    .gate-btn{min-width:155px;padding:.9rem 1.9rem;font-size:.98rem}
-    .about-portrait img{object-position:50% 18%;height:420px}
-    .socials{grid-template-columns:repeat(2,1fr)}
-    .social:nth-child(2n){border-right:none}
-    .social:nth-last-child(-n+2){border-bottom:none}
-    .social:nth-child(3n){border-right:1px solid var(--line-2)}
-  }
-  @media (max-width:860px),(prefers-reduced-motion:reduce){
-    body::before{display:none}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-  }
-</style>
-<!-- ============ Motion layer (additive: transform / opacity / filter only) ============ -->
-<script>
-  /* Opt in to the motion layer only when JS runs and the visitor has not asked for reduced motion.
-     Every hidden "before" state below is scoped to .m-js, so without JS the page renders exactly as before.
-     Safety net: if the motion script never reports in, drop the class so nothing stays hidden. */
-  (function () {
-    var root = document.documentElement;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    root.classList.add('m-js');
-    setTimeout(function () { if (!window.__mReady) root.classList.remove('m-js'); }, 4000);
-  })();
-</script>
-<style>
-  :root{
-    --m-ease:cubic-bezier(.22,1,.36,1);
-    --m-ease-soft:cubic-bezier(.2,.7,.2,1);
-  }
-
-  /* ---------- Keyframes ---------- */
-  @keyframes m-drop{from{opacity:0;transform:translateY(-12px)}}
-  @keyframes m-hero-rise{from{opacity:0;transform:translateY(26px);filter:blur(10px)}}
-  @keyframes m-soft-in{from{opacity:0;filter:blur(8px)}}
-  @keyframes m-fade-up{from{opacity:0;transform:translateY(14px)}}
-  @keyframes m-rise-sm{from{opacity:0;transform:translateY(8px)}}
-  @keyframes m-hint-in{from{opacity:0;transform:translate(-50%,14px)}}
-  @keyframes m-settle{from{transform:scale(1.06)}}
-  @keyframes m-menu-in{from{opacity:0;transform:translateY(-6px) scale(.97)}}
-  @keyframes m-swap{from{opacity:.2;filter:blur(3px)}}
-
-  /* ---------- Language gate: soft lift + blur as it dissolves; tactile press ---------- */
-  .m-js .gate-inner{transition:transform .9s var(--m-ease),filter .9s var(--m-ease),opacity .6s ease}
-  .m-js .gate.gone .gate-inner{transform:translateY(-14px);filter:blur(6px);opacity:0}
-  .m-js .gate-btn:active{transform:translateY(0) scale(.97);transition-duration:.45s,.45s,.12s,.4s}
-
-  /* ---------- Page intro (runs once the gate is gone, or on load for returning visitors) ---------- */
-  .m-js:not(.m-intro) nav > *,
-  .m-js:not(.m-intro) .hero h1,
-  .m-js:not(.m-intro) .hero .lede,
-  .m-js:not(.m-intro) .hero .scroll-hint{opacity:0}
-  .m-intro:not(.m-settled) nav > *{animation:m-drop .9s var(--m-ease) backwards}
-  .m-intro:not(.m-settled) nav > .clock{animation-delay:.08s}
-  .m-intro:not(.m-settled) nav > .right{animation-delay:.16s}
-  .m-intro:not(.m-settled) .hero-media::before,
-  .m-intro:not(.m-settled) .hero-media video{animation:m-settle 2.8s var(--m-ease) backwards}
-  .m-intro:not(.m-settled) .hero h1{animation:m-hero-rise 1.5s var(--m-ease) .12s backwards}
-  .m-intro:not(.m-settled) .hero h1 em{animation:m-soft-in 1.4s var(--m-ease) .42s backwards}
-  .m-intro:not(.m-settled) .hero h1 .tag{animation:m-fade-up 1.1s var(--m-ease) .6s backwards}
-  .m-intro:not(.m-settled) .hero .lede{animation:m-fade-up 1.2s var(--m-ease) .78s backwards}
-  .m-intro:not(.m-settled) .hero .scroll-hint{animation:m-hint-in 1s var(--m-ease) 1.1s backwards}
-
-  /* ---------- Nav micro-interactions ---------- */
-  .m-js .lang-toggle:active{transform:scale(.95)}
-  .m-js nav .visitor-btn:active{transform:scale(.92)}
-  .m-js .nav-menu{transition:transform .3s var(--m-ease),border-color .3s ease}
-  .m-js .nav-menu:active{transform:scale(.94)}
-  .m-js .nav-menu span{transition:transform .45s var(--m-ease)}
-  .m-js .nav-menu[aria-expanded="true"] span:first-child{transform:translateY(2.5px) rotate(45deg)}
-  .m-js .nav-menu[aria-expanded="true"] span:last-child{transform:translateY(-2.5px) rotate(-45deg)}
-  @media(max-width:560px){
-    .m-js nav .links.open{animation:m-menu-in .42s var(--m-ease) backwards;transform-origin:top right}
-    .m-js nav .links.open a{animation:m-rise-sm .45s var(--m-ease) backwards}
-    .m-js nav .links.open a:nth-child(1){animation-delay:.05s}
-    .m-js nav .links.open a:nth-child(2){animation-delay:.09s}
-    .m-js nav .links.open a:nth-child(3){animation-delay:.13s}
-    .m-js nav .links.open a:nth-child(4){animation-delay:.17s}
-  }
-
-  /* ---------- Section entrances (extend the existing .reveal / .in system) ---------- */
-  /* Label rule draws in from the left */
-  .m-js .label.reveal::before{transform-origin:left center;transition:transform 1.1s var(--m-ease) .25s}
-  .m-js .label.reveal:not(.in)::before{transform:scaleX(0)}
-  /* Headlines come into focus (keeps existing .d1/.d2 delays: only longhands are set) */
-  .m-js h2.reveal{transition-property:opacity,transform,filter;transition-duration:1.1s,1.1s,1.4s}
-  .m-js h2.reveal:not(.in){filter:blur(8px)}
-
-  /* About portrait: top-down unveil with a slow settle.
-     Resting clip is inset(-1px) (wider than the image) so edge anti-aliasing is identical to the original. */
-  .m-js .about-portrait.reveal img{
-    clip-path:inset(-1px);
-    transition:transform 1.6s var(--m-ease-soft),filter 1s,clip-path 1.6s var(--m-ease);
-  }
-  .m-js .about-portrait.reveal:not(.in) img{clip-path:inset(-1px -1px 100% -1px);transform:scale(1.1)}
-
-  /* Gallery: each frame unveils upward and settles (hover zoom untouched once revealed) */
-  .m-js .g-item.reveal img{
-    clip-path:inset(-1px);
-    transition-property:transform,filter,clip-path;
-    transition-duration:1.8s,.8s,1.3s;
-    transition-timing-function:var(--m-ease-soft),ease,var(--m-ease);
-  }
-  .m-js .g-item.reveal.d1 img{transition-delay:0s,0s,.12s}
-  .m-js .g-item.reveal:not(.in) img{clip-path:inset(100% -1px -1px -1px);transform:scale(1.12)}
-
-  /* Stories: background settles, then title, paragraphs and signature arrive in sequence */
-  .m-js .story-card.reveal:not(.in) .story-bg{transform:scale(1.1)}
-  .m-js .story-card.in .story-content h3{animation:m-fade-up 1s var(--m-ease) .35s backwards}
-  .m-js .story-card.in .prose p{animation:m-fade-up 1s var(--m-ease) .5s backwards}
-  .m-js .story-card.in .prose p:nth-child(2){animation-delay:.62s}
-  .m-js .story-card.in .prose p:nth-child(3){animation-delay:.74s}
-  .m-js .story-card.in .prose p:nth-child(4){animation-delay:.86s}
-  .m-js .story-card.in .sig-pill{animation:m-fade-up 1s var(--m-ease) .95s backwards}
-
-  /* Connect: platforms cascade in one after another */
-  .m-js .socials.reveal.in .social{animation:m-fade-up .9s var(--m-ease) .3s backwards}
-  .m-js .socials.reveal.in .social:nth-child(2){animation-delay:.37s}
-  .m-js .socials.reveal.in .social:nth-child(3){animation-delay:.44s}
-  .m-js .socials.reveal.in .social:nth-child(4){animation-delay:.51s}
-  .m-js .socials.reveal.in .social:nth-child(5){animation-delay:.58s}
-  .m-js .socials.reveal.in .social:nth-child(6){animation-delay:.65s}
-
-  /* Footer fades in when reached */
-  .m-js footer{transition:opacity 1.2s var(--m-ease)}
-  .m-js footer:not(.m-in){opacity:0}
-
-  /* ---------- Visitor modal: panel grows from the button, contents cascade ---------- */
-  .m-js .visitor-modal .vm-panel{transform-origin:12% 0}
-  .m-js .visitor-modal.show .vm-current{animation:m-rise-sm .55s var(--m-ease) .08s backwards}
-  .m-js .visitor-modal.show .vm-divider{animation:m-soft-in .55s var(--m-ease) .14s backwards}
-  .m-js .visitor-modal.show .vm-history-title{animation:m-rise-sm .55s var(--m-ease) .18s backwards}
-  .m-js .visitor-modal.show .vm-list{animation:m-rise-sm .6s var(--m-ease) .24s backwards}
-  .m-js .visitor-modal .vm-close:hover{transform:rotate(90deg)}
-
-  /* ---------- Language switch: translated text settles into focus ---------- */
-  .m-swap :is(nav,header,section,footer,.visitor-modal) [data-i18n]:is(:not(.reveal),.in):not(.links.open a){
-    animation:m-swap .6s var(--m-ease) backwards;
-  }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400&display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.className = 'js';</script>
 </head>
 <body>
 
-<!-- ============ Language Gate ============ -->
-<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-  <div class="gate-inner">
-    <div class="gate-ornament"></div>
-    <div class="gate-greet" data-i18n="gate.greet">Welcome</div>
-    <h2 class="gate-name" id="gateTitle">Ji<em>n</em><span class="last">Kang</span></h2>
-    <p class="gate-sub" data-i18n="gate.sub">Choose your language to continue. Your choice will be remembered for the next visit.</p>
-    <div class="gate-buttons">
-      <button class="gate-btn primary" data-lang="en">English</button>
-      <button class="gate-btn" data-lang="zh">中文</button>
-    </div>
-  </div>
-</div>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- ============ Nav ============ -->
-<nav id="nav">
-  <div class="left">
-    <a href="#top" class="mark always">Jin <em>Kang</em></a>
-    <button class="visitor-btn" id="visitorBtn" aria-label="Recent visitors" title="最近访问">
-      <span class="vf-dot"></span>
+<div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ header ============ -->
+<header class="site-head" id="siteHead">
+  <a class="brand" href="#top" aria-label="Jin Kang, back to top">
+    <span class="brand__mark">Jin&nbsp;<em>Kang</em></span>
+    <span class="brand__cn" data-zh="康">K</span>
+  </a>
+
+  <nav class="site-nav" aria-label="Sections">
+    <a href="#index" data-nav>Index</a>
+    <a href="#frames" data-nav>Frames</a>
+    <a href="#letters" data-nav>Letters</a>
+    <a href="#about" data-nav>About</a>
+    <a href="#contact" data-nav>Contact</a>
+  </nav>
+
+  <div class="head-side">
+    <span class="head-time" id="headTime" aria-live="off">—</span>
+    <button class="lang" id="langBtn" type="button" aria-label="Switch language">
+      <span class="lang__on" data-zh="中">EN</span><span class="lang__sep">/</span><span class="lang__off" data-zh="EN">中</span>
     </button>
   </div>
-  <div class="clock" aria-live="off">
-    <div class="clock-main">
-      <span id="clockDate" class="date"></span>
-      <span id="clockTime"></span>
-    </div>
-    <span id="clockDays" class="days-counter"></span>
-  </div>
-  <div class="right">
-    <button class="nav-menu" id="navMenu" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu"><span></span><span></span></button>
-    <div class="links" id="navLinks">
-      <a href="#about" data-i18n="nav.about">About</a>
-      <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
-      <a href="#stories" data-i18n="nav.stories">Stories</a>
-      <a href="#connect" data-i18n="nav.connect">Connect</a>
-    </div>
-    <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN / 中</button>
-  </div>
-</nav>
-
-<!-- ============ Hero ============ -->
-<header class="hero" id="top">
-  <div class="hero-media" id="heroMedia" aria-hidden="true">
-    <video id="heroVideo"
-      muted loop playsinline preload="none"
-      poster="assets/hero-poster.webp"
-      disablepictureinpicture x5-playsinline>
-    </video>
-  </div>
-  <div class="hero-inner">
-    <div class="eyebrow" id="slogan">Live in the light you're given.</div>
-    <h1>
-      Jin <em>Kang</em>
-      <span class="tag" data-i18n="hero.tag">Moments · Frames · In-between</span>
-    </h1>
-    <p class="lede" data-i18n="hero.lede">A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for just one more click of the shutter.</p>
-  </div>
-  <div class="scroll-hint">
-    <span data-i18n="hero.scroll">Scroll</span>
-    <div class="line"></div>
-  </div>
+  <div class="head-progress" aria-hidden="true"><i id="progressBar"></i></div>
 </header>
 
-<!-- ============ About ============ -->
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div class="about-portrait reveal">
-      <img src="assets/art-portrait-1.webp" alt="Portrait of Jin Kang" loading="lazy" decoding="async" width="1285" height="1600">
-    </div>
-    <div class="about-text">
-      <div class="label reveal" data-i18n="about.label">About</div>
-      <p class="reveal d1" data-i18n="about.quote">"Collecting light, one frame at a time."</p>
-      <div id="aboutRotating" class="reveal d2"></div>
-      <div class="sig reveal d3">— Jin Kang</div>
-    </div>
-  </div>
-</section>
+<main id="main">
 
-<!-- ============ Gallery ============ -->
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="gallery-head">
-      <div>
-        <div class="label reveal" data-i18n="gallery.label">Gallery</div>
-        <h2 class="reveal d1"><span data-i18n="gallery.titleMain">Fragments,</span> <em data-i18n="gallery.titleEm">kept</em></h2>
+  <!-- ============ hero ============ -->
+  <section class="hero" id="top">
+    <div class="hero__inner">
+      <div class="hero__meta">
+        <span class="kicker">Light Log — <span data-zh="光 记">Field Notes</span></span>
+        <span class="hero__coords">25°02′N 102°43′E · <span data-zh="海拔 2000 米">alt. 2,000 m</span></span>
       </div>
-      <p class="reveal d2" data-i18n="gallery.desc">A rolling collection of frames — curated loosely, arranged randomly. Some are staged in borrowed apartments with borrowed light; most are stolen from real days that will never return. Each one holds a single, specific second that I couldn't bear to let go.</p>
-    </div>
-    <div class="gallery-grid">
-      <div class="g-item g-1 reveal"><img src="assets/gallery-01-lugu-lake.webp" alt="Lugu Lake in morning mist" loading="lazy" decoding="async" width="1600" height="900"><div class="cap"><span class="num">01</span><span data-i18n="gallery.c1">Silent Lake</span></div></div>
-      <div class="g-item g-15 reveal d1"><img src="assets/gallery-15-user.webp" alt="Hometown mountain panorama" loading="lazy" decoding="async" width="1600" height="1200"><div class="cap"><span class="num">02</span><span data-i18n="gallery.c15">Old Mountains, Home</span></div></div>
-      <div class="g-item g-3 reveal"><img src="assets/gallery-03-dali-roofs.webp" alt="Dali old town roofs" loading="lazy" decoding="async" width="1600" height="1600"><div class="cap"><span class="num">03</span><span data-i18n="gallery.c3">Dali Old Town</span></div></div>
-      <div class="g-item g-4 reveal d1"><img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces sunrise" loading="lazy" decoding="async" width="1600" height="900"><div class="cap"><span class="num">04</span><span data-i18n="gallery.c4">Slow Fields</span></div></div>
-      <div class="g-item g-13 reveal"><img src="assets/gallery-13-user.webp" alt="City under blue sky" loading="lazy" decoding="async" width="1600" height="1067"><div class="cap"><span class="num">05</span><span data-i18n="gallery.c13">City Under Clouds</span></div></div>
-      <div class="g-item g-10 reveal d1"><img src="assets/gallery-10-lugu-water.webp" alt="Lugu Lake stilt village" loading="lazy" decoding="async" width="1600" height="900"><div class="cap"><span class="num">06</span><span data-i18n="gallery.c10">Lugu Water</span></div></div>
-      <div class="g-item g-11 reveal"><img src="assets/gallery-11-rice-terraces.webp" alt="Hani rice terraces" loading="lazy" decoding="async" width="1600" height="1600"><div class="cap"><span class="num">07</span><span data-i18n="gallery.c11">Rice Terraces</span></div></div>
-      <div class="g-item g-17 reveal d1"><img src="assets/gallery-17-user.webp" alt="Anning golden autumn" loading="lazy" decoding="async" width="1600" height="1200"><div class="cap"><span class="num">08</span><span data-i18n="gallery.c17">All Gold</span></div></div>
-      <div class="g-item g-18 reveal"><img src="assets/gallery-18-user.webp" alt="School building against blue sky" loading="lazy" decoding="async" width="1200" height="1600"><div class="cap"><span class="num">09</span><span data-i18n="gallery.c18">Sky and Wall</span></div></div>
-      <div class="g-item g-19 reveal d1"><img src="assets/gallery-19-user.webp" alt="Hekou border town at night" loading="lazy" decoding="async" width="1600" height="1200"><div class="cap"><span class="num">10</span><span data-i18n="gallery.c19">Border Night Fires</span></div></div>
-      <div class="g-item g-16 reveal"><img src="assets/gallery-16-user.webp" alt="Flowers in shadow" loading="lazy" decoding="async" width="1600" height="1200"><div class="cap"><span class="num">11</span><span data-i18n="gallery.c16">Bloom in Shadow</span></div></div>
-      <div class="g-item g-12 reveal d1"><img src="assets/gallery-12-yunnan-sky.webp" alt="Yunnan mountain sky panorama" loading="lazy" decoding="async" width="1600" height="900"><div class="cap"><span class="num">12</span><span data-i18n="gallery.c12">Yunnan Sky</span></div></div>
-    </div>
-  </div>
-</section>
 
-<!-- ============ Stories ============ -->
-<section class="stories" id="stories">
-  <div class="wrap-narrow">
-    <div class="stories-head">
-      <div class="label reveal" data-i18n="stories.label">Stories</div>
-      <h2 class="reveal d1"><span data-i18n="stories.titleMain">Small letters,</span> <em data-i18n="stories.titleEm">never sent</em></h2>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="story-card reveal d1" id="storyCard">
-      <div class="story-bg" id="storyBg"></div>
-      <div class="story-scrim"></div>
-      <div class="story-body">
-        <div class="story-content">
-          <h3 id="storyTitle"></h3>
-          <div class="prose" id="storyProse"></div>
-          <div class="sig-pill">— Jin Kang</div>
+      <h1 class="hero__title">
+        <span class="line"><span class="line__in">Jin</span></span>
+        <span class="line line--right"><span class="line__in"><em>Kang</em></span></span>
+      </h1>
+
+      <p class="hero__note" data-zh="自 2019 年起，一帧一帧留存下来的光。">An archive of light, kept frame by frame since 2019.</p>
+
+      <div class="hero__foot">
+        <p class="hero__lede" data-zh="一个安静的角落。金色时刻漫过窗台，笑声在爆发前停顿，空街屏住呼吸，等待快门最后一次声响。">
+          A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for one more click of the shutter.
+        </p>
+        <div class="hero__stats">
+          <div><b>12</b><span data-zh="帧">frames</span></div>
+          <div><b>04</b><span data-zh="封信">letters</span></div>
+          <div><b>8,578</b><span data-zh="天">days</span></div>
         </div>
       </div>
+
+      <figure class="hero__media">
+        <div class="hero__media-in">
+          <img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces at first light" width="1600" height="900" fetchpriority="high" decoding="async">
+        </div>
+        <figcaption>
+          <span>01 — Slow Fields</span>
+          <span data-zh="元阳 · 06:31">Yuanyang · 06:31</span>
+        </figcaption>
+      </figure>
     </div>
-  </div>
-</section>
 
-<!-- ============ Connect ============ -->
-<section class="connect" id="connect">
-  <div class="wrap-narrow">
-    <h2 class="reveal d1"><span data-i18n="connect.titleMain">Find me</span> <em data-i18n="connect.titleEm">elsewhere</em></h2>
-    <p class="sub reveal d2" data-i18n="connect.sub">The same person, in a few different places. Come say hello — I reply eventually, though "eventually" could mean days or weeks depending on which time zone the light's currently shining. I read everything, even if I don't answer right away.</p>
-  </div>
-  <div class="socials reveal d2">
-    <a class="social" href="tel:+85362050728">
-      <span class="arrow" aria-hidden="true">↗</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.58.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.58 1 1 0 0 1-.24 1.02z"/></svg>
-      <span class="plat" data-i18n="connect.phoneLabel">Phone</span>
-      <span class="handle">+853 6205 0728</span>
-    </a>
-    <a class="social" href="https://www.facebook.com/jinkangdeng" target="_blank" rel="noopener noreferrer">
-      <span class="arrow" aria-hidden="true">↗</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z"/></svg>
-      <span class="plat">Facebook</span>
-      <span class="handle">/jinkangdeng</span>
-    </a>
-    <a class="social" href="https://v.douyin.com/02Mh4k-QMh4/" target="_blank" rel="noopener noreferrer">
-      <span class="arrow" aria-hidden="true">↗</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-      <span class="plat">Douyin</span>
-      <span class="handle" data-i18n="connect.douyinHandle">Profile</span>
-    </a>
-    <a class="social" href="https://www.tiktok.com/@kangking20" target="_blank" rel="noopener noreferrer">
-      <span class="arrow" aria-hidden="true">↗</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v3.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-      <span class="plat">TikTok</span>
-      <span class="handle">@kangking20</span>
-    </a>
-    <a class="social" href="https://www.instagram.com/jinkangdeng/" target="_blank" rel="noopener noreferrer">
-      <span class="arrow" aria-hidden="true">↗</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.73 1.46 1.38 2.13a5.86 5.86 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.13-1.38 5.86 5.86 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
-      <span class="plat">Instagram</span>
-      <span class="handle">@jinkangdeng</span>
-    </a>
-    <a class="social" href="https://line.me/ti/p/Nt6CAPQmNh" target="_blank" rel="noopener noreferrer">
-      <span class="arrow" aria-hidden="true">↗</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-      <span class="plat">LINE</span>
-      <span class="handle">Kang</span>
-    </a>
-  </div>
-</section>
 
-<footer>
-  © 2026 Jin Kang<span class="sep">·</span><span data-i18n="footer.made">Made with care</span>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" id="tickerTrack">
+        <span>泸沽湖 LUGU</span><i>·</i><span>大理 DALI</span><i>·</i><span>元阳 YUANYANG</span><i>·</i><span>建水 JIANSHUI</span><i>·</i><span>蒙自 MENGZI</span><i>·</i><span>安宁 ANNING</span><i>·</i><span>河口 HEKOU</span><i>·</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ index ============ -->
+  <section class="index" id="index">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 class="sec-title"><span class="sec-num">01</span> Index</h2>
+        <p class="sec-note" data-zh="十二帧，按遇见它们的顺序。">Twelve frames, in the order they found me.</p>
+      </header>
+
+      <ol class="index-list" id="indexList">
+        <li><a href="#f1" data-cursor="View" data-img="assets/gallery-04-yuanyang-terraces.webp">
+          <span class="idx">01</span><span class="idx-name">Slow Fields</span><span class="idx-place" data-zh="元阳 · 梯田">Yuanyang</span><span class="idx-time">06:31</span></a></li>
+        <li><a href="#f2" data-cursor="View" data-img="assets/gallery-01-lugu-lake.webp">
+          <span class="idx">02</span><span class="idx-name">Silent Lake</span><span class="idx-place" data-zh="泸沽湖 · 晨雾">Lugu</span><span class="idx-time">05:47</span></a></li>
+        <li><a href="#f3" data-img="assets/gallery-03-dali-roofs.webp">
+          <span class="idx">03</span><span class="idx-name">Dali Old Town</span><span class="idx-place" data-zh="大理 · 屋顶">Dali</span><span class="idx-time">15:40</span></a></li>
+        <li><a href="#f4" data-img="assets/gallery-15-user.webp">
+          <span class="idx">04</span><span class="idx-name">Old Mountains</span><span class="idx-place" data-zh="远山 · 故里">Anning</span><span class="idx-time">16:12</span></a></li>
+        <li><a href="#f5" data-img="assets/gallery-19-user.webp">
+          <span class="idx">05</span><span class="idx-name">Border Fires</span><span class="idx-place" data-zh="边城 · 夜火">Hekou</span><span class="idx-time">21:08</span></a></li>
+        <li><a href="#f6" data-img="assets/gallery-17-user.webp">
+          <span class="idx">06</span><span class="idx-name">All Gold</span><span class="idx-place" data-zh="安宁 · 秋色">Anning</span><span class="idx-time">17:22</span></a></li>
+        <li><a href="#f7" data-img="assets/gallery-13-user.webp">
+          <span class="idx">07</span><span class="idx-name">City Under Clouds</span><span class="idx-place" data-zh="云下城邦">Kunming</span><span class="idx-time">14:05</span></a></li>
+        <li><a href="#f8" data-img="assets/gallery-18-user.webp">
+          <span class="idx">08</span><span class="idx-name">Sky and Wall</span><span class="idx-place" data-zh="天色与墙">Jianshui</span><span class="idx-time">11:38</span></a></li>
+        <li><a href="#f9" data-img="assets/gallery-16-user.webp">
+          <span class="idx">09</span><span class="idx-name">Bloom in Shadow</span><span class="idx-place" data-zh="暗处生花">Mengzi</span><span class="idx-time">18:04</span></a></li>
+        <li><a href="#f10" data-img="assets/gallery-10-lugu-water.webp">
+          <span class="idx">10</span><span class="idx-name">Lugu Water</span><span class="idx-place" data-zh="泸沽之水">Lugu</span><span class="idx-time">07:15</span></a></li>
+        <li><a href="#f11" data-img="assets/gallery-11-rice-terraces.webp">
+          <span class="idx">11</span><span class="idx-name">Rice Terraces</span><span class="idx-place" data-zh="哈尼 · 梯田">Hani</span><span class="idx-time">08:02</span></a></li>
+        <li><a href="#f12" data-img="assets/gallery-12-yunnan-sky.webp">
+          <span class="idx">12</span><span class="idx-name">Yunnan Sky</span><span class="idx-place" data-zh="云南的天空">Yunnan</span><span class="idx-time">17:58</span></a></li>
+      </ol>
+    </div>
+    <div class="index-preview" id="indexPreview" aria-hidden="true"><img alt="" id="indexPreviewImg" decoding="async"></div>
+  </section>
+
+  <!-- ============ frames ============ -->
+  <section class="frames" id="frames">
+    <header class="sec-head wrap">
+      <h2 class="sec-title"><span class="sec-num">02</span> Frames</h2>
+      <p class="sec-note" data-zh="随意收录，随机排列。多数是从永不再来的真实日子里偷来的。">Curated loosely, arranged randomly. Most were stolen from real days that will never return.</p>
+    </header>
+
+    <article class="frame frame--wide" id="f1">
+      <figure>
+        <div class="media" data-parallax><img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces at sunrise" width="1600" height="900" loading="lazy" decoding="async"></div>
+        <figcaption>
+          <span class="cap-num">01</span>
+          <span class="cap-title">Slow Fields</span>
+          <span class="cap-place" data-zh="元阳 · 梯田">Yuanyang</span>
+          <span class="cap-note" data-zh="有人四百年里一直走上同一座山。光并不在意，而这正是它动人的地方。">Four hundred years of somebody walking up the same hill. The light doesn't care, and that's the point.</span>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="frame frame--tall frame--right" id="f2">
+      <figure>
+        <div class="media" data-parallax><img src="assets/gallery-01-lugu-lake.webp" alt="Lugu Lake in morning mist" width="1600" height="900" loading="lazy" decoding="async"></div>
+        <figcaption>
+          <span class="cap-num">02</span>
+          <span class="cap-title">Silent Lake</span>
+          <span class="cap-place" data-zh="泸沽湖 · 晨雾">Lugu</span>
+          <span class="cap-note" data-zh="水面有四分钟没有动。我也没有。">The water didn't move for four minutes. I didn't either.</span>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="frame frame--square" id="f3">
+      <figure>
+        <div class="media" data-parallax><img src="assets/gallery-03-dali-roofs.webp" alt="Dali old town roofs with morning steam" width="1600" height="1600" loading="lazy" decoding="async"></div>
+        <figcaption>
+          <span class="cap-num">03</span>
+          <span class="cap-title">Dali Old Town</span>
+          <span class="cap-place" data-zh="大理 · 屋顶">Dali</span>
+          <span class="cap-note" data-zh="借来的公寓，借来的光。那一整年冬天最好的一个下午。">Borrowed apartment, borrowed light. The best afternoon of that whole winter.</span>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="frame frame--wide frame--right" id="f4">
+      <figure>
+        <div class="media" data-parallax><img src="assets/gallery-19-user.webp" alt="Hekou border town at night" width="1600" height="1200" loading="lazy" decoding="async"></div>
+        <figcaption>
+          <span class="cap-num">04</span>
+          <span class="cap-title">Border Fires</span>
+          <span class="cap-place" data-zh="河口 · 边城">Hekou</span>
+          <span class="cap-note" data-zh="两个国家，一条街，同一种炭火的味道。">Two countries, one street, the same smell of charcoal.</span>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="frame frame--tall" id="f5">
+      <figure>
+        <div class="media" data-parallax><img src="assets/gallery-15-user.webp" alt="Hometown mountain panorama" width="1600" height="1200" loading="lazy" decoding="async"></div>
+        <figcaption>
+          <span class="cap-num">05</span>
+          <span class="cap-title">Old Mountains</span>
+          <span class="cap-place" data-zh="远山 · 故里">Anning</span>
+          <span class="cap-note" data-zh="每次回来，山都像是向我靠近了一点。也可能是，我终于知道该往哪里看。">Every time I come back the mountains have moved a little closer. Or I have.</span>
+        </figcaption>
+      </figure>
+    </article>
+
+    <p class="pullquote">
+      <span data-zh="有些地方你拍它是因为它美。有些，是因为你怕忘记。">“Some places you photograph because they're beautiful. Some you photograph because you're afraid of forgetting.”</span>
+    </p>
+  </section>
+
+  <!-- ============ letters ============ -->
+  <section class="letters" id="letters">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 class="sec-title"><span class="sec-num">03</span> Letters</h2>
+        <p class="sec-note" data-zh="四封没有寄出的信。左右滑动，或用方向键。">Four letters, never sent. Swipe, or use the arrow keys.</p>
+      </header>
+    </div>
+
+    <div class="letter-track" id="letterTrack" tabindex="0" role="group" aria-label="Letters">
+
+      <article class="letter" data-bg="assets/story-4-lighthouse-letter.webp">
+        <div class="letter__no">Letter 01</div>
+        <h3 data-zh="二十岁写给自己的那封信，三十岁终于收到了">The letter I wrote myself at twenty finally arrived at thirty</h3>
+        <div class="letter__body">
+          <p data-zh="「未来的你：我希望你到那个时候已经学会了勇敢。我希望你亲眼看见过海。我希望你看对的电影还是会哭，希望你永远不会是那种从街头卖艺人身边走过、什么都不往琴盒里放的人。」">“Dear future me — I hope you have figured out how to be brave by now. I hope you have seen the sea. I hope you still cry at the right movies and that you never became the kind of person who walks past a busker without putting something in the case.”</p>
+          <p data-zh="不是每个承诺都守住了。但是啊——我真的站在了海边。有些人生，做到这一件，就够了。">I didn't keep every promise. But I am standing at the sea. And sometimes that's enough for one life.</p>
+        </div>
+        <div class="letter__sign"><span class="seal">康</span><span>Jin Kang</span></div>
+      </article>
+
+      <article class="letter" data-bg="assets/story-jianshui-shop.webp">
+        <div class="letter__no">Letter 02</div>
+        <h3 data-zh="那家什么也不怎么卖的老店">The old shop that sold nothing I could name</h3>
+        <div class="letter__body">
+          <p data-zh="建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。">There's a shop in Jianshui that doesn't seem to sell anything. A counter, a scale, two glass jars of candy, and an old woman who is always peeling garlic.</p>
+          <p data-zh="去年冬天我又路过，独自一人。她没认出我，或者认出了没说。我买了两袋那种糖，味道一模一样。">Last winter I passed by again, alone. She didn't recognize me, or maybe she did and didn't say. I bought two bags of those candies. They tasted exactly the same.</p>
+        </div>
+        <div class="letter__sign"><span class="seal">康</span><span>Jin Kang</span></div>
+      </article>
+
+      <article class="letter" data-bg="assets/story-mengzi-station.webp">
+        <div class="letter__no">Letter 03</div>
+        <h3 data-zh="那座闻起来像未寄出的信的小火车站">The train station that smelled like an unwritten letter</h3>
+        <div class="letter__body">
+          <p data-zh="蒙自车站小到在售票处就能听见广播。它有一种特别的本事：哪怕你只是经过，也会觉得自己要失去点什么。">Mengzi station is small enough that you can hear the announcement from the ticket office. It has a way of making you feel like you're leaving something, even when you're only passing through.</p>
+          <p data-zh="去年我又站在那个站台上，等另一班火车，真的还能闻到粽子、潮湿站台，和那种「一封永远不会寄出的信」的味道。">Last year I stood there again, waiting for a different train, and I swear I could still smell the zongzi and the damp concrete and that particular, hopeless smell of an unwritten letter.</p>
+        </div>
+        <div class="letter__sign"><span class="seal">康</span><span>Jin Kang</span></div>
+      </article>
+
+      <article class="letter" data-bg="assets/story-anning-spring-night.webp">
+        <div class="letter__no">Letter 04</div>
+        <h3 data-zh="安宁那个没人着急的夜晚">A night in Anning when nobody was in a hurry</h3>
+        <div class="letter__body">
+          <p data-zh="要搬走的前几周，我总在五楼那个没人坐的转角。拿一杯温掉的豆奶坐在窗台上，看对面那棵老玉兰。">In the weeks before we had to leave, I'd go up to the fifth-floor landing with a cup of lukewarm soybean milk and sit on the windowsill watching the old magnolia across the road.</p>
+          <p data-zh="三月的一个晚上，楼下几个小孩抱着音箱上来，放十年前的粤语歌。一个从没说过话的男生在我旁边坐下，我们一个小时没说话，只听歌。">One night in March a group of kids brought up a portable speaker and played Cantopop from ten years ago. A boy I'd never spoken to sat next to me and we didn't talk for an hour, just listened.</p>
+        </div>
+        <div class="letter__sign"><span class="seal">康</span><span>Jin Kang</span></div>
+      </article>
+
+    </div>
+
+    <div class="letter-ui wrap">
+      <button class="letter-btn" id="letterPrev" type="button" aria-label="Previous letter">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="letter-pips" id="letterPips" role="tablist" aria-label="Choose letter"></div>
+      <button class="letter-btn" id="letterNext" type="button" aria-label="Next letter">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ about ============ -->
+  <section class="about" id="about">
+    <div class="wrap about__grid">
+      <figure class="about__portrait">
+        <div class="media media--portrait"><img src="assets/art-portrait-1.webp" alt="Portrait of Jin Kang" width="1285" height="1600" loading="lazy" decoding="async"></div>
+        <figcaption data-zh="摄于云南">Photographed in Yunnan</figcaption>
+      </figure>
+
+      <div class="about__text">
+        <h2 class="sec-title"><span class="sec-num">04</span> About</h2>
+        <p class="about__quote" data-zh="「一帧一束光。」">“Collecting light, one frame at a time.”</p>
+        <div class="about__rotator" id="aboutRotator">
+          <p data-zh="大多数时候我选择隐身——那个拿着相机站在人群外，带着一种安静的敬意观察他人生活的人。">Most days I'm invisible on purpose — the guy with the camera standing just outside the circle, watching everyone else's lives unfold with a quiet kind of respect.</p>
+          <p data-zh="我不相信完美的照片。我相信诚实的——真的发生过，就是这样，再也不会重演。">I don't believe in perfect photos. I believe in honest ones — the ones that look back at you and say: yes, this happened, exactly like this, and it will never happen again.</p>
+        </div>
+        <div class="about__sig">— Jin Kang</div>
+        <dl class="about__facts">
+          <div><dt data-zh="常驻地">Based</dt><dd>Yunnan, CN</dd></div>
+          <div><dt data-zh="拍摄">Shooting</dt><dd>2019 — now</dd></div>
+          <div><dt data-zh="器材">Kit</dt><dd>35mm / phone</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ contact ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2 class="contact__title">
+        <span class="line"><span class="line__in">Find me</span></span>
+        <span class="line line--right"><span class="line__in"><em>elsewhere</em></span></span>
+      </h2>
+
+      <ul class="contact__list">
+        <li><a href="https://www.instagram.com/jinkangdeng/" target="_blank" rel="noopener" data-magnet>
+          <span class="c-idx">01</span><span class="c-name">Instagram</span><span class="c-handle">@jinkangdeng</span></a></li>
+        <li><a href="https://www.facebook.com/jinkangdeng" target="_blank" rel="noopener" data-magnet>
+          <span class="c-idx">02</span><span class="c-name">Facebook</span><span class="c-handle">/jinkangdeng</span></a></li>
+        <li><a href="https://www.tiktok.com/@kangking20" target="_blank" rel="noopener" data-magnet>
+          <span class="c-idx">03</span><span class="c-name">TikTok</span><span class="c-handle">@kangking20</span></a></li>
+        <li><a href="https://v.douyin.com/02Mh4k-QMh4/" target="_blank" rel="noopener" data-magnet>
+          <span class="c-idx">04</span><span class="c-name">Douyin</span><span class="c-handle" data-zh="抖音主页">Profile</span></a></li>
+        <li><a href="https://line.me/ti/p/Nt6CAPQmNh" target="_blank" rel="noopener" data-magnet>
+          <span class="c-idx">05</span><span class="c-name">LINE</span><span class="c-handle">Kang</span></a></li>
+        <li><a href="tel:+85362050728" data-magnet>
+          <span class="c-idx">06</span><span class="c-name">Phone</span><span class="c-handle">+853 6205 0728</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot__row">
+    <span>© 2026 Jin Kang</span>
+    <span class="foot__mid" data-zh="在云南制作">Made in Yunnan</span>
+    <span class="foot__visit"><i></i> Exposure <b id="exposure">008578</b></span>
+  </div>
 </footer>
 
-<!-- ============ Visitor Modal ============ -->
-<div class="visitor-modal" id="visitorModal" role="dialog" aria-hidden="true">
-  <div class="vm-backdrop"></div>
-  <div class="vm-panel">
-    <div class="vm-header">
-      <div class="vm-title" data-i18n="visitor.modalTitle">Your IP</div>
-      <button class="vm-close" id="vmClose" aria-label="Close">✕</button>
-    </div>
-    <div class="vm-current" id="vmCurrent">
-      <div class="vm-row vm-ip-row">
-        <span class="vm-ip-val" id="vmIp">—</span>
-      </div>
-      <div class="vm-row vm-two-line">
-        <div class="vm-label" data-i18n="visitor.location">Location</div>
-        <div class="vm-two">
-          <span class="vm-line-en" id="vmLocEn">—</span>
-          <span class="vm-line-zh" id="vmLocZh"></span>
-        </div>
-      </div>
-      <div class="vm-row vm-two-line">
-        <div class="vm-label" data-i18n="visitor.isp">Network</div>
-        <div class="vm-two">
-          <span class="vm-line-en" id="vmIspEn">—</span>
-          <span class="vm-line-zh" id="vmIspZh"></span>
-        </div>
-      </div>
-      <div class="vm-row vm-time-row">
-        <div class="vm-label" data-i18n="visitor.time">Time</div>
-        <span class="vm-time-val" id="vmTime">—</span>
-      </div>
-    </div>
-    <div class="vm-divider"></div>
-    <div class="vm-history-title"><span data-i18n="visitor.historyTitle">Every IP that opened this page</span><span id="vmCount"></span></div>
-    <div class="vm-list" id="vmList">
-      <div class="vm-empty" data-i18n="visitor.empty">No history yet</div>
-    </div>
-  </div>
-</div>
-
-<script>
-/* ================= i18n ================= */
-const I18N = {
-  en: {
-    "gate.greet": "Welcome",
-    "gate.sub": "Choose your language to continue. Your choice will be remembered for the next visit.",
-    "nav.about": "About",
-    "nav.gallery": "Gallery",
-    "nav.stories": "Stories",
-    "nav.connect": "Connect",
-    "hero.tag": "Moments · Frames · In-between",
-    "hero.ledes": [
-      "A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for just one more click of the shutter.",
-      "Somewhere between the light and the silence, I've been collecting small things — a stranger's smile, rain on a rooftop, the exact shade of orange before sunset. This is where they live.",
-      "Every photograph here is a small act of resistance — against forgetting, against the speed of things, against the way moments dissolve the moment you stop looking."
-    ],
-    "hero.scroll": "Scroll",
-    "about.label": "About",
-    "about.quote": "\"Collecting light, one frame at a time.\"",
-    "gallery.label": "Gallery",
-    "gallery.titleMain": "Fragments,",
-    "gallery.titleEm": "kept",
-    "gallery.desc": "A rolling collection of frames — curated loosely, arranged randomly. Some are staged in borrowed apartments with borrowed light; most are stolen from real days that will never return. Each one holds a single, specific second that I couldn't bear to let go.",
-    "gallery.c1": "Silent Lake",
-    "gallery.c3": "Dali Old Town",
-    "gallery.c4": "Slow Fields",
-    "gallery.c10": "Lugu Water",
-    "gallery.c11": "Rice Terraces",
-    "gallery.c12": "Yunnan Sky",
-    "gallery.c13": "City Under Clouds",
-    "gallery.c15": "Old Mountains, Home",
-    "gallery.c16": "Bloom in Shadow",
-    "gallery.c17": "All Gold",
-    "gallery.c18": "Sky and Wall",
-    "gallery.c19": "Border Night Fires",
-    "stories.label": "Stories",
-    "stories.titleMain": "Small letters,",
-    "stories.titleEm": "never sent",
-    "connect.titleMain": "Find me",
-    "connect.titleEm": "elsewhere",
-    "connect.sub": "The same person, in a few different places. Come say hello — I reply eventually, though \"eventually\" could mean days or weeks depending on which time zone the light's currently shining. I read everything, even if I don't answer right away.",
-    "connect.phoneLabel": "Phone",
-    "connect.douyinHandle": "Profile",
-    "footer.made": "Made with care",
-    "visitor.label": "IP · ",
-    "visitor.floatingLabel": "All visitors",
-    "visitor.modalTitle": "Your IP",
-    "visitor.location": "Location",
-    "visitor.isp": "Network",
-    "visitor.time": "Time",
-    "visitor.historyTitle": "Every IP that opened this page",
-    "visitor.empty": "No visitors yet"
-  },
-  zh: {
-    "gate.greet": "欢 · 迎",
-    "gate.sub": "请选择语言进入，你的偏好会被记住。",
-    "nav.about": "关于",
-    "nav.gallery": "画廊",
-    "nav.stories": "故事",
-    "nav.connect": "联系",
-    "hero.tag": "光 · 帧 · 之间",
-    "hero.ledes": [
-      "一个安静的网络角落——金色时刻漫过窗台，笑声在爆发前停顿，空街屏住呼吸等待快门最后一次声响。",
-      "在光与静默之间，我一直在收集微小的事物——陌生人的微笑、屋顶的雨声、日落前那一抹精确的橙色。它们都住在这里。",
-      "这里的每一张照片都是一次小小的反抗——对抗遗忘，对抗时间的速度，对抗那些在你不再凝视时便即刻消散的瞬间。"
-    ],
-    "hero.scroll": "下滑继续",
-    "about.label": "关于我",
-    "about.quote": "「一帧一束光。」",
-    "gallery.label": "画廊",
-    "gallery.titleMain": "时间的",
-    "gallery.titleEm": "碎片",
-    "gallery.desc": "一组流动的画面——随意收录、随机排列。有些是在借来的公寓里用借来的光线摆拍的；更多是从永不再来的真实日子里偷取的。每一张都承载着我不忍放手的那独一无二的一秒。",
-    "gallery.c1": "静谧湖泊",
-    "gallery.c3": "大理老城",
-    "gallery.c4": "田野之间",
-    "gallery.c10": "泸沽之水",
-    "gallery.c11": "元阳梯田",
-    "gallery.c12": "云南的天空",
-    "gallery.c13": "云下城邦",
-    "gallery.c15": "远山故里",
-    "gallery.c16": "暗处生花",
-    "gallery.c17": "满城金黄",
-    "gallery.c18": "天色与墙",
-    "gallery.c19": "边城夜火",
-    "stories.label": "故事",
-    "stories.titleMain": "从未寄出的",
-    "stories.titleEm": "短书信",
-    "connect.titleMain": "在这些地方",
-    "connect.titleEm": "找我",
-    "connect.sub": "同一个我，在几个不同的平台。来打个招呼吧——总会回的，只是「总会」可能是几天，也可能是几周，取决于此刻光落在哪个时区。每一条消息我都会读，即使没有立刻回复。",
-    "connect.phoneLabel": "电话",
-    "connect.douyinHandle": "个人主页",
-    "footer.made": "用心制作",
-    "visitor.label": "IP地址：",
-    "visitor.floatingLabel": "全部访问",
-    "visitor.modalTitle": "您的IP",
-    "visitor.location": "位置",
-    "visitor.isp": "网络",
-    "visitor.time": "时间",
-    "visitor.historyTitle": "打开过这个页面的 IP",
-    "visitor.empty": "还没有记录"
-  }
-};
-
-const STORAGE_KEY = "ethan_lang";
-function applyLang(lang){
-  if(!I18N[lang]) lang = "en";
-  document.documentElement.lang = lang;
-  const dict = I18N[lang];
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const k = el.getAttribute("data-i18n");
-    if(k === "hero.lede"){
-      const ledes = dict["hero.ledes"];
-      if(Array.isArray(ledes) && ledes.length > 0){
-        el.textContent = ledes[Math.floor(Math.random() * ledes.length)];
-      } else if(dict[k] != null){
-        el.textContent = dict[k];
-      }
-    } else if(dict[k] != null){
-      el.textContent = dict[k];
-    }
-  });
-  const btn = document.getElementById("langToggle");
-  if(btn) btn.textContent = (lang === "en") ? "中 / EN" : "EN / 中";
-  const vBtn = document.getElementById("visitorBtn");
-  if(vBtn){
-    const label = dict["visitor.floatingLabel"];
-    if(label){ vBtn.setAttribute("title", label); vBtn.setAttribute("aria-label", label); }
-  }
-  const menuBtn = document.getElementById("navMenu");
-  if(menuBtn) menuBtn.setAttribute("aria-label", lang === "zh" ? "菜单" : "Menu");
-  document.title = (lang === "zh") ? "Jin Kang · 个人主页" : "Jin Kang — Personal";
-}
-function setLang(lang, persist=true){
-  applyLang(lang);
-  if(persist) try{localStorage.setItem(STORAGE_KEY, lang);}catch(e){}
-  try{ window.dispatchEvent(new CustomEvent("ethan-lang-changed", {detail:{lang}})); }catch(e){}
-}
-
-/* ================= Gate ================= */
-(function gateFlow(){
-  const gate = document.getElementById("gate");
-  const page = ["nav","top","about","gallery","stories","connect","visitorModal"]
-    .map(id => document.getElementById(id))
-    .concat([document.querySelector("footer")])
-    .filter(Boolean);
-  function setGateOpen(open){
-    gate.classList.toggle("gone", !open);
-    gate.setAttribute("aria-hidden", open ? "false" : "true");
-    gate.inert = !open;
-    page.forEach(el => { el.inert = open; });
-  }
-  function focusables(){ return Array.from(gate.querySelectorAll("button")); }
-  function trap(e){
-    if(e.key !== "Tab") return;
-    const items = focusables();
-    if(!items.length) return;
-    const first = items[0], last = items[items.length - 1];
-    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-  }
-  function closeGate(){
-    setGateOpen(false);
-    gate.removeEventListener("keydown", trap);
-    document.body.style.overflow = "";
-    const mark = document.querySelector("nav .mark");
-    if(mark) mark.focus();
-  }
-  const forceReset = new URLSearchParams(location.search).has("reset");
-  const saved = forceReset ? null : (function(){try{return localStorage.getItem(STORAGE_KEY)}catch(e){return null}})();
-  if(saved && I18N[saved]){
-    applyLang(saved);
-    setGateOpen(false);
-    document.body.style.overflow = "";
-    return;
-  }
-  applyLang("en");
-  setGateOpen(true);
-  document.body.style.overflow = "hidden";
-  gate.addEventListener("keydown", trap);
-  const firstBtn = gate.querySelector(".gate-btn");
-  if(firstBtn) firstBtn.focus();
-  gate.querySelectorAll(".gate-btn").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      setLang(btn.getAttribute("data-lang"), true);
-      closeGate();
-    });
-  });
-})();
-
-/* ================= Nav toggle ================= */
-document.getElementById("langToggle").addEventListener("click", ()=>{
-  const cur = document.documentElement.lang === "zh" ? "zh" : "en";
-  setLang(cur === "zh" ? "en" : "zh", true);
-});
-
-(function navMenu(){
-  const btn = document.getElementById("navMenu");
-  const links = document.getElementById("navLinks");
-  if(!btn || !links) return;
-  function close(){
-    links.classList.remove("open");
-    btn.setAttribute("aria-expanded", "false");
-  }
-  btn.addEventListener("click", ()=>{
-    const open = links.classList.toggle("open");
-    btn.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-  links.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
-  document.addEventListener("keydown", e => { if(e.key === "Escape") close(); });
-})();
-
-/* ================= Nav + Hero scroll ================= */
-const nav = document.getElementById("nav");
-const hero = document.getElementById("top");
-function onScroll(){
-  const y = window.scrollY;
-  nav.classList.toggle("scrolled", y > 40);
-  const heroH = hero.offsetHeight;
-  const range = Math.max(1, heroH * 0.8);
-  const scroll = Math.min(1, Math.max(0, y / range));
-  document.documentElement.style.setProperty("--scroll", scroll.toFixed(4));
-}
-document.addEventListener("scroll", onScroll, {passive:true});
-onScroll();
-
-/* ================= Reveal ================= */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
-  });
-},{threshold:.14, rootMargin:"0px 0px -6% 0px"});
-document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-
-/* ================= Hero video ================= */
-(function heroVideo(){
-  const v = document.getElementById("heroVideo");
-  const media = document.getElementById("heroMedia");
-  if(!v || !media) return;
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    v.pause();
-    v.removeAttribute("src");
-    v.style.display = "none";
-    return;
-  }
-  const showVideo = ()=>{
-    v.classList.add("loaded");
-    media.classList.add("video-on");
-  };
-  v.addEventListener("loadeddata", showVideo);
-  v.addEventListener("playing", showVideo);
-  v.addEventListener("error", ()=>{ v.style.display="none"; });
-  v.preload = "metadata";
-  v.src = "assets/hero-bg.mp4";
-  v.autoplay = true;
-  if(v.readyState >= 2) showVideo();
-  const tryPlay = ()=>{ const p = v.play(); if(p && p.catch) p.catch(()=>{}); };
-  if(document.readyState === "complete") tryPlay();
-  else window.addEventListener("load", tryPlay);
-  const unlock = ()=>{ tryPlay(); window.removeEventListener("pointerdown", unlock); window.removeEventListener("keydown", unlock); };
-  window.addEventListener("pointerdown", unlock);
-  window.addEventListener("keydown", unlock);
-})();
-
-/* ================= Clock (auto timezone) ================= */
-(function clock(){
-  const dateEl = document.getElementById("clockDate");
-  const timeEl = document.getElementById("clockTime");
-  const daysEl = document.getElementById("clockDays");
-  if(!dateEl || !timeEl) return;
-
-  const WEEKDAYS_EN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  const WEEKDAYS_ZH = ["周日","周一","周二","周三","周四","周五","周六"];
-  const START_DATE = new Date(2003, 4, 15); // 2003-05-15
-
-  function pad(n){return String(n).padStart(2,"0")}
-  function tick(){
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = now.getMonth() + 1;
-    const d = now.getDate();
-    const w = now.getDay();
-    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
-    if(lang === "zh"){
-      dateEl.textContent = `${y} 年 ${m} 月 ${d} 日 · ${WEEKDAYS_ZH[w]}`;
-    }else{
-      dateEl.textContent = `${WEEKDAYS_EN[w]}, ${m}/${d}/${y}`;
-    }
-    timeEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}<sep></sep>${pad(now.getSeconds())}`.replace("<sep></sep>", ":");
-
-    if(daysEl){
-      const diffMs = now - START_DATE;
-      const days = Math.ceil(diffMs / 86400000);
-      daysEl.textContent = days;
-    }
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  const clockEl = document.querySelector(".clock");
-  if(clockEl){
-    let ticking = false;
-    function onScroll(){
-      if(!ticking){
-        requestAnimationFrame(()=>{
-          if(window.scrollY > 40){
-            clockEl.classList.add("scrolled");
-          }else{
-            clockEl.classList.remove("scrolled");
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-    window.addEventListener("scroll", onScroll, {passive:true});
-  }
-})();
-
-/* ================= Visitor IP + shared board ================= */
-document.addEventListener("DOMContentLoaded", function(){
-(function visitor(){
-  const BTN = document.getElementById("visitorBtn");
-  const MODAL = document.getElementById("visitorModal");
-  const CLOSE = document.getElementById("vmClose");
-  const BACKDROP = MODAL ? MODAL.querySelector(".vm-backdrop") : null;
-  if(!BTN || !MODAL) return;
-
-  const BOARD = "https://kang-visitors.jinkang03.workers.dev/visitors";
-  const CACHE_KEY = "jk_visitor_board";
-  const CURRENT_KEY = "jk_visitor_current";
-  const MAX_VISITORS = 80;
-
-  let currentInfo = null;
-  let board = [];
-  let lastFocus = null;
-
-  // Country code → Chinese name mapping
-  const CN_MAP = {
-    US:"美国",CN:"中国",JP:"日本",KR:"韩国",GB:"英国",FR:"法国",DE:"德国",IT:"意大利",
-    ES:"西班牙",PT:"葡萄牙",RU:"俄罗斯",CA:"加拿大",AU:"澳大利亚",NZ:"新西兰",IN:"印度",
-    SG:"新加坡",MY:"马来西亚",TH:"泰国",VN:"越南",ID:"印度尼西亚",PH:"菲律宾",
-    NL:"荷兰",BE:"比利时",SE:"瑞典",NO:"挪威",DK:"丹麦",FI:"芬兰",PL:"波兰",
-    CH:"瑞士",AT:"奥地利",IE:"爱尔兰",CZ:"捷克",HU:"匈牙利",RO:"罗马尼亚",BG:"保加利亚",
-    GR:"希腊",TR:"土耳其",UA:"乌克兰",BR:"巴西",MX:"墨西哥",AR:"阿根廷",CL:"智利",
-    ZA:"南非",EG:"埃及",SA:"沙特阿拉伯",AE:"阿联酋",IL:"以色列",
-    HK:"中国香港",TW:"中国台湾",MO:"中国澳门"
-  };
-
-  // ISP Chinese mapping for CN
-  const ISP_CN_MAP = [
-    [/中国电信|China Telecom/i, "中国电信"],
-    [/中国移动|China Mobile/i, "中国移动"],
-    [/中国联通|China Unicom/i, "中国联通"],
-    [/中国广电|China Broadcasting/i, "中国广电"],
-    [/教育网|CERNET/i, "教育网"],
-    [/长城宽带|Great Wall/i, "长宽宽带"],
-    [/鹏博士|Dr.Peng/i, "鹏博士"],
-    [/广电|CBN/i, "广电网络"]
-  ];
-
-  // Chinese province/city common names
-  const REGION_CN = {
-    "Guangdong":"广东","Guangdong Sheng":"广东","Beijing":"北京","Beijing Shi":"北京",
-    "Shanghai":"上海","Shanghai Shi":"上海","Tianjin":"天津","Tianjin Shi":"天津",
-    "Chongqing":"重庆","Chongqing Shi":"重庆","Jiangsu":"江苏","Zhejiang":"浙江",
-    "Shandong":"山东","Henan":"河南","Hebei":"河北","Hubei":"湖北","Hunan":"湖南",
-    "Sichuan":"四川","Yunnan":"云南","Guizhou":"贵州","Fujian":"福建","Anhui":"安徽",
-    "Jiangxi":"江西","Liaoning":"辽宁","Jilin":"吉林","Heilongjiang":"黑龙江",
-    "Shaanxi":"陕西","Gansu":"甘肃","Qinghai":"青海","Ningxia":"宁夏",
-    "Nei Mongol":"内蒙古","Inner Mongolia":"内蒙古","Xinjiang":"新疆","Tibet":"西藏",
-    "Guangxi":"广西","Hainan":"海南","Hong Kong":"香港","Macau":"澳门","Taiwan":"台湾"
-  };
-
-  const CITY_CN = {
-    "Shenzhen":"深圳","Guangzhou":"广州","Zhanjiang":"湛江","Foshan":"佛山","Dongguan":"东莞",
-    "Beijing":"北京","Shanghai":"上海","Tianjin":"天津","Chongqing":"重庆",
-    "Chengdu":"成都","Hangzhou":"杭州","Nanjing":"南京","Wuhan":"武汉",
-    "Xi'an":"西安","Suzhou":"苏州","Zhengzhou":"郑州","Changsha":"长沙",
-    "Shenyang":"沈阳","Qingdao":"青岛","Jinan":"济南","Dalian":"大连",
-    "Kunming":"昆明","Qujing":"曲靖","Honghe":"红河","Hekou":"河口",
-    "Jianshui":"建水","Mengzi":"蒙自","Gejiu":"个旧","Anning":"安宁",
-    "Tokyo":"东京","Osaka":"大阪","Kyoto":"京都","Yokohama":"横滨",
-    "Seoul":"首尔","Busan":"釜山",
-    "New York":"纽约","Los Angeles":"洛杉矶","San Francisco":"旧金山",
-    "London":"伦敦","Paris":"巴黎","Berlin":"柏林","Rome":"罗马",
-    "Singapore":"新加坡","Kuala Lumpur":"吉隆坡","Bangkok":"曼谷",
-    "Hong Kong":"香港","Taipei":"台北"
-  };
-
-  fetchCurrentInfo();
-
-  BTN.addEventListener("click", openModal);
-  CLOSE.addEventListener("click", closeModal);
-  if(BACKDROP) BACKDROP.addEventListener("click", closeModal);
-  document.addEventListener("keydown", e => {
-    if(!MODAL.classList.contains("show")) return;
-    if(e.key === "Escape") closeModal();
-    else if(e.key === "Tab") trapModal(e);
-  });
-
-  function trapModal(e){
-    const items = Array.from(MODAL.querySelectorAll("button")).filter(el => !el.disabled);
-    if(!items.length) return;
-    const first = items[0], last = items[items.length - 1];
-    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-  }
-
-  function openModal(){
-    lastFocus = document.activeElement;
-    renderModal();
-    MODAL.classList.add("show");
-    MODAL.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    CLOSE.focus();
-    loadBoard().then(list => { board = list; renderModal(); }).catch(() => {});
-  }
-  function closeModal(){
-    MODAL.classList.remove("show");
-    MODAL.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-    if(lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  function cnRegion(name){
-    if(!name) return "";
-    if(REGION_CN[name]) return REGION_CN[name];
-    for(const k in REGION_CN){
-      if(name.indexOf(k) >= 0 || k.indexOf(name) >= 0) return REGION_CN[k];
-    }
-    return name;
-  }
-
-  function cnCity(name){
-    if(!name) return "";
-    if(CITY_CN[name]) return CITY_CN[name];
-    for(const k in CITY_CN){
-      if(name.indexOf(k) >= 0) return CITY_CN[k];
-    }
-    return name;
-  }
-
-  function buildLocationEn(info){
-    const parts = [];
-    if(info.country) parts.push(info.country);
-    if(info.region && info.region !== info.city) parts.push(info.region);
-    if(info.city) parts.push(info.city);
-    return parts.join(" · ") || "";
-  }
-
-  function buildLocationZh(info){
-    if(!info.country_code) return "";
-    const parts = [];
-    const countryZh = CN_MAP[info.country_code] || "";
-    if(countryZh) parts.push(countryZh);
-    if(info.region && info.region !== info.city){
-      const r = cnRegion(info.region);
-      if(r) parts.push(r);
-    }
-    if(info.city){
-      const c = cnCity(info.city);
-      if(c) parts.push(c);
-    }
-    return parts.join(" · ");
-  }
-
-  function buildIspEn(info){ return info.isp || "—"; }
-
-  function buildIspZh(info){
-    if(!info.isp) return "";
-    if(info.country_code === "CN"){
-      for(const [re, zh] of ISP_CN_MAP){
-        if(re.test(info.isp)) return zh;
-      }
-    }
-    return "";
-  }
-
-  function clip(s){ return String(s || "").replace(/[\u0000-\u001f]/g, "").slice(0, 120); }
-  function validIp(ip){
-    return typeof ip === "string" && /^[0-9a-fA-F:.]+$/.test(ip) && ip.length >= 3 && ip.length <= 64;
-  }
-
-  function renderModal(){
-    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
-    const ipEl = document.getElementById("vmIp");
-    const locEnEl = document.getElementById("vmLocEn");
-    const locZhEl = document.getElementById("vmLocZh");
-    const ispEnEl = document.getElementById("vmIspEn");
-    const ispZhEl = document.getElementById("vmIspZh");
-    const timeEl = document.getElementById("vmTime");
-    const listEl = document.getElementById("vmList");
-    const countEl = document.getElementById("vmCount");
-
-    if(currentInfo){
-      ipEl.textContent = currentInfo.ip || "—";
-      locEnEl.textContent = buildLocationEn(currentInfo) || "—";
-      const locZh = buildLocationZh(currentInfo);
-      locZhEl.textContent = locZh;
-      locZhEl.style.display = locZh ? "block" : "none";
-      ispEnEl.textContent = buildIspEn(currentInfo);
-      const ispZh = buildIspZh(currentInfo);
-      ispZhEl.textContent = ispZh;
-      ispZhEl.style.display = ispZh ? "block" : "none";
-      timeEl.textContent = formatTime(new Date(currentInfo.ts), lang);
-    } else {
-      ipEl.textContent = "···";
-      locEnEl.textContent = "···";
-      locZhEl.style.display = "none";
-      ispEnEl.textContent = "···";
-      ispZhEl.style.display = "none";
-      timeEl.textContent = "···";
-    }
-
-    if(countEl) countEl.textContent = board.length ? " · " + board.length : "";
-    listEl.replaceChildren();
-    if(!board.length){
-      const empty = document.createElement("div");
-      empty.className = "vm-empty";
-      empty.textContent = lang === "zh" ? "还没有记录" : "No visitors yet";
-      listEl.appendChild(empty);
-      return;
-    }
-    board.slice().sort((a,b) => Number(b.ts) - Number(a.ts)).slice(0, MAX_VISITORS).forEach(h => {
-      const item = document.createElement("div");
-      item.className = "vm-item";
-      const top = document.createElement("div");
-      top.className = "vm-item-top";
-      const time = document.createElement("span");
-      time.className = "vm-item-time";
-      time.textContent = formatTime(new Date(Number(h.ts) || Date.now()), lang);
-      const ip = document.createElement("span");
-      ip.className = "vm-item-ip";
-      ip.textContent = h.ip;
-      top.append(time, ip);
-      item.append(top);
-      const locText = lang === "zh" ? (h.locZh || h.locEn || "") : (h.locEn || h.locZh || "");
-      if(locText){
-        const loc = document.createElement("div");
-        loc.className = "vm-item-loc";
-        loc.textContent = locText;
-        item.append(loc);
-      }
-      listEl.appendChild(item);
-    });
-  }
-
-  function fetchCurrentInfo(){
-    try{
-      const cached = JSON.parse(localStorage.getItem(CURRENT_KEY) || "null");
-      if(cached && validIp(cached.ip) && Date.now() - cached.ts < 5 * 60 * 1000){
-        currentInfo = cached;
-      }
-    }catch(e){}
-
-    recordVisit();
-
-    const applyGeo = d => {
-      if(!d || !d.ip) return;
-      const isp = d.connection && d.connection.isp ? d.connection.isp : (d.org || "");
-      if(currentInfo && validIp(currentInfo.ip) && d.ip !== currentInfo.ip) return;
-      const info = {
-        ts: (currentInfo && currentInfo.ts) || Date.now(),
-        ip: (currentInfo && currentInfo.ip) || d.ip,
-        country: d.country_name || d.country || (currentInfo && currentInfo.country) || "",
-        country_code: d.country_code || (currentInfo && currentInfo.country_code) || "",
-        region: d.region || (currentInfo && currentInfo.region) || "",
-        city: d.city || (currentInfo && currentInfo.city) || "",
-        isp: isp || (currentInfo && currentInfo.isp) || ""
-      };
-      if(!validIp(info.ip)) return;
-      currentInfo = info;
-      try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
-      if(MODAL.classList.contains("show")) renderModal();
-    };
-
-    fetch("https://ipwho.is/").then(r => r.json()).then(d => {
-      if(d && d.success && d.ip) applyGeo(d);
-      else throw new Error("no data");
-    }).catch(() => {
-      fetch("https://ipapi.co/json/").then(r => r.json()).then(d => {
-        if(d && d.ip) applyGeo(d);
-      }).catch(() => {});
-    });
-  }
-
-  function rowsFrom(data){
-    const list = data && Array.isArray(data.visitors) ? data.visitors : [];
-    return list.filter(x => x && validIp(x.ip)).map(x => {
-      const info = {
-        country: x.country || "",
-        country_code: x.country_code || "",
-        region: x.region || "",
-        city: x.city || ""
-      };
-      return {
-        ip: x.ip,
-        ts: Number(x.ts) || 0,
-        locEn: clip(buildLocationEn(info) || x.locEn),
-        locZh: clip(buildLocationZh(info) || x.locZh)
-      };
-    }).sort((a,b) => b.ts - a.ts).slice(0, MAX_VISITORS);
-  }
-
-  function saveBoard(list){
-    board = list;
-    try{ localStorage.setItem(CACHE_KEY, JSON.stringify(board)); }catch(e){}
-    if(MODAL.classList.contains("show")) renderModal();
-    return board;
-  }
-
-  function applyYou(you){
-    if(!you || !validIp(you.ip)) return;
-    const prev = currentInfo && currentInfo.ip === you.ip ? currentInfo : null;
-    currentInfo = {
-      ts: Number(you.ts) || (prev && prev.ts) || Date.now(),
-      ip: you.ip,
-      country: (prev && prev.country) || you.country || "",
-      country_code: (prev && prev.country_code) || you.country_code || "",
-      region: (prev && prev.region) || you.region || "",
-      city: (prev && prev.city) || you.city || "",
-      isp: (prev && prev.isp) || you.isp || ""
-    };
-    try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
-  }
-
-  function carrierFromAddr(addr){
-    const text = String(addr || "");
-    if(text.indexOf("联通") >= 0) return "中国联通";
-    if(text.indexOf("电信") >= 0) return "中国电信";
-    if(text.indexOf("移动") >= 0) return "中国移动";
-    if(text.indexOf("广电") >= 0) return "中国广电";
-    return "";
-  }
-
-  function parseIpip(text){
-    const ipMatch = /IP[:：]\s*([0-9a-fA-F:.]+)/.exec(text || "");
-    if(!ipMatch || !validIp(ipMatch[1])) return null;
-    const from = /来自于[:：]\s*(.*)/.exec(text || "");
-    const parts = from ? from[1].trim().split(/\s+/).filter(Boolean) : [];
-    return {
-      ip: ipMatch[1],
-      pro: parts[1] || "",
-      city: parts.length >= 4 ? parts[2] : "",
-      addr: parts.length ? parts[parts.length - 1] : ""
-    };
-  }
-
-  function domesticInfo(){
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 1800);
-    return fetch("https://myip.ipip.net/", { signal: ctrl.signal, cache: "no-store" })
-      .then(r => r.ok ? r.text() : "")
-      .then(parseIpip)
-      .catch(() => null)
-      .finally(() => clearTimeout(timer));
-  }
-
-  function showDomestic(data){
-    if(!data || !validIp(data.ip)) return;
-    currentInfo = {
-      ts: Date.now(),
-      ip: data.ip,
-      country: "China",
-      country_code: "CN",
-      region: data.pro || "",
-      city: data.city || "",
-      isp: carrierFromAddr(data.addr)
-    };
-    try{ localStorage.setItem(CURRENT_KEY, JSON.stringify(currentInfo)); }catch(e){}
-    if(MODAL.classList.contains("show")) renderModal();
-  }
-
-  function recordVisit(){
-    return domesticInfo().then(domestic => {
-      const opts = { method: "POST" };
-      if(domestic && domestic.ip){
-        opts.headers = { "Content-Type": "application/json" };
-        opts.body = JSON.stringify({ reportedIp: domestic.ip });
-      }
-      return fetch(BOARD, opts).then(r => {
-        if(!r.ok) throw new Error("post");
-        return r.json();
-      }).then(data => {
-        applyYou(data && data.you);
-        return saveBoard(rowsFrom(data));
-      }).catch(() => {
-        if(domestic) showDomestic(domestic);
-        return loadBoard().catch(() => board);
-      });
-    });
-  }
-
-  function loadBoard(){
-    return fetch(BOARD).then(r => {
-      if(!r.ok) throw new Error("get");
-      return r.json();
-    }).then(data => saveBoard(rowsFrom(data))).catch(err => {
-      try{
-        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "[]");
-        if(Array.isArray(cached) && cached.length){
-          board = cached.filter(x => x && validIp(x.ip));
-          return board;
-        }
-      }catch(e){}
-      throw err;
-    });
-  }
-
-  function formatTime(d, lang){
-    if(!(d instanceof Date) || isNaN(d.getTime())) return "—";
-    const pad = n => String(n).padStart(2, "0");
-    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  }
-
-  window.addEventListener("ethan-lang-changed", () => {
-    if(MODAL.classList.contains("show")) renderModal();
-  });
-})();
-}); // end DOMContentLoaded
-
-/* ================= Random rotating slogan ================= */
-(function slogans(){
-  const el = document.getElementById("slogan");
-  if(!el) return;
-  const EN = [
-    "Live in the light you're given.",
-    "Slow days, long afternoons.",
-    "Chase the quiet moments.",
-    "A story worth the light.",
-    "Between now and never.",
-    "Stay soft, stay curious.",
-    "Wander often, wonder always.",
-    "Let the light find you.",
-    "Small things, held gently.",
-    "Everywhere, somewhere."
-  ];
-  const ZH = [
-    "以光为生。",
-    "缓慢的日子，漫长的午后。",
-    "去追那些安静的时刻。",
-    "一束光，值得一个故事。",
-    "此刻与永不再来之间。",
-    "柔软一些，好奇一些。",
-    "常游荡，常惊奇。",
-    "让光来找你。",
-    "温柔地握住那些小事。",
-    "任何地方，都是某个地方。"
-  ];
-  function pick(){
-    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
-    const pool = lang === "zh" ? ZH : EN;
-    let idx = Math.floor(Math.random() * pool.length);
-    let cur = el.textContent.trim();
-    // avoid repeating the same one
-    if(pool.length > 1 && pool[idx] === cur){
-      idx = (idx + 1) % pool.length;
-    }
-    // fade animation
-    el.style.transition = "opacity .6s ease, transform .6s ease";
-    el.style.opacity = 0;
-    el.style.transform = "translateY(8px)";
-    setTimeout(()=>{
-      el.textContent = pool[idx];
-      el.style.transform = "translateY(-4px)";
-      requestAnimationFrame(()=>{
-        el.style.opacity = 1;
-        el.style.transform = "translateY(0)";
-      });
-    }, 450);
-  }
-  // pick one on load, then rotate every ~15s
-  pick();
-  setInterval(pick, 15000);
-  // also pick when language changes
-  window.addEventListener("ethan-lang-changed", pick);
-})();
-
-/* ================= Rotating About text ================= */
-(function aboutRotating(){
-  const el = document.getElementById("aboutRotating");
-  if(!el) return;
-
-  const EN = [
-    [
-      "I shoot with a camera the way most people write in a diary — quick, unedited, slightly afraid of what they might find.",
-      "These frames are my attempt to hold on to something that insists on slipping away. A certain light on a certain Tuesday. The shape of a stranger's back. The split second between a laugh and its echo.",
-      "I don't believe in perfect photos. I believe in honest ones — the ones that look back at you from a screen and say: yes, this happened, exactly like this, and it will never happen again."
-    ],
-    [
-      "Most days I'm invisible on purpose — the guy with the camera standing just outside the circle, watching everyone else's lives unfold with a quiet kind of respect.",
-      "I think of my pictures as a byproduct of paying attention. The real work is noticing the things no one else does: the way rain lands differently on different surfaces, how a room changes personality between 6pm and 7pm.",
-      "Somewhere between observer and participant, that's where I live. Not quite in the scene, not quite out of it either."
-    ],
-    [
-      "I started taking photos because I have a bad memory. Not the forgetful kind — the romantic kind. I remember feelings in extraordinary detail, but I forget faces, names, entire afternoons.",
-      "Photography fixed that. Or maybe it just gave me an excuse to dwell on things longer than politeness allows. Either way, I'm grateful for every frame that keeps a small piece of a day alive.",
-      "These are not my best photos. They're my most honest ones. The ones I couldn't delete even if I wanted to."
-    ],
-    [
-      "I'm addicted to the small hours — the ones between 5 and 7, when the world pretends to be empty and you can pretend you have it all to yourself for a few minutes.",
-      "Golden hour is beautiful, yes, but the light an hour before that — thin, cool, forgiving — that's the one I wait for. It doesn't demand anything from you. It just is.",
-      "Most of my favorite photos happened before the day officially started, or after it was already over. In-between times. Liminal hours. The rest of the world is sleeping or scrolling, and the light is performing just for me."
-    ],
-    [
-      "I'm the kind of person who collects train tickets, pressed flowers, and the exact time a stranger smiled at me on a bus. Photography is just a better version of that hoarding instinct.",
-      "Every frame here is a small, quiet rebellion against forgetting. I don't expect anyone else to care about these moments the way I do. But I need to know they're preserved somewhere.",
-      "If you're reading this far, you're already one of the rare people who understand. Hello. I'm glad you're here."
-    ],
-    [
-      "I photograph like I'm writing letters I'll never send — careful with the details, reckless with the feelings. Each frame is a small, sealed envelope addressed to no one in particular.",
-      "There's a particular kind of melancholy I chase — the beauty of something that won't be there when you come back. An empty chair. A window that will be someone else's view tomorrow. A light that won't repeat.",
-      "These are not sad photos. They're grateful ones. Grateful the light existed. Grateful I was there to see it. Grateful the camera was pointed in the right direction at the right half-second."
-    ],
-    [
-      "Yunnan is my anchor, my compass, the measure I use for every other place. Its altitude doesn't apologize — 2,000 metres and the sky feels closer, so close that clouds leave a residue of cold on your collar. But it's the small things that teach you how to listen: the silence between two bells, the way sunlight bends through pine smoke, how everyone sits outside their door at dusk like they collectively agreed to do nothing.",
-      "When I'm away, I miss it constantly. The way a Yi village's tiled roofs stack down a hillside. The smell of wild mushroom broth at a roadside stall in August. The specific shade of blue Lugu Lake turns at five p.m., when the wind drops and the water turns to stone.",
-      "Every photograph here carries a little of Yunnan with it, whether the frame was shot there or not. You can take the photographer out of the mountains, but you can't take the mountains out of the frames."
-    ]
-  ];
-
-  const ZH = [
-    [
-      "我拍照的方式，像大多数人写日记一样——快速、未经修饰、带着一丝不敢直视的忐忑。",
-      "这些画面，是我试图抓住那些执意要溜走的东西。某个周二下午的某束光。一个陌生人背影的弧度。笑声与回声之间的那半秒。",
-      "我不相信完美的照片。我相信诚实的——那些从屏幕里回望你时会说：是的，真的发生过，就是这样，再也不会重演。"
-    ],
-    [
-      "大多数时候我选择隐身——那个拿着相机站在人群外，带着一种安静的敬意观察他人生活的人。",
-      "我把我的照片当作「留意」的副产品。真正的功课是注意到别人没注意的事：雨落在不同表面的方式不同，一个房间在傍晚六点到七点之间会换一种性格。",
-      "观察者与参与者之间的某个地方，就是我住的地方。不太在场景里，也不太在场景外。"
-    ],
-    [
-      "我开始拍照，是因为我记性不好。不是健忘那种——是浪漫那种。我能异常清晰地记住感觉，却忘记面孔、名字、甚至整个下午。",
-      "摄影治好了这个毛病。或者说，它给了我一个借口，让我可以比礼貌所允许的更久地停留在事物上。无论如何，我感谢每一张让一小段日子继续存活的画面。",
-      "这些不是我最好的照片。是我最诚实的。那些我就算想删也删不掉的。"
-    ],
-    [
-      "我迷恋那些微小的时刻——清晨五点到七点之间，世界假装空无一人，你可以假装自己独自拥有它几分钟。",
-      "金色时刻很美，没错，但那之前一小时的光——稀薄、清冷、宽容——才是我真正等待的。它不要求你做任何事。它只是存在。",
-      "我最珍贵的照片，大多发生在一天正式开始之前，或已经结束之后。缝隙时间。阈限时刻。世界其他地方在睡觉或刷手机，而光只为我一个人表演。"
-    ],
-    [
-      "我是那种收集火车票、压花、以及公交车上陌生人对我微笑的确切时间的人。摄影，就是把这种收藏欲变得更好的版本。",
-      "这里的每一帧，都是对遗忘的一次微小而安静的反抗。我不期望其他人像我一样在意这些瞬间。但我需要知道它们被保存在某个地方。",
-      "如果你读到了这里，说明你已经是少数能理解的人之一。你好。很高兴你在。"
-    ],
-    [
-      "我拍照，像写一封永远不会寄出的信——对细节小心，对感情鲁莽。每一帧都是一个密封的小信封，收信人不确定。",
-      "我追逐一种特别的忧郁——某种东西当你回来时将不再存在的美。一把空椅子。明天将变成别人风景的窗户。一束不会重复的光。",
-      "这些不是悲伤的照片。是充满感激的。感谢那束光存在过。感谢我当时在那里看见了。感谢相机在正确的半秒指向了正确的方向。"
-    ],
-    [
-      "云南是我的锚，是我衡量所有其他地方的参照系。海拔两千米，天空离人近了些——云走过的时候，衣领上会沾一点冷的味道。但真正教会我怎么倾听的，是那些更小的事：两声寺钟之间的静、阳光穿过松烟时的弯曲、傍晚六点，家家户户都搬着小凳子坐在门口，像是大家约好了什么都不做。",
-      "离开的时候，我不停地想它。一个彝族寨子的瓦屋顶顺着山坡叠下去的样子。八月山路边摊的野生菌汤的香。下午五点泸沽湖会变成的那种蓝色——风停时，水硬得像石头。",
-      "这里的每一张照片都带着云南的一点气息，不管是不是在云南拍的。你可以把摄影师带出山，但你带不走山留在画面里的东西。"
-    ]
-  ];
-
-  function render(){
-    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
-    const pool = lang === "zh" ? ZH : EN;
-    let idx = Math.floor(Math.random() * pool.length);
-    const paragraphs = pool[idx];
-    // fade-in animation
-    el.style.opacity = 0;
-    el.style.transform = "translateY(12px)";
-    setTimeout(()=>{
-      el.innerHTML = paragraphs.map(p=>`<p>${p}</p>`).join("");
-      el.style.transition = "opacity .8s ease, transform .8s ease";
-      requestAnimationFrame(()=>{
-        el.style.opacity = 1;
-        el.style.transform = "translateY(0)";
-      });
-    }, 300);
-  }
-  render();
-  window.addEventListener("ethan-lang-changed", render);
-})();
-
-/* ================= Stories — pick one per visit (4 pool, EN+ZH) ================= */
-(function stories(){
-  const STORIES = {
-    en: [
-      {
-        img: "assets/story-4-lighthouse-letter.webp",
-        title: "The letter I wrote myself at twenty finally arrived at thirty",
-        body: [
-          "Dear future me — I hope you have figured out how to be brave by now. I hope you have seen the sea. I hope you still cry at the right movies and that you never became the kind of person who walks past a busker without putting something in the case. I hope you have kept your promises, especially the ones you made to yourself.",
-          "I read it today, standing at a cliff edge with the wind in my hair, the lighthouse I dreamed about finally in front of me. The sky was that impossible colour it only gets just before the sun goes down — orange and pink and something that's neither of those things.",
-          "I didn't keep every promise. I walked past a busker last week and gave nothing because I was late. I haven't figured out how to be brave in the way the kid in the letter imagined. But I am standing at the sea. And sometimes that's enough for one life. Hey — we made it."
-        ]
-      },
-      {
-        img: "assets/story-jianshui-shop.webp",
-        title: "The old shop that sold nothing I could name",
-        body: [
-          "There's a shop in Jianshui that doesn't seem to sell anything. It has a counter, a scale, two glass jars of candy, and an old woman behind the counter who is always peeling garlic. Over the years I've found myself walking past it in different company, always by accident, never quite on purpose.",
-          "No group ever buys anything. We ask for water and she gives us small glasses, cloudy with a little sugar at the bottom. She doesn't speak much Mandarin, and whoever is with me always bungles the dialect, so we mostly nod and smile. When we leave she presses a handful of red candies into every pocket — the kind that cost one fen each, wrapped in translucent paper that sticks to your fingers.",
-          "I passed by again last winter, alone, eight winters removed from the first time. The shop was still there. She was still peeling garlic. She didn't recognize me, or maybe she did and didn't say. I bought two bags of those candies. They tasted exactly the same — faintly artificial, faintly sweet, faintly every age I've ever been."
-        ]
-      },
-      {
-        img: "assets/story-mengzi-station.webp",
-        title: "The train station that smelled like an unwritten letter",
-        body: [
-          "Mengzi station is small enough that you can hear the announcement from the ticket office. It has a specific way of making you feel like you're leaving something, even when you're only passing through — the kind of smallness that holds every goodbye ever said there.",
-          "The platform is always the same: one old man selling boiled sweet potatoes from a foam box, a girl reading a novel tucked away in a corner, a cat that belongs to no one and sleeps on a baggage cart. The announcement is always the same: a woman's voice, crackly, sounding as tired as the platform floor looks.",
-          "Last year I stood there again, waiting for a different train, and I swear I could still smell the zongzi and the damp concrete and that particular, hopeless smell of an unwritten letter that will never be sent."
-        ]
-      },
-      {
-        img: "assets/story-anning-spring-night.webp",
-        title: "A night in Anning when nobody was in a hurry",
-        body: [
-          "The old Magnolia house in Anning has a quiet landing on the fifth floor where no one sits, except me, in the weeks before we had to leave. I'd go up there with a cup of lukewarm soybean milk and sit on the windowsill watching the old magnolia tree across the road. It would bloom twice a year, and each time I'd say to myself: remember this, you're going to want it later.",
-          "One night in March, two weeks before move-out, a group of kids from downstairs brought up a portable speaker and played old Cantopop songs from ten years ago. A boy I'd never spoken to sat next to me on the windowsill and we didn't talk for an hour, just listened. At the end, as he got up to leave, he said, \"Everything ends, doesn't it?\" I said, \"I suppose it has to.\" He said, \"Good night.\" And that was the whole conversation.",
-          "I think about that night often now. Not because of the song, or the boy, or the magnolia — but because for one hour, nobody was performing, nobody was trying to impress anybody, and we were all just there, under the same roof, listening to the same old song, at the exact age where everything feels both temporary and important."
-        ]
-      }
-    ],
-    zh: [
-      {
-        img: "assets/story-4-lighthouse-letter.webp",
-        title: "二十岁写给自己的那封信，三十岁终于收到了",
-        body: [
-          "「未来的你：我希望你到那个时候已经学会了勇敢。我希望你亲眼看见过海。我希望你看对的电影还是会哭，希望你永远不会是那种从街头卖艺人身边走过、什么都不往琴盒里放的人。我希望你守住了所有承诺——尤其是对自己许过的。」",
-          "今天我站在悬崖边上读了这封信，风把头发往后吹，那座小时候只在梦里见过的白灯塔，就在前面不远的海里。天空是日落前才会出现的那种不可能的颜色——橙、粉红，还有一种既不是橙也不是粉的东西。",
-          "不是每个承诺都守住了。上周我迟到，就真的从卖艺人身边走过什么都没放。「勇敢」这两个字，也没做到信里那个小孩想象的程度。但是啊——我真的站在了海边。有些人生，做到这一件，就够了。朋友：我们到了。"
-        ]
-      },
-      {
-        img: "assets/story-jianshui-shop.webp",
-        title: "那家什么也不怎么卖的老店",
-        body: [
-          "建水古城里有家店，看起来什么都不卖。一个柜台、一杆秤、两罐糖，柜台后面永远在剥大蒜的老太太。许多年里，我和不同的人路过它——每一次都像无意中撞上，从来不是专程去找的。",
-          "什么也没买过。只要了水。她给的玻璃杯总是小的，杯底有一点点糖，浑浑的。她普通话不好，谁跟我一块儿去，谁的建水话也都够烂，所以全程就是点头、笑。临走时她往每人兜里都塞一把红糖——一分钱一颗的那种，糖纸半透明，粘手指。",
-          "去年冬天我又路过，独自一人，离第一次去有八年了。店还在，她还在剥大蒜。她没认出我，或者认出了没说。我买了两袋那种糖。味道一模一样——有点人工、有点甜、有点我活过的每一年。"
-        ]
-      },
-      {
-        img: "assets/story-mengzi-station.webp",
-        title: "那座闻起来像未寄出的信的小火车站",
-        body: [
-          "蒙自车站小到在售票处就能听见广播。它有一种特别的本事：哪怕你只是经过，也会觉得自己要失去点什么——这种小，装得下所有曾在这儿说过的再见。",
-          "站台永远是那个样子：一个老头在泡沫箱子里卖煮红薯、一个女孩蜷在角落里读小说、一只不属于任何人的猫睡在行李车上。广播也永远是那个女人的声音，沙沙的，和站台的水泥地一样累。",
-          "去年我又站在那个站台上，等另一班火车，真的还能闻到粽子、潮湿站台、还有那种「一封永远不会寄出的信」的绝望味道。"
-        ]
-      },
-      {
-        img: "assets/story-anning-spring-night.webp",
-        title: "安宁那个没人着急的夜晚",
-        body: [
-          "安宁那栋老玉兰楼的五楼有个没人坐的安静转角，要搬走的前几周我总在那儿。拿一杯温掉的豆奶坐在窗台上，看马路对面那棵老玉兰。它一年开两次，每次我都跟自己说：记住这个，以后会想的。",
-          "三月的一个晚上，要搬东西的前两周，楼下几个小孩抱了便携音箱上来，放十年前的老粤语歌。一个从没说过话的男生在我旁边坐下，我们就这样一个小时没说话，只听歌。临走他说：「一切都会结束的哈。」我说：「嗯。」他说：「晚安。」就这三句。",
-          "现在我常常想起那个晚上。不是因为歌、不是因为人、也不是因为玉兰——是因为那一个小时里，没有人在表演、没有人想给谁留好印象，我们只是一起在那儿，听同一首老歌，在那个一切都既短暂又重要的年纪。"
-        ]
-      }
-    ]
-  };
-
-  let chosenIndex = Math.floor(Math.random() * STORIES.en.length);
-  let storiesLoaded = false;
-  function renderStories(force){
-    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
-    const s = STORIES[lang][chosenIndex];
-    const bg = document.getElementById("storyBg");
-    const title = document.getElementById("storyTitle");
-    const prose = document.getElementById("storyProse");
-    const card = document.getElementById("storyCard");
-    if(!card) return;
-    if(!force && !storiesLoaded){
-      /* Defer loading the story image until the section is near the viewport. */
-      if("IntersectionObserver" in window){
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(en){
-            if(en.isIntersecting){
-              storiesLoaded = true;
-              io.disconnect();
-              renderStories(true);
-            }
-          });
-        }, { rootMargin: "400px 0px" });
-        io.observe(card);
-      } else {
-        storiesLoaded = true;
-        renderStories(true);
-      }
-      /* Still fill text immediately so layout is stable. */
-      title.textContent = s.title;
-      prose.innerHTML = s.body.map(p=>"<p>"+p+"</p>").join("");
-      return;
-    }
-    card.style.opacity = 0;
-    card.style.transform = "translateY(18px)";
-    setTimeout(function(){
-      bg.style.backgroundImage = "url('"+s.img+"')";
-      title.textContent = s.title;
-      prose.innerHTML = s.body.map(p=>"<p>"+p+"</p>").join("");
-      card.style.transition = "opacity .9s ease, transform .9s ease";
-      requestAnimationFrame(function(){
-        card.style.opacity = 1;
-        card.style.transform = "translateY(0)";
-      });
-    }, 250);
-  }
-  renderStories();
-  window.addEventListener("ethan-lang-changed", function(){ renderStories(true); });
-})();
-
-/* ================= Background Music (random track, stall-rotate, loop) ================= */
-(function bgMusic(){
-  const TRACKS = [
-    "assets/music/01-Fading-Away.mp3",
-    "assets/music/02-Journey-Capo-Productions.mp3",
-    "assets/music/03-With-an-Orchid-Yanni.mp3",
-    "assets/music/04-Futari-no-Kimochi-Wada-Kaoru.mp3",
-    "assets/music/05-Mo-Wen-Gui-Qi-Jiang-Xueer.m4a",
-    "assets/music/06-The-Truth-That-You-Leave-Pianoboy.m4a"
-  ];
-  const MAX_TRIES = 25;
-
-  let audio = null;
-  let current = "";
-  let started = false;
-  let tries = 0;
-  let skips = 0;
-
-  function pickNext(from){
-    const pool = TRACKS.filter(t => t !== from);
-    const list = pool.length ? pool : TRACKS;
-    return list[Math.floor(Math.random() * list.length)];
-  }
-
-  function ensureAudio(){
-    if(!audio){
-      audio = new Audio();
-      audio.preload = "none";
-      audio.loop = false;
-      audio.volume = 0.55;
-      audio.setAttribute("playsinline", "");
-      document.body.appendChild(audio);
-      audio.addEventListener("playing", ()=>{ started = true; tries = 0; skips = 0; });
-      audio.addEventListener("ended", ()=>{
-        load(pickNext(current));
-        const p = audio.play();
-        if(p && p.catch) p.catch(()=>{});
-      });
-      audio.addEventListener("error", ()=>{
-        if(skips >= TRACKS.length - 1) return;
-        skips++;
-        load(pickNext(current));
-        const p = audio.play();
-        if(p && p.catch) p.catch(()=>{});
-      });
-    }
-    return audio;
-  }
-
-  function load(src){
-    const a = ensureAudio();
-    current = src;
-    a.src = src;
-    a.load();
-  }
-
-  function play(){
-    const a = ensureAudio();
-    if(started || !a.paused) return;
-    if(!a.src) load(pickNext(""));
-    const p = a.play();
-    if(p && p.catch){
-      p.catch(()=>{
-        if(tries < MAX_TRIES){
-          tries++;
-          setTimeout(play, 400 + tries * 300);
-        }
-      });
-    }
-  }
-
-  function trigger(){
-    if(started) return;
-    play();
-    setTimeout(()=>{ if(!started) play(); }, 600);
-  }
-
-  function bind(){
-    document.querySelectorAll(".gate-btn").forEach(el=>{
-      if(el.__musicHooked) return;
-      el.__musicHooked = true;
-      el.addEventListener("click", ()=>setTimeout(trigger, 200), {passive:true});
-    });
-    const langToggle = document.getElementById("langToggle");
-    if(langToggle && !langToggle.__musicHooked){
-      langToggle.__musicHooked = true;
-      langToggle.addEventListener("click", ()=>setTimeout(trigger, 200), {passive:true});
-    }
-    ["pointerdown","keydown","touchstart"].forEach(ev=>{
-      window.addEventListener(ev, trigger, { once:true, capture:true, passive:true });
-    });
-  }
-
-  if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", bind);
-  } else {
-    bind();
-  }
-})();
-</script>
-<script>
-/* ================= Motion layer (additive; see .m-js styles in <head>) ================= */
-(function motion(){
-  var root = document.documentElement;
-  if(!root.classList.contains("m-js")) return;
-  window.__mReady = true;
-
-  /* Page intro: wait for the language gate to dissolve; returning visitors get it right away. */
-  var gate = document.getElementById("gate");
-  function intro(){
-    if(root.classList.contains("m-intro")) return;
-    root.classList.add("m-intro");
-    setTimeout(function(){ root.classList.add("m-settled"); }, 3200);
-  }
-  if(!gate || gate.classList.contains("gone")){
-    intro();
-  } else if("MutationObserver" in window){
-    var mo = new MutationObserver(function(){
-      if(gate.classList.contains("gone")){ mo.disconnect(); setTimeout(intro, 180); }
-    });
-    mo.observe(gate, { attributes:true, attributeFilter:["class"] });
-  } else {
-    intro();
-  }
-
-  /* Footer entrance. */
-  var foot = document.querySelector("footer");
-  if(foot){
-    if("IntersectionObserver" in window){
-      var fo = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){ foot.classList.add("m-in"); fo.disconnect(); }
-        });
-      }, { threshold:.2 });
-      fo.observe(foot);
-    } else {
-      foot.classList.add("m-in");
-    }
-  }
-
-  /* Language switch: let freshly translated text settle in (not on the gate's own choice). */
-  var swapTimer = null;
-  window.addEventListener("ethan-lang-changed", function(){
-    if(gate && !gate.classList.contains("gone")) return;
-    root.classList.remove("m-swap");
-    void root.offsetWidth;
-    root.classList.add("m-swap");
-    clearTimeout(swapTimer);
-    swapTimer = setTimeout(function(){ root.classList.remove("m-swap"); }, 800);
-  });
-})();
-</script>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>
