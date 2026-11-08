@@ -35,6 +35,7 @@
         if (off) off.textContent = lang === 'zh' ? 'EN' : '中';
       }
       if (persist) { try { localStorage.setItem('jk_lang', lang); } catch (e) {} }
+      try { window.dispatchEvent(new CustomEvent('jk-lang', { detail: { lang: lang } })); } catch (e) {}
     }
 
     var saved = null;
@@ -370,6 +371,258 @@
     frame();
   }
 
+
+  /* ---------------- sound ---------------- */
+  function initMusic() {
+    var dock = $('#musicDock');
+    var btn = $('#musicBtn');
+    var label = $('#musicTrack');
+    if (!dock || !btn) return;
+
+    var TRACKS = [
+      ['assets/music/01-Fading-Away.mp3', 'Fading Away'],
+      ['assets/music/02-Journey-Capo-Productions.mp3', 'Journey'],
+      ['assets/music/03-With-an-Orchid-Yanni.mp3', 'With an Orchid'],
+      ['assets/music/04-Futari-no-Kimochi-Wada-Kaoru.mp3', 'Futari no Kimochi'],
+      ['assets/music/05-Mo-Wen-Gui-Qi-Jiang-Xueer.m4a', 'Mo Wen Gui Qi'],
+      ['assets/music/06-The-Truth-That-You-Leave-Pianoboy.m4a', 'The Truth That You Leave']
+    ];
+
+    var audio = null;
+    var current = -1;
+    var skips = 0;
+    var userPaused = false;
+
+    function soundLabel(playing) {
+      var zh = root.lang.indexOf('zh') === 0;
+      btn.setAttribute('aria-label', playing
+        ? (zh ? '暂停背景音乐' : 'Pause background music')
+        : (zh ? '播放背景音乐' : 'Play background music'));
+    }
+
+    function remember(on) {
+      try { localStorage.setItem('jk_sound', on ? 'on' : 'off'); } catch (e) {}
+    }
+
+    function ensure() {
+      if (audio) return audio;
+      audio = new Audio();
+      audio.preload = 'none';
+      audio.volume = 0.5;
+      audio.setAttribute('playsinline', '');
+      audio.addEventListener('playing', function () {
+        skips = 0;
+        dock.classList.add('is-playing');
+        btn.setAttribute('aria-pressed', 'true');
+        soundLabel(true);
+      });
+      audio.addEventListener('pause', function () {
+        dock.classList.remove('is-playing');
+        btn.setAttribute('aria-pressed', 'false');
+        soundLabel(false);
+      });
+      audio.addEventListener('ended', function () { next(); });
+      audio.addEventListener('error', function () {
+        if (skips >= TRACKS.length) return;
+        skips++;
+        next();
+      });
+      return audio;
+    }
+
+    function next() {
+      var a = ensure();
+      var i = Math.floor(Math.random() * TRACKS.length);
+      if (TRACKS.length > 1 && i === current) i = (i + 1) % TRACKS.length;
+      current = i;
+      a.src = TRACKS[i][0];
+      if (label) label.textContent = TRACKS[i][1];
+      a.load();
+      var p = a.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+
+    function play() {
+      var a = ensure();
+      if (!a.src) { next(); return; }
+      var p = a.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+
+    btn.addEventListener('click', function () {
+      var a = ensure();
+      if (a.paused) {
+        userPaused = false;
+        remember(true);
+        play();
+      } else {
+        userPaused = true;
+        remember(false);
+        a.pause();
+      }
+    });
+
+    var pref = null;
+    try { pref = localStorage.getItem('jk_sound'); } catch (e) {}
+    var armed = pref === 'on';
+
+    function arm(e) {
+      if (userPaused || pref === 'off') return;
+      if (e && e.target && e.target.closest && e.target.closest('#musicDock, #musicBtn')) return;
+      if (armed && audio && !audio.paused) return;
+      armed = true;
+      remember(true);
+      play();
+    }
+    if (armed) setTimeout(play, 1400);
+    window.addEventListener('pointerdown', arm, { passive: true });
+    window.addEventListener('keydown', arm);
+    window.addEventListener('jk-lang', function () {
+      soundLabel(audio && !audio.paused);
+    });
+
+    // duck the volume when a letter is being read
+    var letters = $('#letters');
+    if (letters && 'IntersectionObserver' in window) {
+      var lio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!audio) return;
+          audio.volume = en.isIntersecting ? 0.18 : 0.5;
+        });
+      }, { threshold: 0.5 });
+      lio.observe(letters);
+    }
+  }
+
+  /* ---------------- visitors ---------------- */
+  function initVisitors() {
+    var BOARD = 'https://kang-visitors.jinkang03.workers.dev/visitors';
+    var btn = $('#visitorBtn');
+    var panel = $('#visitorPanel');
+    var scrim = $('#vpScrim');
+    var close = $('#vpClose');
+    var countEl = $('#visitorCount');
+    if (!btn || !panel) return;
+
+    var board = [];
+    var you = null;
+    var open = false;
+    var lastFocus = null;
+
+    function locOf(v) {
+      if (!v) return '';
+      var zh = root.lang.indexOf('zh') === 0;
+      return zh ? (v.locZh || v.locEn || '') : (v.locEn || v.locZh || '');
+    }
+    function fmt(ts) {
+      var d = new Date(Number(ts));
+      if (isNaN(d.getTime())) return '—';
+      var pad = function (n) { return n < 10 ? '0' + n : n; };
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) +
+        ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+
+    function render() {
+      if (countEl) {
+        countEl.textContent = board.length ? board.length : '0';
+        btn.setAttribute('data-empty', board.length ? 'false' : 'true');
+      }
+      var ipEl = $('#vpIp'), locEl = $('#vpLoc'), ispEl = $('#vpIsp'), timeEl = $('#vpTime');
+      var zh = root.lang.indexOf('zh') === 0;
+      btn.setAttribute('aria-label', zh ? '最近访问' : 'Recent visitors');
+      if (you) {
+        if (ipEl) ipEl.textContent = you.ip || '—';
+        if (locEl) locEl.textContent = locOf(you) || '—';
+        if (ispEl) ispEl.textContent = you.isp || '—';
+        if (timeEl) timeEl.textContent = fmt(you.ts);
+      }
+      var list = $('#vpList');
+      if (!list) return;
+      list.textContent = '';
+      if (!board.length) {
+        var li = document.createElement('li');
+        li.className = 'vp-empty';
+        li.textContent = root.lang.indexOf('zh') === 0 ? '还没有记录' : 'No visitors yet';
+        list.appendChild(li);
+        return;
+      }
+      board.slice(0, 40).forEach(function (v) {
+        var li2 = document.createElement('li');
+        li2.className = 'vp-item';
+        var top = document.createElement('div');
+        top.className = 'vp-item-top';
+        var ip = document.createElement('span');
+        ip.className = 'vp-i-ip';
+        ip.textContent = v.ip;
+        var t = document.createElement('span');
+        t.className = 'vp-i-time';
+        t.textContent = fmt(v.ts);
+        top.append(ip, t);
+        li2.appendChild(top);
+        var loc = locOf(v);
+        if (loc) {
+          var l = document.createElement('span');
+          l.className = 'vp-i-loc';
+          l.textContent = loc;
+          li2.appendChild(l);
+        }
+        list.appendChild(li2);
+      });
+    }
+
+    function setOpen(v) {
+      open = v;
+      panel.classList.toggle('is-open', v);
+      panel.setAttribute('aria-hidden', v ? 'false' : 'true');
+      btn.setAttribute('aria-expanded', v ? 'true' : 'false');
+      if (scrim) {
+        scrim.hidden = false;
+        requestAnimationFrame(function () { scrim.classList.toggle('is-on', v); });
+        if (!v) setTimeout(function () { if (!open) scrim.hidden = true; }, 450);
+      }
+      document.body.style.overflow = v ? 'hidden' : '';
+      if (v) {
+        lastFocus = document.activeElement;
+        if (close) close.focus();
+      } else if (lastFocus && lastFocus.focus) {
+        lastFocus.focus();
+      }
+    }
+
+    btn.addEventListener('click', function () { setOpen(!open); });
+    if (close) close.addEventListener('click', function () { setOpen(false); });
+    if (scrim) scrim.addEventListener('click', function () { setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && open) setOpen(false);
+    });
+    window.addEventListener('jk-lang', function () { render(); });
+
+    function load() {
+      var opts = { method: 'POST' };
+      return fetch(BOARD, opts)
+        .then(function (r) { if (!r.ok) throw new Error('post'); return r.json(); })
+        .then(function (d) {
+          you = d.you || null;
+          board = (d.visitors || []).filter(function (v) { return v && v.ip; });
+          render();
+        })
+        .catch(function () {
+          return fetch(BOARD)
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (d) {
+              if (!d) throw new Error('get');
+              board = (d.visitors || []).filter(function (v) { return v && v.ip; });
+              render();
+            })
+            .catch(function () {
+              if (countEl) countEl.textContent = '—';
+              btn.setAttribute('data-empty', 'true');
+            });
+        });
+    }
+    load();
+  }
+
   /* ---------------- boot ---------------- */
   function boot() {
     initLang();
@@ -385,6 +638,8 @@
     initClock();
     initActiveNav();
     initParallax();
+    initMusic();
+    initVisitors();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
