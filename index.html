@@ -24,7 +24,6 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
 <div class="grain" aria-hidden="true"></div>
 
 <!-- ============ header ============ -->
@@ -34,7 +33,7 @@
     <span class="brand__cn" data-zh="康">K</span>
   </a>
 
-  <nav class="site-nav" aria-label="Sections">
+  <nav class="site-nav" id="siteNav" aria-label="Sections">
     <a href="#index" data-nav>Index</a>
     <a href="#frames" data-nav>Frames</a>
     <a href="#letters" data-nav>Letters</a>
@@ -54,6 +53,7 @@
       <span class="visitors__dot" aria-hidden="true"></span>
       <span class="visitors__count" id="visitorCount">—</span>
     </button>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu"><span></span><span></span></button>
     <button class="lang" id="langBtn" type="button" aria-label="Switch language">
       <span class="lang__on" data-zh="中">EN</span><span class="lang__sep">/</span><span class="lang__off" data-zh="EN">中</span>
     </button>
@@ -83,28 +83,21 @@
           A quiet corner of the internet — where golden hour spills over window sills, laughter pauses before it breaks, and empty streets hold their breath for one more click of the shutter.
         </p>
         <div class="hero__stats">
-          <div><b>12</b><span data-zh="帧">frames</span></div>
+          <div><b>05</b><span data-zh="帧">frames</span></div>
           <div><b>04</b><span data-zh="封信">letters</span></div>
-          <div><b>8,578</b><span data-zh="天">days</span></div>
+          <div><b id="dayCount">—</b><span data-zh="天">days</span></div>
         </div>
       </div>
 
       <figure class="hero__media">
         <div class="hero__media-in">
-          <img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces at first light" width="1600" height="900" fetchpriority="high" decoding="async">
+          <img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces at first light" width="1600" height="812" fetchpriority="high" decoding="async">
         </div>
         <figcaption>
           <span>01 — Slow Fields</span>
           <span data-zh="元阳 · 06:31">Yuanyang · 06:31</span>
         </figcaption>
       </figure>
-    </div>
-
-
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker__track" id="tickerTrack">
-        <span>泸沽湖 LUGU</span><i>·</i><span>大理 DALI</span><i>·</i><span>元阳 YUANYANG</span><i>·</i><span>建水 JIANSHUI</span><i>·</i><span>蒙自 MENGZI</span><i>·</i><span>安宁 ANNING</span><i>·</i><span>河口 HEKOU</span><i>·</i>
-      </div>
     </div>
   </section>
 
@@ -113,7 +106,7 @@
     <div class="wrap">
       <header class="sec-head">
         <h2 class="sec-title"><span class="sec-num">01</span> Index</h2>
-        <p class="sec-note" data-zh="十二帧，按遇见它们的顺序。">Twelve frames, in the order they found me.</p>
+        <p class="sec-note" data-zh="五帧，按遇见它们的顺序。">Five frames, in the order they found me.</p>
       </header>
 
       <ol class="index-list" id="indexList">
@@ -123,24 +116,10 @@
           <span class="idx">02</span><span class="idx-name">Silent Lake</span><span class="idx-place" data-zh="泸沽湖 · 晨雾">Lugu</span><span class="idx-time">05:47</span></a></li>
         <li><a href="#f3" data-img="assets/gallery-03-dali-roofs.webp">
           <span class="idx">03</span><span class="idx-name">Dali Old Town</span><span class="idx-place" data-zh="大理 · 屋顶">Dali</span><span class="idx-time">15:40</span></a></li>
-        <li><a href="#f4" data-img="assets/gallery-15-user.webp">
-          <span class="idx">04</span><span class="idx-name">Old Mountains</span><span class="idx-place" data-zh="远山 · 故里">Anning</span><span class="idx-time">16:12</span></a></li>
-        <li><a href="#f5" data-img="assets/gallery-19-user.webp">
-          <span class="idx">05</span><span class="idx-name">Border Fires</span><span class="idx-place" data-zh="边城 · 夜火">Hekou</span><span class="idx-time">21:08</span></a></li>
-        <li><a href="#f6" data-img="assets/gallery-17-user.webp">
-          <span class="idx">06</span><span class="idx-name">All Gold</span><span class="idx-place" data-zh="安宁 · 秋色">Anning</span><span class="idx-time">17:22</span></a></li>
-        <li><a href="#f7" data-img="assets/gallery-13-user.webp">
-          <span class="idx">07</span><span class="idx-name">City Under Clouds</span><span class="idx-place" data-zh="云下城邦">Kunming</span><span class="idx-time">14:05</span></a></li>
-        <li><a href="#f8" data-img="assets/gallery-18-user.webp">
-          <span class="idx">08</span><span class="idx-name">Sky and Wall</span><span class="idx-place" data-zh="天色与墙">Jianshui</span><span class="idx-time">11:38</span></a></li>
-        <li><a href="#f9" data-img="assets/gallery-16-user.webp">
-          <span class="idx">09</span><span class="idx-name">Bloom in Shadow</span><span class="idx-place" data-zh="暗处生花">Mengzi</span><span class="idx-time">18:04</span></a></li>
-        <li><a href="#f10" data-img="assets/gallery-10-lugu-water.webp">
-          <span class="idx">10</span><span class="idx-name">Lugu Water</span><span class="idx-place" data-zh="泸沽之水">Lugu</span><span class="idx-time">07:15</span></a></li>
-        <li><a href="#f11" data-img="assets/gallery-11-rice-terraces.webp">
-          <span class="idx">11</span><span class="idx-name">Rice Terraces</span><span class="idx-place" data-zh="哈尼 · 梯田">Hani</span><span class="idx-time">08:02</span></a></li>
-        <li><a href="#f12" data-img="assets/gallery-12-yunnan-sky.webp">
-          <span class="idx">12</span><span class="idx-name">Yunnan Sky</span><span class="idx-place" data-zh="云南的天空">Yunnan</span><span class="idx-time">17:58</span></a></li>
+        <li><a href="#f4" data-img="assets/gallery-19-user.webp">
+          <span class="idx">04</span><span class="idx-name">Border Fires</span><span class="idx-place" data-zh="河口 · 边城">Hekou</span><span class="idx-time">21:08</span></a></li>
+        <li><a href="#f5" data-img="assets/gallery-15-user.webp">
+          <span class="idx">05</span><span class="idx-name">Old Mountains</span><span class="idx-place" data-zh="远山 · 故里">Anning</span><span class="idx-time">16:12</span></a></li>
       </ol>
     </div>
     <div class="index-preview" id="indexPreview" aria-hidden="true"><img alt="" id="indexPreviewImg" decoding="async"></div>
@@ -155,7 +134,7 @@
 
     <article class="frame frame--wide" id="f1">
       <figure>
-        <div class="media" data-parallax><img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces at sunrise" width="1600" height="900" loading="lazy" decoding="async"></div>
+        <div class="media" data-parallax><img src="assets/gallery-04-yuanyang-terraces.webp" alt="Yuanyang rice terraces at sunrise" width="1600" height="812" loading="lazy" decoding="async"></div>
         <figcaption>
           <span class="cap-num">01</span>
           <span class="cap-title">Slow Fields</span>
@@ -167,7 +146,7 @@
 
     <article class="frame frame--tall frame--right" id="f2">
       <figure>
-        <div class="media" data-parallax><img src="assets/gallery-01-lugu-lake.webp" alt="Lugu Lake in morning mist" width="1600" height="900" loading="lazy" decoding="async"></div>
+        <div class="media" data-parallax><img src="assets/gallery-01-lugu-lake.webp" alt="Lugu Lake in morning mist" width="1600" height="812" loading="lazy" decoding="async"></div>
         <figcaption>
           <span class="cap-num">02</span>
           <span class="cap-title">Silent Lake</span>
@@ -179,7 +158,7 @@
 
     <article class="frame frame--square" id="f3">
       <figure>
-        <div class="media" data-parallax><img src="assets/gallery-03-dali-roofs.webp" alt="Dali old town roofs with morning steam" width="1600" height="1600" loading="lazy" decoding="async"></div>
+        <div class="media" data-parallax><img src="assets/gallery-03-dali-roofs.webp" alt="Dali old town roofs with morning steam" width="1600" height="1426" loading="lazy" decoding="async"></div>
         <figcaption>
           <span class="cap-num">03</span>
           <span class="cap-title">Dali Old Town</span>
@@ -365,6 +344,7 @@
   </ul>
 </aside>
 
+<script src="assets/js/lenis.min.js" defer></script>
 <script src="assets/js/site.js" defer></script>
 </body>
 </html>

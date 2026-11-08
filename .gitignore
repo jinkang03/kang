@@ -29,3 +29,6 @@ assets/portrait.jpg
 !.dev.vars.example
 .env*
 !.env.example
+
+# local watermark backups
+assets/.wm-bak/

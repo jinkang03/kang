@@ -172,34 +172,20 @@
     });
   }
 
-  /* ---------------- custom cursor ---------------- */
-  function initCursor() {
-    if (!fine || reduce) return;
-    var el = $('.cursor');
-    var label = $('.cursor__label');
-    if (!el) return;
-
-    var x = window.innerWidth / 2, y = window.innerHeight / 2, tx = x, ty = y;
-
-    document.addEventListener('pointermove', function (e) {
-      tx = e.clientX; ty = e.clientY;
-      el.classList.add('is-on');
-    }, { passive: true });
-
-    (function loop() {
-      x += (tx - x) * 0.2;
-      y += (ty - y) * 0.2;
-      el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) translate(-50%,-50%)';
-      raf(loop);
-    })();
-
-    document.addEventListener('pointerover', function (e) {
-      var t = e.target.closest && e.target.closest('a, button, [data-magnet]');
-      if (!t) { el.classList.remove('is-grow'); return; }
-      var text = t.getAttribute('data-cursor') || (t.classList.contains('index-list') ? 'View' : '');
-      if (label) label.textContent = text;
-      el.classList.toggle('is-grow', !!text);
-    });
+  /* ---------------- mobile nav ---------------- */
+  function initMenu() {
+    var btn = $('#navToggle');
+    var nav = $('#siteNav');
+    if (!btn || !nav) return;
+    function setOpen(open) {
+      nav.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? (root.lang.indexOf('zh') === 0 ? '关闭菜单' : 'Close menu') : (root.lang.indexOf('zh') === 0 ? '菜单' : 'Menu'));
+    }
+    btn.addEventListener('click', function () { setOpen(!nav.classList.contains('is-open')); });
+    $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    window.addEventListener('jk-lang', function () { setOpen(nav.classList.contains('is-open')); });
   }
 
   /* ---------------- magnetic links ---------------- */
@@ -303,31 +289,61 @@
     }, 7000);
   }
 
-  /* ---------------- ticker ---------------- */
-  function initTicker() {
-    var track = $('#tickerTrack');
-    if (!track) return;
-    track.innerHTML += track.innerHTML;
+  /* ---------------- Beijing clock + days since 2003-05-15 ---------------- */
+  function beijingParts() {
+    var fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Shanghai',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hourCycle: 'h23'
+    });
+    var out = {};
+    fmt.formatToParts(new Date()).forEach(function (p) { if (p.type !== 'literal') out[p.type] = p.value; });
+    return out;
   }
-
-  /* ---------------- clock + exposure ---------------- */
+  function beijingDays() {
+    var p = beijingParts();
+    var today = Date.UTC(+p.year, +p.month - 1, +p.day);
+    var start = Date.UTC(2003, 4, 15);
+    return Math.round((today - start) / 86400000);
+  }
   function initClock() {
     var el = $('#headTime');
-    if (!el) return;
-    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    var dayEl = $('#dayCount');
+    var ex = $('#exposure');
     function tick() {
-      var d = new Date();
-      el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+      var p = beijingParts();
+      if (el) el.textContent = p.hour + ':' + p.minute + ':' + p.second;
+      var days = beijingDays();
+      if (dayEl) dayEl.textContent = days.toLocaleString('en-US');
+      if (ex) ex.textContent = String(days).padStart(6, '0');
     }
     tick();
     setInterval(tick, 1000);
+  }
 
-    var ex = $('#exposure');
-    if (ex) {
-      var start = new Date(2003, 4, 15);
-      var days = Math.ceil((Date.now() - start.getTime()) / 86400000);
-      ex.textContent = String(days).padStart(6, '0');
-    }
+  /* ---------------- smooth scroll ---------------- */
+  function initSmooth() {
+    if (reduce || !window.Lenis) return;
+    document.documentElement.style.scrollBehavior = 'auto';
+    var lenis = new window.Lenis({
+      duration: 1.05,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.1,
+      anchors: false
+    });
+    function rafLoop(t) { lenis.raf(t); raf(rafLoop); }
+    raf(rafLoop);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href').slice(1);
+      var target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -72 });
+    });
   }
 
   /* ---------------- active nav ---------------- */
@@ -630,12 +646,12 @@
     initIntro();
     initReveal();
     initIndexPreview();
-    initCursor();
+    initMenu();
     initMagnets();
     initLetters();
     initRotator();
-    initTicker();
     initClock();
+    initSmooth();
     initActiveNav();
     initParallax();
     initMusic();
