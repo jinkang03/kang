@@ -289,20 +289,32 @@
     }, 7000);
   }
 
-  /* ---------------- Beijing clock + days since 2003-05-15 ---------------- */
-  function beijingParts() {
-    var fmt = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Asia/Shanghai',
+  /* ---------------- days stay on Beijing; clock follows the visitor IP zone ---------------- */
+  function validZone(tz) {
+    if (!tz || typeof tz !== 'string') return '';
+    try {
+      new Intl.DateTimeFormat('en-GB', { timeZone: tz }).format();
+      return tz;
+    } catch (e) { return ''; }
+  }
+  function partsIn(zone, withDate) {
+    var opt = {
       year: 'numeric', month: '2-digit', day: '2-digit',
       hour: '2-digit', minute: '2-digit', second: '2-digit',
       hourCycle: 'h23'
-    });
+    };
+    if (zone) opt.timeZone = zone;
+    if (!withDate) {
+      delete opt.year; delete opt.month; delete opt.day;
+    }
     var out = {};
-    fmt.formatToParts(new Date()).forEach(function (p) { if (p.type !== 'literal') out[p.type] = p.value; });
+    new Intl.DateTimeFormat('en-GB', opt).formatToParts(new Date()).forEach(function (p) {
+      if (p.type !== 'literal') out[p.type] = p.value;
+    });
     return out;
   }
   function beijingDays() {
-    var p = beijingParts();
+    var p = partsIn('Asia/Shanghai', true);
     var today = Date.UTC(+p.year, +p.month - 1, +p.day);
     var start = Date.UTC(2003, 4, 15);
     return Math.round((today - start) / 86400000);
@@ -311,15 +323,36 @@
     var el = $('#headTime');
     var dayEl = $('#dayCount');
     var ex = $('#exposure');
+    var clockZone = '';
+
     function tick() {
-      var p = beijingParts();
-      if (el) el.textContent = p.hour + ':' + p.minute + ':' + p.second;
+      var p = partsIn(clockZone, false);
+      if (el && p.hour) el.textContent = p.hour + ':' + p.minute + ':' + p.second;
       var days = beijingDays();
       if (dayEl) dayEl.textContent = days.toLocaleString('en-US');
       if (ex) ex.textContent = String(days).padStart(6, '0');
     }
+    function useZone(tz) {
+      tz = validZone(tz);
+      if (!tz || tz === clockZone) return;
+      clockZone = tz;
+      if (el) el.title = tz;
+      tick();
+    }
     tick();
     setInterval(tick, 1000);
+
+    function grab(url, pick) {
+      return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).then(pick).catch(function () { return ''; });
+    }
+    window.addEventListener('jk-ip-zone', function (e) {
+      useZone(e.detail && e.detail.tz);
+    });
+    grab('https://get.geojs.io/v1/ip/geo.json', function (d) { return d && d.timezone; })
+      .then(function (tz) { if (validZone(tz)) return tz; return grab('https://api.ip.sb/geoip', function (d) { return d && d.timezone; }); })
+      .then(function (tz) { if (validZone(tz)) return tz; return grab('https://ipwho.is/', function (d) { return d && d.timezone && d.timezone.id; }); })
+      .then(useZone)
+      .catch(function () {});
   }
 
   /* ---------------- smooth scroll ---------------- */
@@ -620,6 +653,9 @@
         .then(function (d) {
           you = d.you || null;
           board = (d.visitors || []).filter(function (v) { return v && v.ip; });
+          if (you && you.timezone) {
+            try { window.dispatchEvent(new CustomEvent('jk-ip-zone', { detail: { tz: you.timezone } })); } catch (e) {}
+          }
           render();
         })
         .catch(function () {

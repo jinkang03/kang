@@ -236,6 +236,7 @@ export default {
         if (!validIp(ip)) return json({ error: "no ip" }, 400, origin);
         const cf = fromRelay ? await lookupIp(ip) : (request.cf || {});
         let you = await recordVisit(env.DB, ip, cf);
+        you.timezone = typeof cf.timezone === "string" ? cf.timezone : "";
         if (isPublicIp(reportedIp) && reportedIp !== ip) {
           const recent = await env.DB.prepare(
             "SELECT COUNT(*) AS n FROM visitors WHERE ts > ?"
